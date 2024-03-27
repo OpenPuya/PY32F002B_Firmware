@@ -16,11 +16,13 @@ to the PC
 测试用板：PY32F002B_STK
 MDK版本： 5.28
 IAR版本： 9.20
+GCC 版本：GNU Arm Embedded Toolchain 10.3-2021.10
 
 Test environment:
 Test board: PY32F002B_STK
 MDK Version: 5.28
 IAR Version: 9.20
+GCC Version: GNU Arm Embedded Toolchain 10.3-2021.10
 ================================================================================
 使用步骤：
 1. 编译并下载程序到MCU；
@@ -45,7 +47,8 @@ GND     --> GND
 3. Open the serial port Assistant on the PC, connect the COM port correctly, and
 set the baud rate to 9600,1 stop bit, and 8 data bit ,without parity check.
 4. Reset the MCU and restart,the PC will receive a string:UART Test;
-5. The PC sends 12 characters,then the MCU returns the same 12 characters to the PC
+5. The PC sends 12 characters,then the MCU returns the same 12 characters to the
+PC
 ================================================================================
 注意事项：
 

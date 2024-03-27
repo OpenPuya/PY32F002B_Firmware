@@ -6,8 +6,16 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) Puya Semiconductor Co.
+  * <h2><center>&copy; Copyright (c) 2023 Puya Semiconductor Co.
   * All rights reserved.</center></h2>
+  *
+  * This software component is licensed by Puya under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
+  *
+  ******************************************************************************
+  * @attention
   *
   * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
@@ -27,7 +35,7 @@
 
 
 #ifdef  USE_FULL_ASSERT
-#include "PY32_assert.h"
+#include "py32_assert.h"
 #else
 #define assert_param(expr) ((void)0U)
 #endif
@@ -68,7 +76,7 @@
 
 /* Private macros ------------------------------------------------------------*/
 
-/** @addtogroup ADC_LL_Private_Macros
+/** @addtogroup ADC_LL_Private_Macros ADC Private Macros
   * @{
   */
 
@@ -141,7 +149,7 @@
 /* Private function prototypes -----------------------------------------------*/
 
 /* Exported functions --------------------------------------------------------*/
-/** @addtogroup ADC_LL_Exported_Functions
+/** @defgroup ADC_LL_Exported_Functions ADC Exported Functions
   * @{
   */
 

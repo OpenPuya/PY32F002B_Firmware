@@ -1,6 +1,6 @@
 ================================================================================
                                 样例使用说明
-                             Sample Description
+                                Sample Description
 ================================================================================
 功能描述：
 
@@ -11,11 +11,13 @@ Function descriptions:
 测试用板：
 MDK版本： 5.28
 IAR版本： 9.20
+GCC 版本：GNU Arm Embedded Toolchain 10.3-2021.10
 
 Test environment:
 Test board:
 MDK Version: 5.28
 IAR Version: 9.20
+GCC Version: GNU Arm Embedded Toolchain 10.3-2021.10
 ================================================================================
 使用步骤：
 

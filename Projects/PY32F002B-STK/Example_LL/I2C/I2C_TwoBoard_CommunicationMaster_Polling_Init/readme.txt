@@ -9,18 +9,20 @@
 Function descriptions:
 This sample demonstrates that I2C communicates with polling mode, the host first
 sends 15byte data to the slave, and then receives 15byte data from the slave.
-After the host and slave successfully receive data, the LEDs on the host and slave
-board are in the state of "steady on".
+After the host and slave successfully receive data, the LEDs on the host and 
+slave board are in the state of "steady on".
 ================================================================================
 测试环境：
 测试用板：PY32F002B_STK
 MDK版本： 5.28
 IAR版本： 9.20
+GCC 版本：GNU Arm Embedded Toolchain 10.3-2021.10
 
 Test environment:
 Test board: PY32F002B_STK
 MDK Version: 5.28
 IAR Version: 9.20
+GCC Version: GNU Arm Embedded Toolchain 10.3-2021.10
 ================================================================================
 使用步骤：
 1. 编译下载程序到MCU，并运行
@@ -34,10 +36,10 @@ Example execution steps:
 2. Reset the slave and then the master
 3. After the reset is complete, press the user button of the host to start
 communication between the master and slave
-4. Observe the LED of the master and slave. When the LED lights of the master and
-slave turn from off to steady on, it indicates that the master and slave receive
-and send data successfully; When the LED of the host or slave is blinking, it
-indicates that the host or slave fails to receive and or data.
+4. Observe the LED of the master and slave. When the LED lights of the master 
+and slave turn from off to steady on, it indicates that the master and slave 
+receive and send data successfully; When the LED of the host or slave is 
+blinking,it indicates that the host or slave fails to receive and or data.
 ================================================================================
 注意事项：
 PB3     ------> I2C_SCL

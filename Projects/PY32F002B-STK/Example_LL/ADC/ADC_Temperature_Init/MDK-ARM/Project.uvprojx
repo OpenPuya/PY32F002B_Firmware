@@ -16,8 +16,8 @@
         <TargetCommonOption>
           <Device>PY32F002Bx5</Device>
           <Vendor>Puya</Vendor>
-          <PackID>Puya.PY32F0xx_DFP.1.1.8</PackID>
-          <PackURL>https://www.puyasemi.com/</PackURL>
+          <PackID>Puya.PY32F0xx_DFP.1.2.0</PackID>
+          <PackURL>https://www.puyasemi.com/uploadfiles/</PackURL>
           <Cpu>IRAM(0x20000000,0x00000C00) IROM(0x08000000,0x00006000) CPUTYPE("Cortex-M0+") CLOCK(12000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile></StartupFile>
@@ -138,7 +138,7 @@
           </Flash1>
           <bUseTDR>1</bUseTDR>
           <Flash2>BIN\UL2CM3.DLL</Flash2>
-          <Flash3></Flash3>
+          <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>

@@ -7,8 +7,16 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) Puya Semiconductor Co.
+  * <h2><center>&copy; Copyright (c) 2023 Puya Semiconductor Co.
   * All rights reserved.</center></h2>
+  *
+  * This software component is licensed by Puya under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
+  *
+  ******************************************************************************
+  * @attention
   *
   * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
@@ -45,11 +53,11 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* Private defines -----------------------------------------------------------*/
-#define SLAVE_OWN_ADDRESS                       0x5A /* 从机地址 */
-#define I2C_REQUEST_WRITE                       0x00 /* 方向位：写 */
-#define I2C_REQUEST_READ                        0x01  /* 方向位：读 */
+#define SLAVE_OWN_ADDRESS                       0x5A  /* Slave address */
+#define I2C_REQUEST_WRITE                       0x00  /* Direction：Write */
+#define I2C_REQUEST_READ                        0x01  /* Direction：Read */
 
-/* 取消注释此行以将板用作从板，否则将其用作主板 */
+/* Uncomment this line to use the board as a slave board, otherwise use it as a motherboard */
 #define SLAVE_BOARD
 
 /* Exported variables prototypes ---------------------------------------------*/

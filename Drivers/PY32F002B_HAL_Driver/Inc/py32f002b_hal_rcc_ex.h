@@ -6,8 +6,16 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) Puya Semiconductor Co.
+  * <h2><center>&copy; Copyright (c) 2023 Puya Semiconductor Co.
   * All rights reserved.</center></h2>
+  *
+  * This software component is licensed by Puya under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
+  *
+  ******************************************************************************
+  * @attention
   *
   * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
@@ -223,9 +231,9 @@ typedef struct
 
 /** @brief  Macro to get the LPTIM clock source.
   * @retval The clock source can be one of the following values:
-  *            @arg @ref RCC_LPTIMCLKSOURCE_PCLK1  PCLK1 selected as LPUART1 clock
-  *            @arg @ref RCC_LPTIMCLKSOURCE_LSI  HSI selected as LPUART1 clock
-  *            @arg @ref RCC_LPTIMCLKSOURCE_LSE  LSE selected as LPUART1 clock
+  *            @arg @ref RCC_LPTIMCLKSOURCE_PCLK1  PCLK1 selected as LPTIM clock
+  *            @arg @ref RCC_LPTIMCLKSOURCE_LSI  HSI selected as LPTIM clock
+  *            @arg @ref RCC_LPTIMCLKSOURCE_LSE  LSE selected as LPTIM clock
   * @note   Depending on devices and packages, some clocks may not be available.
   *         Refer to device datasheet for clocks availability.
   */

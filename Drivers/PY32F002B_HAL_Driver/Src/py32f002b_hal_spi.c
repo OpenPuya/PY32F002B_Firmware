@@ -166,8 +166,16 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) Puya Semiconductor Co.
+  * <h2><center>&copy; Copyright (c) 2023 Puya Semiconductor Co.
   * All rights reserved.</center></h2>
+  *
+  * This software component is licensed by Puya under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
+  *
+  ******************************************************************************
+  * @attention
   *
   * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
@@ -729,6 +737,9 @@ HAL_StatusTypeDef HAL_SPI_Transmit(SPI_HandleTypeDef *hspi, uint8_t *pData, uint
     goto error;
   }
 
+  /* Disable SPI peripheral */
+  __HAL_SPI_DISABLE(hspi);
+
   /* Set the transaction information */
   hspi->State       = HAL_SPI_STATE_BUSY_TX;
   hspi->ErrorCode   = HAL_SPI_ERROR_NONE;
@@ -881,6 +892,9 @@ HAL_StatusTypeDef HAL_SPI_Receive(SPI_HandleTypeDef *hspi, uint8_t *pData, uint1
     goto error;
   }
 
+  /* Disable SPI peripheral */
+  __HAL_SPI_DISABLE(hspi);
+
   /* Set the transaction information */
   hspi->State       = HAL_SPI_STATE_BUSY_RX;
   hspi->ErrorCode   = HAL_SPI_ERROR_NONE;
@@ -1031,6 +1045,9 @@ HAL_StatusTypeDef HAL_SPI_TransmitReceive(SPI_HandleTypeDef *hspi, uint8_t *pTxD
     hspi->State = HAL_SPI_STATE_BUSY_TX_RX;
   }
 
+  /* Disable SPI peripheral */
+  __HAL_SPI_DISABLE(hspi);
+
   /* Set the transaction information */
   hspi->ErrorCode   = HAL_SPI_ERROR_NONE;
   hspi->pRxBuffPtr  = (uint8_t *)pRxData;
@@ -1169,6 +1186,9 @@ HAL_StatusTypeDef HAL_SPI_Transmit_IT(SPI_HandleTypeDef *hspi, uint8_t *pData, u
     goto error;
   }
 
+  /* Disable SPI peripheral */
+  __HAL_SPI_DISABLE(hspi);
+
   /* Set the transaction information */
   hspi->State       = HAL_SPI_STATE_BUSY_TX;
   hspi->ErrorCode   = HAL_SPI_ERROR_NONE;
@@ -1249,6 +1269,9 @@ HAL_StatusTypeDef HAL_SPI_Receive_IT(SPI_HandleTypeDef *hspi, uint8_t *pData, ui
     errorcode = HAL_ERROR;
     goto error;
   }
+
+  /* Disable SPI peripheral */
+  __HAL_SPI_DISABLE(hspi);
 
   /* Set the transaction information */
   hspi->State       = HAL_SPI_STATE_BUSY_RX;
@@ -1344,6 +1367,9 @@ HAL_StatusTypeDef HAL_SPI_TransmitReceive_IT(SPI_HandleTypeDef *hspi, uint8_t *p
   {
     hspi->State = HAL_SPI_STATE_BUSY_TX_RX;
   }
+
+  /* Disable SPI peripheral */
+  __HAL_SPI_DISABLE(hspi);
 
   /* Set the transaction information */
   hspi->ErrorCode   = HAL_SPI_ERROR_NONE;

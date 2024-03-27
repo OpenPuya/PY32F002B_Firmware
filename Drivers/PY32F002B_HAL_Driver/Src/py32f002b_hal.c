@@ -21,8 +21,16 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) Puya Semiconductor Co.
+  * <h2><center>&copy; Copyright (c) 2023 Puya Semiconductor Co.
   * All rights reserved.</center></h2>
+  *
+  * This software component is licensed by Puya under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
+  *
+  ******************************************************************************
+  * @attention
   *
   * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
@@ -76,7 +84,7 @@
   */
 
 /* Private macro -------------------------------------------------------------*/
-/* Exported variables ---------------------------------------------------------*/
+/* Exported variables --------------------------------------------------------*/
 /** @defgroup HAL_Exported_Variables HAL Exported Variables
   * @{
   */
@@ -94,7 +102,7 @@ uint32_t uwTickFreq = HAL_TICK_FREQ_DEFAULT;  /* 1KHz */
   * @{
   */
 
-/** @addtogroup HAL_Exported_Functions_Group1
+/** @addtogroup HAL_Exported_Functions_Group1 HAL Initialization and Configuration functions
  *  @brief    HAL Initialization and Configuration functions
  *
 @verbatim
@@ -270,7 +278,7 @@ __weak HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
   * @}
   */
 
-/** @addtogroup HAL_Exported_Functions_Group2
+/** @addtogroup HAL_Exported_Functions_Group2 HAL Control functions
  *  @brief    HAL Control functions
  *
 @verbatim
@@ -472,7 +480,7 @@ uint32_t HAL_GetUIDw2(void)
   * @}
   */
 
-/** @addtogroup HAL_Exported_Functions_Group3
+/** @addtogroup HAL_Exported_Functions_Group3 HAL Debug functions
  *  @brief    HAL Debug functions
  *
 @verbatim
@@ -508,7 +516,7 @@ void HAL_DBGMCU_DisableDBGMCUStopMode(void)
   * @}
   */
 
-/** @addtogroup HAL_Exported_Functions_Group4
+/** @addtogroup HAL_Exported_Functions_Group4 SYSCFG configuration functions
  *  @brief    SYSCFG configuration functions
  *
 @verbatim
@@ -516,12 +524,11 @@ void HAL_DBGMCU_DisableDBGMCUStopMode(void)
                       ##### HAL SYSCFG configuration functions #####
  ===============================================================================
     [..]  This section provides functions allowing to:
-      (+) Enable/Disable Pin remap
-      (+) Configure the Voltage reference buffer
-      (+) Enable/Disable the Voltage reference buffer
-      (+) Enable/Disable the I/O analog switch voltage booster
-      (+) Enable/Disable dead battery behavior(*)
-      (+) Configure Clamping Diode on specific pins(*)
+      (+) Set/Get memory mapping at address 0x00000000
+      (+) Set/Get TIM1 CH1 Input Source
+      (+) Enable/Disable I2C Fast mode plus
+      (+) Set TIM1 ETR Source
+      (+) Enable/Disable GPIO Noise Filter
    (*) Feature not available on all devices
 
 @endverbatim

@@ -6,8 +6,16 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) Puya Semiconductor Co.
+  * <h2><center>&copy; Copyright (c) 2023 Puya Semiconductor Co.
   * All rights reserved.</center></h2>
+  *
+  * This software component is licensed by Puya under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
+  *
+  ******************************************************************************
+  * @attention
   *
   * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
@@ -49,7 +57,7 @@ int main(void)
   hcomp2.Init.OutputPol       = COMP_OUTPUTPOL_NONINVERTED;           /* Output None Inverted */
   hcomp2.Init.WindowMode      = COMP_WINDOWMODE_DISABLE;              /* Window mode Disable */
   hcomp2.Init.VrefSrc         = COMP_VREFCMP_SOURCE_VCC;              /* VrefCmp Select VCC */
-  hcomp2.Init.VrefDiv         = COMP_VREFCMP_DIV_8_16VREFCMP;         /* Vrefbuf 8/16  */
+  hcomp2.Init.VrefDiv         = COMP_VREFCMP_DIV_8_16VREFCMP;         /* Vrefcmp 8/16  */
   hcomp2.Init.DigitalFilter   = 0x0;                                  /* Filter Disable */
   hcomp2.Init.TriggerMode     = COMP_TRIGGERMODE_NONE;                /* Trigger None */
   

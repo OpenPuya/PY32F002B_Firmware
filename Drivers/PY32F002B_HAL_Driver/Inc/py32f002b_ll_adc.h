@@ -6,8 +6,16 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) Puya Semiconductor Co.
+  * <h2><center>&copy; Copyright (c) 2023 Puya Semiconductor Co.
   * All rights reserved.</center></h2>
+  *
+  * This software component is licensed by Puya under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
+  *
+  ******************************************************************************
+  * @attention
   *
   * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
@@ -312,10 +320,6 @@ typedef struct
   * @}
   */
 
-/** @defgroup ADC_LL_EC_REGISTERS  ADC registers compliant with specific purpose
-  * @{
-  */
-
 /** @defgroup ADC_LL_EC_COMMON_PATH_INTERNAL  ADC common - Measurement path to internal channels
   * @{
   */
@@ -569,6 +573,9 @@ typedef struct
 
 #define LL_ADC_CAL_CAPACITANCE_STATUS_FAIL     (0x00000000)          /*!< ADC calibration status CAPACITANCE FAIL */
 #define LL_ADC_CAL_CAPACITANCE_STATUS_SUCCESS  (ADC_CCSR_CAPSUC)     /*!< ADC calibration status CAPACITANCE SUCCESS */
+/**
+  * @}
+  */
 
 
 
@@ -2664,7 +2671,7 @@ __STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_AWD(ADC_TypeDef *ADCx)
   * @note   Unit: ADC clock cycles.
   * @rmtoll CCSR     CALSMP            LL_ADC_SetCalibrationSamplingTime
   * @param  ADCx ADC instance
-  * @param  SamplingTime This parameter can be one of the following values:
+  * @param  CalibrationSamplingTime This parameter can be one of the following values:
   *         @arg @ref LL_ADC_CAL_SAMPLINGTIME_2CYCLES
   *         @arg @ref LL_ADC_CAL_SAMPLINGTIME_4CYCLES
   *         @arg @ref LL_ADC_CAL_SAMPLINGTIME_8CYCLES
@@ -2722,7 +2729,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetCalibrationCapacitanceStatus(ADC_TypeDef *ADC
   * @brief  Set the calibration mode
   * @rmtoll CCSR     CALSEL            LL_ADC_SetCalibrationMode
   * @param  ADCx ADC instance
-  * @param  This parameter can be one of the following values:
+  * @param  CalibrationMode This parameter can be one of the following values:
             @arg @ref LL_ADC_CAL_MODE_OFFSET
   *         @arg @ref LL_ADC_CAL_MODE_OFFSET_CAPACITANCE
   * @retval None     
@@ -2744,8 +2751,15 @@ __STATIC_INLINE uint32_t LL_ADC_GetCalibrationMode(ADC_TypeDef *ADCx)
 {
   return (uint32_t)(READ_BIT(ADCx->CCSR, ADC_CCSR_CALSEL));
 }
+/**
+  * @}
+  */
 
 
+/** @defgroup ADC_LL_EF_VrefBuf ADC Vrefbuf Management
+  * @{
+  */
+  
 /**
   * @brief  Enable VrefBuffer Output.
   * @rmtoll CR      VREF_BUFFERE          LL_ADC_EnableVrefBuffVoltage
@@ -2803,7 +2817,6 @@ __STATIC_INLINE uint32_t LL_ADC_GetVrefBufferVoltage(ADC_TypeDef *ADCx)
 {
   return (uint32_t)(READ_BIT(ADCx->CR, ADC_CR_VREFBUFF_SEL));
 }
-
 /**
   * @}
   */

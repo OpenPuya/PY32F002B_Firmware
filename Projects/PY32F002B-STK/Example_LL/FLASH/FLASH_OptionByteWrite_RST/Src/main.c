@@ -7,8 +7,16 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) Puya Semiconductor Co.
+  * <h2><center>&copy; Copyright (c) 2023 Puya Semiconductor Co.
   * All rights reserved.</center></h2>
+  *
+  * This software component is licensed by Puya under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
+  *
+  ******************************************************************************
+  * @attention
   *
   * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
@@ -26,7 +34,7 @@
 
 /* Private define ------------------------------------------------------------*/
 #define MODE_PC0 OB_SWD_PB6_GPIO_PC0
-//#define MODE_PC0 OB_SWD_PB6_NRST_PC0
+/* #define MODE_PC0 OB_SWD_PB6_NRST_PC0 */
 
 
 /* Private variables ---------------------------------------------------------*/
@@ -50,6 +58,9 @@ int main(void)
 
   /* Initialize BUTTON */
   BSP_PB_Init(BUTTON_KEY,BUTTON_MODE_GPIO);
+  
+  /* Wait For Button */
+  while(BSP_PB_GetState(BUTTON_KEY) == 1);
 
   if(READ_BIT(FLASH->OPTR, OB_USER_SWD_NRST_MODE)!= MODE_PC0 )
   {
@@ -123,7 +134,7 @@ void APP_ErrorHandler(void)
 void assert_failed(uint8_t *file, uint32_t line)
 {
   /* User can add His own implementation to report the file name and line number,
-     tex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
   /* Infinite loop */
   while (1)
   {

@@ -1,14 +1,22 @@
 /**
   ******************************************************************************
-  * @file    py32f002b_hal.h
+  * @file    py32f0xx_hal.h
   * @author  MCU Application Team
   * @brief   This file contains all the functions prototypes for the HAL
   *          module driver.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) Puya Semiconductor Co.
+  * <h2><center>&copy; Copyright (c) 2023 Puya Semiconductor Co.
   * All rights reserved.</center></h2>
+  *
+  * This software component is licensed by Puya under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
+  *
+  ******************************************************************************
+  * @attention
   *
   * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
@@ -59,9 +67,23 @@ typedef enum
 /**
   * @}
   */
+
+/**
+  * @}
+  */
+
 /* Exported types ------------------------------------------------------------*/
+
+/* Exported variables --------------------------------------------------------*/
+/** @addtogroup HAL_Exported_Variables
+  *@{
+  */
 extern uint32_t uwTickPrio;
 extern uint32_t uwTickFreq;
+/**
+  * @}
+  */
+
 /** @defgroup SYSCFG_Exported_Constants SYSCFG Exported Constants
   * @{
   */
@@ -77,10 +99,13 @@ extern uint32_t uwTickFreq;
   */
 
 /** @defgroup SYSTEM_CH1_SRC TIM1 CH1 SOURCE
+  * @{
   */
 #define SYSCFG_CH1_SRC_TIM1_GPIO          0x00000000U
+#if defined(COMP1)
 #define SYSCFG_CH1_SRC_TIM1_COMP1         SYSCFG_CFGR1_TIM1_IC1_SRC_0
 #define SYSCFG_CH1_SRC_TIM1_COMP2         SYSCFG_CFGR1_TIM1_IC1_SRC_1
+#endif
 /**
   * @}
   */
@@ -97,11 +122,24 @@ extern uint32_t uwTickFreq;
   */
 
 #if defined(SYSCFG_CFGR2_ETR_SRC_TIM1)
+/** @defgroup SYSCFG_CFGR2_ETR_SRC_TIM1 TIM1 ETR SRC
+  * @{
+  */
+
 #define SYSCFG_ETR_SRC_TIM1_GPIO               0x00000000
+#if defined(COMP1)
 #define SYSCFG_ETR_SRC_TIM1_COMP1              SYSCFG_CFGR2_ETR_SRC_TIM1_0
 #define SYSCFG_ETR_SRC_TIM1_COMP2              SYSCFG_CFGR2_ETR_SRC_TIM1_1
+#endif
 #define SYSCFG_ETR_SRC_TIM1_ADC                (SYSCFG_CFGR2_ETR_SRC_TIM1_1 | SYSCFG_CFGR2_ETR_SRC_TIM1_0)
+/**
+  * @}
+  */
+
 #endif /* SYSCFG_CFGR2_ETR_SRC_TIM1 */
+/**
+  * @}
+  */
 
 /* Exported macro ------------------------------------------------------------*/
 /** @defgroup HAL_Exported_Macros HAL Exported Macros
@@ -119,15 +157,6 @@ extern uint32_t uwTickFreq;
 
 /* Peripherals on APB1 */
 
-/* Exported macros -----------------------------------------------------------*/
-/** @defgroup HAL_Exported_Macros HAL Exported Macros
-  * @{
-  */
-
-/** @defgroup HAL_Freeze_Unfreeze_Peripherals HAL Freeze Unfreeze Peripherals
-  * @brief  Freeze/Unfreeze Peripherals in Debug mode
-  * @{
-  */
 #if defined(DBGMCU_APB_FZ1_DBG_IWDG_STOP)
 #define __HAL_DBGMCU_FREEZE_IWDG()           (DBGMCU->APBFZ1 |= (DBGMCU_APB_FZ1_DBG_IWDG_STOP))
 #define __HAL_DBGMCU_UNFREEZE_IWDG()         (DBGMCU->APBFZ1 &= ~(DBGMCU_APB_FZ1_DBG_IWDG_STOP))
@@ -156,12 +185,13 @@ extern uint32_t uwTickFreq;
   * @}
   */
 
-/** @defgroup HAL_Private_Macros HAL Private Macros
+
+
+/** @defgroup SYSCFG_Exported_Macros SYSCFG Exported Macros
   * @{
   */
-#define IS_TICKFREQ(FREQ) (((FREQ) == HAL_TICK_FREQ_10HZ)  || \
-                           ((FREQ) == HAL_TICK_FREQ_100HZ) || \
-                           ((FREQ) == HAL_TICK_FREQ_1KHZ))
+
+#if defined(COMP1)
 /** @brief  Enable or disable COMP1 output as TIM1 ocref_Clr input.
   */
 #define __HAL_SYSCFG_COMP1_OCREF_CLR_TIM1_ENABLE()           SET_BIT(SYSCFG->CFGR1, SYSCFG_CFGR1_COMP1_OCREF_CLR_TIM1)
@@ -171,7 +201,7 @@ extern uint32_t uwTickFreq;
   */
 #define __HAL_SYSCFG_COMP2_OCREF_CLR_TIM1_ENABLE()           SET_BIT(SYSCFG->CFGR1, SYSCFG_CFGR1_COMP2_OCREF_CLR_TIM1)
 #define __HAL_SYSCFG_COMP2_OCREF_CLR_TIM1_DISABLE()          CLEAR_BIT(SYSCFG->CFGR1, SYSCFG_CFGR1_COMP2_OCREF_CLR_TIM1)
-
+#endif
 
 /** @brief  SYSCFG Break Cortex-M0+ Lockup lock.
   *         Enables and locks the connection of Cortex-M0+ LOCKUP (Hardfault) output to TIM1 Break input
@@ -190,6 +220,35 @@ extern uint32_t uwTickFreq;
   */
 #define __HAL_SYSCFG_COMP2_BREAK_TIM1()           SET_BIT(SYSCFG->CFGR2, SYSCFG_CFGR2_COMP2_BRK_TIM1)
 #endif
+/**
+  * @}
+  */
+
+/**
+  * @}
+  */
+
+/* Private Macros -------------------------------------------------------------*/
+
+/** @defgroup HAL_Private_Macros HAL Private Macros
+  * @{
+  */
+#define IS_TICKFREQ(FREQ) (((FREQ) == HAL_TICK_FREQ_10HZ)  || \
+                           ((FREQ) == HAL_TICK_FREQ_100HZ) || \
+                           ((FREQ) == HAL_TICK_FREQ_1KHZ))
+/**
+  * @}
+  */
+
+/* Exported functions --------------------------------------------------------*/
+
+/** @defgroup HAL_Exported_Functions HAL Exported Functions
+  * @{
+  */
+
+/** @addtogroup HAL_Exported_Functions_Group1
+  * @{
+  */
 
 /* Initialization and de-initialization functions  ******************************/
 HAL_StatusTypeDef HAL_Init(void);
@@ -219,8 +278,24 @@ uint32_t HAL_GetDEVID(void);
 uint32_t HAL_GetUIDw0(void);
 uint32_t HAL_GetUIDw1(void);
 uint32_t HAL_GetUIDw2(void);
+/**
+  * @}
+  */
+
+/** @addtogroup HAL_Exported_Functions_Group3
+  * @{
+  */
+/* HAL Debug functions  *********************************************************/
 void HAL_DBGMCU_EnableDBGMCUStopMode(void);
 void HAL_DBGMCU_DisableDBGMCUStopMode(void);
+/**
+  * @}
+  */
+
+/** @addtogroup HAL_Exported_Functions_Group4
+  * @{
+  */
+/* SYSCFG configuration functions  **********************************************/
 void HAL_SYSCFG_SetRemapMemory(uint32_t Memory);
 uint32_t HAL_SYSCFG_GetRemapMemory(void);
 void HAL_SYSCFG_SetTIM1CH1Source(uint32_t Source);
@@ -238,9 +313,7 @@ void HAL_SYSCFG_DisableGPIONoiseFilter(GPIO_TypeDef *GPIOx,uint16_t GPIO_Pin);
   * @}
   */
 
-/**
-  * @}
-  */
+
 /* Private types -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /** @defgroup HAL_Private_Variables HAL Private Variables

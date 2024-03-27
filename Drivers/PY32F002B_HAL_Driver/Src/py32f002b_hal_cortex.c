@@ -65,8 +65,16 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) Puya Semiconductor Co.
+  * <h2><center>&copy; Copyright (c) 2023 Puya Semiconductor Co.
   * All rights reserved.</center></h2>
+  *
+  * This software component is licensed by Puya under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
+  *
+  ******************************************************************************
+  * @attention
   *
   * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
@@ -141,7 +149,6 @@ void HAL_NVIC_SetPriority(IRQn_Type IRQn, uint32_t PreemptPriority, uint32_t Sub
   * @brief  Enable a device specific interrupt in the NVIC interrupt controller.
   * @param  IRQn External interrupt number.
   *         This parameter can be an enumerator of IRQn_Type enumeration
-  *         (For the complete PY32 Devices IRQ Channels list, please refer to the appropriate CMSIS device file
   * @retval None
   */
 void HAL_NVIC_EnableIRQ(IRQn_Type IRQn)
@@ -157,7 +164,6 @@ void HAL_NVIC_EnableIRQ(IRQn_Type IRQn)
   * @brief  Disable a device specific interrupt in the NVIC interrupt controller.
   * @param  IRQn External interrupt number.
   *         This parameter can be an enumerator of IRQn_Type enumeration
-  *         (For the complete PY32 Devices IRQ Channels list, please refer to the appropriate CMSIS device file (py32f0xx.h))
   * @retval None
   */
 void HAL_NVIC_DisableIRQ(IRQn_Type IRQn)
@@ -214,7 +220,6 @@ uint32_t HAL_SYSTICK_Config(uint32_t TicksNumb)
   * @brief  Get the priority of an interrupt.
   * @param  IRQn External interrupt number.
   *         This parameter can be an enumerator of IRQn_Type enumeration
-  *         (For the complete PY32 Devices IRQ Channels list, please refer to the appropriate CMSIS device file (py32f0xx.h))
   * @retval None
   */
 uint32_t HAL_NVIC_GetPriority(IRQn_Type IRQn)
@@ -227,7 +232,6 @@ uint32_t HAL_NVIC_GetPriority(IRQn_Type IRQn)
   * @brief  Set Pending bit of an external interrupt.
   * @param  IRQn External interrupt number
   *         This parameter can be an enumerator of IRQn_Type enumeration
-  *         (For the complete PY32 Devices IRQ Channels list, please refer to the appropriate CMSIS device file (py32f0xx.h))
   * @retval None
   */
 void HAL_NVIC_SetPendingIRQ(IRQn_Type IRQn)
@@ -244,7 +248,6 @@ void HAL_NVIC_SetPendingIRQ(IRQn_Type IRQn)
   *         and return the pending bit for the specified interrupt).
   * @param  IRQn External interrupt number.
   *         This parameter can be an enumerator of IRQn_Type enumeration
-  *         (For the complete PY32 Devices IRQ Channels list, please refer to the appropriate CMSIS device file (py32f0xx.h))
   * @retval status: - 0  Interrupt status is not pending.
   *                 - 1  Interrupt status is pending.
   */
@@ -261,7 +264,6 @@ uint32_t HAL_NVIC_GetPendingIRQ(IRQn_Type IRQn)
   * @brief  Clear the pending bit of an external interrupt.
   * @param  IRQn External interrupt number.
   *         This parameter can be an enumerator of IRQn_Type enumeration
-  *         (For the complete PY32 Devices IRQ Channels list, please refer to the appropriate CMSIS device file (py32f0xx.h))
   * @retval None
   */
 void HAL_NVIC_ClearPendingIRQ(IRQn_Type IRQn)

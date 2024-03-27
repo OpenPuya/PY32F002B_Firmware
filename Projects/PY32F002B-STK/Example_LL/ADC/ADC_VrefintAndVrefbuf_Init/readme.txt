@@ -6,18 +6,20 @@
 此样例演示了ADC的VREFINT采样功能和VREFBUF的功能，通过VREFINT推算出VREFBUF的电压。
 
 Function descriptions:
-This sample demonstrates the ADC's VREFINT sampling function and the VREFBUF function,
-which calculates the voltage of VREFBUF from VREFINT.
+This sample demonstrates the ADC's VREFINT sampling function and the VREFBUF 
+function,which calculates the voltage of VREFBUF from VREFINT.
 ================================================================================
 测试环境：
 测试用板：PY32F002B_STK
 MDK版本： 5.28
 IAR版本： 9.20
+GCC 版本：GNU Arm Embedded Toolchain 10.3-2021.10
 
 Test environment:
 Test board: PY32F002B_STK
 MDK Version: 5.28
 IAR Version: 9.20
+GCC Version: GNU Arm Embedded Toolchain 10.3-2021.10
 ================================================================================
 使用步骤：
 1. 编译并下载程序；

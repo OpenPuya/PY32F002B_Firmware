@@ -6,8 +6,16 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) Puya Semiconductor Co.
+  * <h2><center>&copy; Copyright (c) 2023 Puya Semiconductor Co.
   * All rights reserved.</center></h2>
+  *
+  * This software component is licensed by Puya under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
+  *
+  ******************************************************************************
+  * @attention
   *
   * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
@@ -21,8 +29,8 @@
   */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef py32f002B_HAL_TIM_H
-#define py32f002B_HAL_TIM_H
+#ifndef PY32F002B_HAL_TIM_H
+#define PY32F002B_HAL_TIM_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -1787,11 +1795,19 @@ mode.
    ((__CHANNEL__) == TIM_CHANNEL_3) ? ((__HANDLE__)->Instance->CCER |= ((__POLARITY__) << 8U)) :\
    ((__HANDLE__)->Instance->CCER |= (((__POLARITY__) << 12U))))
 
+#if defined(TIM_CCER_CC4NP)
 #define TIM_RESET_CAPTUREPOLARITY(__HANDLE__, __CHANNEL__) \
   (((__CHANNEL__) == TIM_CHANNEL_1) ? ((__HANDLE__)->Instance->CCER &= ~(TIM_CCER_CC1P | TIM_CCER_CC1NP)) :\
    ((__CHANNEL__) == TIM_CHANNEL_2) ? ((__HANDLE__)->Instance->CCER &= ~(TIM_CCER_CC2P | TIM_CCER_CC2NP)) :\
    ((__CHANNEL__) == TIM_CHANNEL_3) ? ((__HANDLE__)->Instance->CCER &= ~(TIM_CCER_CC3P | TIM_CCER_CC3NP)) :\
    ((__HANDLE__)->Instance->CCER &= ~(TIM_CCER_CC4P | TIM_CCER_CC4NP)))
+#else
+#define TIM_RESET_CAPTUREPOLARITY(__HANDLE__, __CHANNEL__) \
+  (((__CHANNEL__) == TIM_CHANNEL_1) ? ((__HANDLE__)->Instance->CCER &= ~(TIM_CCER_CC1P | TIM_CCER_CC1NP)) :\
+   ((__CHANNEL__) == TIM_CHANNEL_2) ? ((__HANDLE__)->Instance->CCER &= ~(TIM_CCER_CC2P | TIM_CCER_CC2NP)) :\
+   ((__CHANNEL__) == TIM_CHANNEL_3) ? ((__HANDLE__)->Instance->CCER &= ~(TIM_CCER_CC3P | TIM_CCER_CC3NP)) :\
+   ((__HANDLE__)->Instance->CCER &= ~(TIM_CCER_CC4P)))
+#endif
 
 /**
   * @}
@@ -1956,7 +1972,7 @@ void HAL_TIM_IRQHandler(TIM_HandleTypeDef *htim);
   * @}
   */
 
-/** @defgroup TIM_Exported_Functions_Group8 TIM Peripheral Control functions
+/** @addtogroup TIM_Exported_Functions_Group8 TIM Peripheral Control functions
   *  @brief   Peripheral Control functions
   * @{
   */
@@ -1992,7 +2008,7 @@ uint32_t HAL_TIM_ReadCapturedValue(TIM_HandleTypeDef *htim, uint32_t Channel);
   * @}
   */
 
-/** @defgroup TIM_Exported_Functions_Group9 TIM Callbacks functions
+/** @addtogroup TIM_Exported_Functions_Group9 TIM Callbacks functions
   *  @brief   TIM Callbacks functions
   * @{
   */
@@ -2019,7 +2035,7 @@ HAL_StatusTypeDef HAL_TIM_UnRegisterCallback(TIM_HandleTypeDef *htim, HAL_TIM_Ca
   * @}
   */
 
-/** @defgroup TIM_Exported_Functions_Group10 TIM Peripheral State functions
+/** @addtogroup TIM_Exported_Functions_Group10 TIM Peripheral State functions
   *  @brief  Peripheral State functions
   * @{
   */
@@ -2040,7 +2056,7 @@ HAL_TIM_StateTypeDef HAL_TIM_Encoder_GetState(TIM_HandleTypeDef *htim);
 /* End of exported functions -------------------------------------------------*/
 
 /* Private functions----------------------------------------------------------*/
-/** @defgroup TIM_Private_Functions TIM Private Functions
+/** @addtogroup TIM_Private_Functions TIM Private Functions
   * @{
   */
 void TIM_Base_SetConfig(TIM_TypeDef *TIMx, TIM_Base_InitTypeDef *Structure);
@@ -2078,6 +2094,6 @@ void TIM_ResetCallback(TIM_HandleTypeDef *htim);
 }
 #endif
 
-#endif /* PY32f002B_HAL_TIM_H */
+#endif /* PY32F002B_HAL_TIM_H */
 
 /************************ (C) COPYRIGHT Puya *****END OF FILE****/

@@ -12,11 +12,13 @@ This sample demonstrates waking up in sleep mode using GPIO interrupt.
 测试用板：PY32F002B_STK
 MDK版本： 5.28
 IAR版本： 9.20
+GCC 版本：GNU Arm Embedded Toolchain 10.3-2021.10
 
 Test environment:
 Test board: PY32F002B_STK
 MDK Version: 5.28
 IAR Version: 9.20
+GCC Version: GNU Arm Embedded Toolchain 10.3-2021.10
 ================================================================================
 使用步骤：
 1. 编译下载程序到MCU，并运行；
@@ -36,9 +38,10 @@ DBGMCU_CR.DBG_STOP置位。
 2，注意关闭systick中断，防止该中断唤醒MCU。
 
 Notes:
-1. to demonstrate this sample function, you need to disconnect the swd connection
-wire and re-power,because by default, the emulator will set the DBGMCU_CR.DBG_STOP.
-2. Be careful to turn off the systick interrupt to avoid this interrupt waking up
-the MCU.
+1. to demonstrate this sample function, you need to disconnect the swd 
+connection wire and re-power,because by default, the emulator will set the 
+DBGMCU_CR.DBG_STOP.
+2. Be careful to turn off the systick interrupt to avoid this interrupt waking 
+up the MCU.
 
 ================================================================================

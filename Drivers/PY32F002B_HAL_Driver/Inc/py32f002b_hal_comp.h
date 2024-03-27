@@ -6,8 +6,16 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) Puya Semiconductor Co.
+  * <h2><center>&copy; Copyright (c) 2023 Puya Semiconductor Co.
   * All rights reserved.</center></h2>
+  *
+  * This software component is licensed by Puya under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
+  *
+  ******************************************************************************
+  * @attention
   *
   * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
@@ -216,7 +224,7 @@ typedef  void (*pCOMP_CallbackTypeDef)(COMP_HandleTypeDef *hcomp); /*!< pointer 
 /** @defgroup COMP_VrefSrc COMP VREFCMP SOURCE
   * @{
   */
-#define COMP_VREFCMP_SOURCE_VREFBUF       (0x00000000U)     
+#define COMP_VREFCMP_SOURCE_VREFBUF       (0x00000000U)                /* Vrefbuf 1.5V */  
 #define COMP_VREFCMP_SOURCE_VCC           (COMP_CSR_COMP_VCSEL) 
 /**
   * @}
@@ -662,7 +670,6 @@ void              HAL_COMP_IRQHandler(COMP_HandleTypeDef *hcomp);
 /** @addtogroup COMP_Exported_Functions_Group3
   * @{
   */
-HAL_StatusTypeDef HAL_COMP_Lock(COMP_HandleTypeDef *hcomp);
 uint32_t          HAL_COMP_GetOutputLevel(COMP_HandleTypeDef *hcomp);
 /* Callback in interrupt mode */
 void              HAL_COMP_TriggerCallback(COMP_HandleTypeDef *hcomp);

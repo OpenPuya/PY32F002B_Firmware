@@ -13,21 +13,23 @@ communicate with an external device in full-duplex serial mode(using interrupts
 to process the data).This interface is set as the master mode, providing
 communication clock SCK to the external slave device.The host sends data through
 the MOSI pin and receives data from the slave through the MISO pin.The data is
-shifted synchronously at the SCK edge provided by the host to complete full-duplex
-communication.
+shifted synchronously at the SCK edge provided by the host to complete 
+full-duplex communication.
 ================================================================================
 测试环境：
 测试用板：PY32F002B_STK
 MDK版本： 5.28
 IAR版本： 9.20
+GCC 版本：GNU Arm Embedded Toolchain 10.3-2021.10
 
 Test environment:
 Test board: PY32F002B_STK
 MDK Version: 5.28
 IAR Version: 9.20
+GCC Version: GNU Arm Embedded Toolchain 10.3-2021.10
 ================================================================================
 使用步骤:
-1.选择两块PY32L020_STK板，一块作为主机，一块作为从机
+1.选择两块PY32F002B_STK板，一块作为主机，一块作为从机
 2.编译下载主机程序SPI_TwoBoards_FullDuplexMaster_IT_Init
 3.编译下载从机程序SPI_TwoBoards_FullDuplexSlave_IT_Init
 4.主机与从机引脚连接(箭头指向为信号传输方向)
@@ -47,7 +49,7 @@ GND      -->  GND
 如果主、从机串口助手接收到“SPI Transfer Error”则通信失败。
 
 Example execution steps:
-1. Select two PY32L020_STK boards, one as the host and one as the slave
+1. Select two PY32F002B_STK boards, one as the host and one as the slave
 2. Compile and download the host program SPI_TwoBoards_FullDuplexMaster_IT_Init
 3. Compile and download the slave program SPI_TwoBoards_FullDuplexSlave_IT_Init
 4. Connect the host and slave pins as follows (the arrows point to indicate the
@@ -66,29 +68,29 @@ GND      -->  GND
 6. Power on the master and slave
 7. Press the slave reset button to run the slave program first, then press the
 host user button to run the host program
-8. Observe the serial assistant, if both master and slave serial assistant receive
-"SPI transfer succeeded", the communication is successful;
+8. Observe the serial assistant, if both master and slave serial assistant 
+receive "SPI transfer succeeded", the communication is successful;
 If the master and slave serial assistant receive "SPI Transfer Error",the
 communication fails.
 ================================================================================
 注意事项:
 1.必须先按从机复位按键使从机程序先运行，再按主机用户按键开始运行主机程序，否则会
 导致主从机通信失败。
-2.主机模式可通过程序设置IO控制方式为DMA方式、中断方式和查询方式
+2.主机模式可通过程序设置IO控制方式为中断方式和查询方式
 3.NSS引脚只需要在使用NSS硬件方式时连接（本样例使用的是NSS软件方式，无需连接NSS引
 脚）
 4.板子上的LED灯引脚为PA1，与SPI_MISO引脚为同一个，不能再用LED表示通讯成功或失败
 的状态。
 
 Notes:
-1. You must first press the slave reset button to make the slave program run first,
-and then press the host user button to start running the host program, otherwise it
-will cause the master-slave communication failure.
-2. The IO control mode can be set to DMA mode, interrupt mode and polling mode by
-the program in the master mode.
-3. NSS pins only need to be connected when using the NSS hardware mode (this sample
-uses the NSS software mode, no need to connect the NSS pins)
-4. The LED pin on the board is PA1, which is the same as the SPI_MISO pin, and can
-no longer use LEDs to indicate the status of communication success or failure.
-
+1. You must first press the slave reset button to make the slave program run 
+first,and then press the host user button to start running the host program, 
+otherwise it will cause the master-slave communication failure.
+2. The IO control mode can be set to interrupt mode and polling mode by the 
+program in the master mode.
+3. NSS pins only need to be connected when using the NSS hardware mode (this 
+sample uses the NSS software mode, no need to connect the NSS pins)
+4. The LED pin on the board is PA1, which is the same as the SPI_MISO pin, and 
+can no longer use LEDs to indicate the status of communication success or 
+failure.
 ================================================================================

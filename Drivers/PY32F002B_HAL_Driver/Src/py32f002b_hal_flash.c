@@ -9,13 +9,19 @@
   *           + Memory Control functions
   *           + Peripheral Errors functions
   *
- @verbatim
-
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) Puya Semiconductor Co.
+  * <h2><center>&copy; Copyright (c) 2023 Puya Semiconductor Co.
   * All rights reserved.</center></h2>
+  *
+  * This software component is licensed by Puya under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
+  *
+  ******************************************************************************
+  * @attention
   *
   * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
@@ -30,6 +36,9 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "py32f0xx_hal.h"
+/** @addtogroup PY32F002B_HAL_Driver
+  * @{
+  */
 
 /** @defgroup FLASH FLASH
   * @brief FLASH HAL module driver
@@ -91,6 +100,27 @@ static  void  FLASH_Program_Page(uint32_t Address, uint32_t * DataAddress);
 static  void  FLASH_PageErase(uint32_t PageAddress);
 /**
   * @}
+  */
+
+
+/* Exported functions --------------------------------------------------------*/
+/** @defgroup FLASH_Exported_Functions FLASH Exported Functions
+  * @{
+  */
+
+/** @defgroup FLASH_Exported_Functions_Group2 Peripheral Control functions
+  * @brief   Management functions
+  *
+@verbatim
+ ===============================================================================
+                      ##### Peripheral Control functions #####
+ ===============================================================================
+    [..]
+    This subsection provides a set of functions allowing to control the FLASH
+    memory operations.
+
+@endverbatim
+  * @{
   */
 
 /**
@@ -194,6 +224,23 @@ HAL_StatusTypeDef HAL_FLASH_OB_Launch(void)
      so return error */
   return HAL_ERROR;
 }
+/**
+  * @}
+  */
+
+/** @defgroup FLASH_Exported_Functions_Group3 Peripheral State and Errors functions
+  * @brief   Peripheral Errors functions
+  *
+@verbatim
+ ===============================================================================
+                ##### Peripheral Errors functions #####
+ ===============================================================================
+    [..]
+    This subsection permits to get in run-time Errors of the FLASH peripheral.
+
+@endverbatim
+  * @{
+  */
 
 /**
   * @brief  Get the specific FLASH error flag.
@@ -207,6 +254,19 @@ uint32_t HAL_FLASH_GetError(void)
 {
   return pFlash.ErrorCode;
 }
+/**
+  * @}
+  */
+
+/**
+  * @}
+  */
+
+/* Private functions ---------------------------------------------------------*/
+
+/** @addtogroup FLASH_Private_Functions
+  * @{
+  */
 
 /**
   * @brief  Wait for a FLASH operation to complete.
@@ -306,6 +366,28 @@ static void FLASH_Program_Page(uint32_t Address, uint32_t * DataAddress)
   /* Exit critical section: restore previous priority mask */
   __set_PRIMASK(primask_bit);
 }
+/**
+  * @}
+  */
+
+/** @addtogroup FLASH_Exported_Functions
+  * @{
+  */
+
+/** @defgroup FLASH_Exported_Functions_Group1 Programming operation functions
+  *  @brief   Programming operation functions
+  *
+@verbatim
+ ===============================================================================
+                  ##### Programming operation functions #####
+ ===============================================================================
+    [..]
+    This subsection provides a set of functions allowing to manage the FLASH
+    program operations.
+
+@endverbatim
+  * @{
+  */
 
 /**
   * @brief  Perform a mass erase or erase the specified FLASH memory pages
@@ -494,7 +576,7 @@ HAL_StatusTypeDef HAL_FLASH_Erase_IT(FLASH_EraseInitTypeDef *pEraseInit)
 /**
   * @brief  Program of a page at a specified address.
   * @param  Address Specifies the address to be programmed.
-  * @param  DataAddr:Page Start Address
+  * @param  DataAddr Page Start Address
   *
   * @retval HAL_StatusTypeDef HAL Status
   */
@@ -508,7 +590,7 @@ HAL_StatusTypeDef HAL_FLASH_PageProgram(uint32_t Address, uint32_t * DataAddr )
   * @param  TypeProgram Indicate the way to program at a specified address.
   *                      This parameter can be a value of @ref FLASH_Type_Program
   * @param  Address Specifies the address to be programmed.
-  * @param  DataAddr:Page Start Address
+  * @param  DataAddr Page Start Address
   *
   * @retval HAL_StatusTypeDef HAL Status
   */
@@ -938,6 +1020,13 @@ __weak void HAL_FLASH_OperationErrorCallback(uint32_t ReturnValue)
             the HAL_FLASH_OperationErrorCallback could be implemented in the user file
    */
 }
+/**
+  * @}
+  */
+
+/**
+  * @}
+  */
 
 #endif /* HAL_FLASH_MODULE_ENABLED */
 

@@ -6,8 +6,16 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) Puya Semiconductor Co.
+  * <h2><center>&copy; Copyright (c) 2023 Puya Semiconductor Co.
   * All rights reserved.</center></h2>
+  *
+  * This software component is licensed by Puya under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
+  *
+  ******************************************************************************
+  * @attention
   *
   * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
@@ -31,21 +39,29 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 #include "py32f0xx.h"
 
-/** @addtogroup py32f002b_LL_Driver
+/** @addtogroup PY32F002B_LL_Driver
   * @{
   */
 
 #if defined (EXTI)
 
-/** @defgroup EXTI_LL EXTI
+/** @addtogroup EXTI_LL EXTI
   * @{
   */
 
 /* Private types -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private constants ---------------------------------------------------------*/
+/** @defgroup EXTI_LL_Private_Constants EXTI Private Constants
+  * @{
+  */
+
 #define LL_EXTI_REGISTER_PINPOS_SHFT        8U   /*!< Define used to shift pin position in EXTICR register */
 #define LL_EXTI_REGISTER_PINMASK_SHFT       16U  /*!< Define used to shift pin mask in EXTICR register */
+
+/**
+  * @}
+  */
 
 /* Private Macros ------------------------------------------------------------*/
 #if defined(USE_FULL_LL_DRIVER)
@@ -205,7 +221,7 @@ typedef struct
 /** @defgroup EXTI_LL_Exported_Functions EXTI Exported Functions
  * @{
  */
-/** @defgroup EXTI_LL_EF_IT_Management IT_Management
+/** @defgroup EXTI_LL_EF_IT_Management IT Management
   * @{
   */
 
@@ -562,7 +578,7 @@ __STATIC_INLINE void LL_EXTI_GenerateSWI(uint32_t ExtiLine)
   * @}
   */
 
-/** @defgroup EXTI_LL_EF_Flag_Management Flag_Management
+/** @defgroup EXTI_LL_EF_Flag_Management Flag Management
   * @{
   */
 
@@ -630,6 +646,13 @@ __STATIC_INLINE void LL_EXTI_ClearFlag(uint32_t ExtiLine)
 }
 
 /**
+  * @}
+  */
+
+/** @defgroup EXTI_LL_EF_Config EF configuration functions
+  * @{
+  */
+/**
   * @brief  Configure source input for the EXTI external interrupt.
   * @param  Port This parameter can be one of the following values:
   *         @arg @ref LL_EXTI_CONFIG_PORTA
@@ -680,9 +703,6 @@ __STATIC_INLINE uint32_t LL_EXTI_GetEXTISource(uint32_t Line)
 /**
   * @}
   */
-/** @defgroup EXTI_LL_EF_Config EF configuration functions
-  * @{
-  */
 
 
 #if defined(USE_FULL_LL_DRIVER)
@@ -700,14 +720,14 @@ void LL_EXTI_StructInit(LL_EXTI_InitTypeDef *EXTI_InitStruct);
   */
 #endif /* USE_FULL_LL_DRIVER */
 
-/**
-  * @}
-  */
 
 /**
   * @}
   */
 
+/**
+  * @}
+  */
 #endif /* EXTI */
 
 /**

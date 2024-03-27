@@ -11,19 +11,21 @@ Function descriptions:
 This sample demonstrates the IWDG watchdog function.Configure the watchdog to
 count for 1s and then reset.By adjusting the time of each feed dog(code in the
 while loop of the main function), it can be observed following situation:
-if each dog feeding time is less than 1s, the program can always run normally(LED
-toggle)
+if each dog feeding time is less than 1s, the program can always run normally(
+LED toggle).
 if the dog feeding time is more than 1s, the program will always reset (LED off)
 ================================================================================
 测试环境：
 测试用板：PY32F002B_STK
 MDK版本： 5.28
 IAR版本： 9.20
+GCC 版本：GNU Arm Embedded Toolchain 10.3-2021.10
 
 Test environment:
 Test board: PY32F002B_STK
 MDK Version: 5.28
 IAR Version: 9.20
+GCC Version: GNU Arm Embedded Toolchain 10.3-2021.10
 ================================================================================
 使用步骤：
 1. 编译下载程序到MCU，并运行；

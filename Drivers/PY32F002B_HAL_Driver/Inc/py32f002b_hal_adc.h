@@ -6,8 +6,16 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) Puya Semiconductor Co.
+  * <h2><center>&copy; Copyright (c) 2023 Puya Semiconductor Co.
   * All rights reserved.</center></h2>
+  *
+  * This software component is licensed by Puya under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
+  *
+  ******************************************************************************
+  * @attention
   *
   * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
@@ -65,7 +73,6 @@ typedef struct
                                        This parameter can be a value of @ref ADC_Data_align */
   uint32_t ScanConvMode;          /*!< Configures the sequencer of regular group.
                                        This parameter can be associated to parameter 'DiscontinuousConvMode' to have main sequence subdivided in successive parts.
-                                       Sequencer is automatically enabled if several channels are set (sequencer cannot be disabled, as it can be the case on other PY32 devices):
                                        If only 1 channel is set: Conversion is performed in single mode.
                                        If several channels are set:  Conversions are performed in sequence mode (ranks defined by each channel number: channel 0 fixed on rank 0, channel 1 fixed on rank1, ...).
                                                                      Scan direction can be set to forward (from channel 0 to channel 12) or backward (from channel 18 to channel 0).
@@ -105,7 +112,6 @@ typedef struct
   uint32_t SamplingTimeCommon;    /*!< Sampling time value to be set for the selected channel.
                                        Unit: ADC clock cycles
                                        Conversion time is the addition of sampling time and processing time (12.5 ADC clock cycles at ADC resolution 12 bits, 10.5 cycles at 10 bits, 8.5 cycles at 8 bits, 6.5 cycles at 6 bits).
-                                       Note: On PY32F0 devices, the sampling time setting is common to all channels. On some other PY32 devices, this parameter in channel wise and is located into ADC channel initialization structure.
                                        This parameter can be a value of @ref ADC_sampling_times
                                        Note: In case of usage of internal measurement channels (VrefInt/TempSensor),
                                              sampling time constraints must be respected (sampling time can be adjusted in function of ADC clock frequency and sampling time setting)
@@ -126,7 +132,6 @@ typedef struct
                                         This parameter can be a value of @ref ADC_channels
                                         Note: Depending on devices, some channels may not be available on package pins. Refer to device datasheet for channels availability. */
   uint32_t Rank;                   /*!< Add or remove the channel from ADC regular group sequencer.
-                                        On PY32F0 devices,  number of ranks in the sequence is defined by number of channels enabled, rank of each channel is defined by channel number (channel 0 fixed on rank 0, channel 1 fixed on rank1, ...)..
                                         Despite the channel rank is fixed, this parameter allow an additional possibility: to remove the selected rank (selected channel) from sequencer.
                                         This parameter can be a value of @ref ADC_rank */
   uint32_t SamplingTime;           /*!< Sampling time value to be set for the selected channel.
@@ -284,9 +289,7 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
 #endif /* USE_HAL_ADC_REGISTER_CALLBACKS */
 
 
-/**
-  * @brief  HAL ADC Calibration Status structures definition
-  */
+
 typedef enum
 {
   HAL_ADCCALIBOK         = 0x00U,
@@ -345,21 +348,11 @@ typedef enum
 /** @defgroup ADC_Scan_mode ADC Scan mode
   * @{
   */
-/* Note: Scan mode values must be compatible with other PY32 devices having  */
-/*       a configurable sequencer.                                            */
-/*       Scan direction setting values are defined by taking in account       */
-/*       already defined values for other PY32 devices:                      */
-/*         ADC_SCAN_DISABLE         (0x00000000U)                    */
-/*         ADC_SCAN_ENABLE          (0x00000001U)                    */
-/*       Scan direction forward is considered as default setting equivalent   */
-/*       to scan enable.                                                      */
-/*       Scan direction backward is considered as additional setting.         */
-/*       In case of migration from another PY32 device, the user will be     */
-/*       warned of change of setting choices with assert check.               */
+
 #define ADC_SCAN_DIRECTION_FORWARD        (0x00000001U)        /*!< Scan direction forward: from channel 0 to channel 10 */
 #define ADC_SCAN_DIRECTION_BACKWARD       (0x00000002U)        /*!< Scan direction backward: from channel 10 to channel 0 */
 
-#define ADC_SCAN_ENABLE         ADC_SCAN_DIRECTION_FORWARD       /* For compatibility with other PY32 devices */
+#define ADC_SCAN_ENABLE         ADC_SCAN_DIRECTION_FORWARD       
 
 /**
   * @}
@@ -406,7 +399,7 @@ typedef enum
 /** @defgroup ADC_sampling_times ADC sampling times
   * @{
   */
-#define ADC_SAMPLETIME_3CYCLES_5      (0x00000000U)                                  /*!< Sampling time 3.5 ADC clock cycles */
+#define ADC_SAMPLETIME_3CYCLES_5      (0x10000000U)                                  /*!< Sampling time 3.5 ADC clock cycles */
 #define ADC_SAMPLETIME_5CYCLES_5      ((uint32_t) ADC_SMPR_SMP_0)                    /*!< Sampling time 5.5 ADC clock cycles */
 #define ADC_SAMPLETIME_7CYCLES_5      ((uint32_t) ADC_SMPR_SMP_1)                    /*!< Sampling time 7.5 ADC clock cycles */
 #define ADC_SAMPLETIME_13CYCLES_5     ((uint32_t) (ADC_SMPR_SMP_1 | ADC_SMPR_SMP_0)) /*!< Sampling time 13.5 ADC clock cycles */
@@ -472,7 +465,7 @@ typedef enum
   * @}
   */
 
-/** @defgroup ADC_Calibration_sampling_times ADC sampling times
+/** @defgroup ADC_Calibration_sampling_times ADC Calibration sampling times
   * @{
   */
 #define ADC_CALIBSAMPLETIME_1CYCLE      (0x00000000U)                                         /*!< Calibration Sampling time 1 ADC clock cycle */
@@ -528,9 +521,6 @@ typedef enum
   * @{
   */
 #define ADC_CCR_ALL     (ADC_CCR_TSEN | ADC_CCR_VREFEN)
-/**
-  * @}
-  */
 
 /** @defgroup ADC_channels ADC channels
   * @{
@@ -577,6 +567,9 @@ typedef enum
 #define ADC_EXTERNALTRIGCONV_T1_TRGO        ADC1_2_EXTERNALTRIG_T1_TRGO
 #define ADC_EXTERNALTRIGCONV_T1_CC4         ADC1_2_EXTERNALTRIG_T1_CC4
 #define ADC_SOFTWARE_START                  (ADC_CFGR1_EXTSEL + 1U)
+/**
+  * @}
+  */
 /**
   * @}
   */
@@ -740,10 +733,8 @@ typedef enum
   * @param __HANDLE__ ADC handle
   * @retval SET (ADC enabled) or RESET (ADC disabled)
   */
-/* Note: If low power mode AutoPowerOff is enabled, power-on/off phases are   */
-/*       performed automatically by hardware and flag ADC_FLAG_RDY is not     */
-/*       set.                                                                 */
-#define ADC_IS_ENABLE(__HANDLE__) ((( ((((hadc)->Instance->CR) & (ADC_CR_ADEN)) == ADC_CR_ADEN) )  )  ? SET : RESET)
+
+#define ADC_IS_ENABLE(__HANDLE__) ((( ((((__HANDLE__)->Instance->CR) & (ADC_CR_ADEN)) == ADC_CR_ADEN) )  )  ? SET : RESET)
 
 /**
   * @brief Test if conversion trigger of regular group is software start
@@ -884,6 +875,9 @@ typedef enum
   */
 #define ADC_TRX_HIGHTHRESHOLD(_Threshold_)                                     \
   ((_Threshold_) << 16U)
+/**
+  * @}
+  */
 
 /** @defgroup ADCEx_Private_Macros ADCEx Private Macros
   * @{

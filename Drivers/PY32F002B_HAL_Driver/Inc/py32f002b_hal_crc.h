@@ -6,8 +6,16 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) Puya Semiconductor Co.
+  * <h2><center>&copy; Copyright (c) 2023 Puya Semiconductor Co.
   * All rights reserved.</center></h2>
+  *
+  * This software component is licensed by Puya under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
+  *
+  ******************************************************************************
+  * @attention
   *
   * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
@@ -73,15 +81,6 @@ typedef struct
   * @}
   */
 
-/* Exported constants --------------------------------------------------------*/
-/** @defgroup CRC_Exported_Constants CRC Exported Constants
-  * @{
-  */
-
-/**
-  * @}
-  */
-
 /* Exported macros -----------------------------------------------------------*/
 /** @defgroup CRC_Exported_Macros CRC Exported Macros
   * @{
@@ -116,16 +115,6 @@ typedef struct
   * @retval Value of the ID register
   */
 #define __HAL_CRC_GET_IDR(__HANDLE__) (((__HANDLE__)->Instance->IDR) & CRC_IDR_IDR)
-/**
-  * @}
-  */
-
-
-/* Private macros --------------------------------------------------------*/
-/** @defgroup  CRC_Private_Macros CRC Private Macros
-  * @{
-  */
-
 /**
   * @}
   */

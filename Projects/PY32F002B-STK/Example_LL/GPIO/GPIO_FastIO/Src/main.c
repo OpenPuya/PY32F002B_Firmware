@@ -6,8 +6,16 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) Puya Semiconductor Co.
+  * <h2><center>&copy; Copyright (c) 2023 Puya Semiconductor Co.
   * All rights reserved.</center></h2>
+  *
+  * This software component is licensed by Puya under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
+  *
+  ******************************************************************************
+  * @attention
   *
   * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
@@ -52,7 +60,7 @@ int main(void)
   uint32_t u32High = 0x00000002;
   uint32_t u32Low  = 0x00020000;
 
-  /* Configure HSI as Systemclock source */
+  /* Configure Systemclock */
   APP_SystemClockConfig();
 
   /* Initialize PA1 pin as output pin */
@@ -75,7 +83,7 @@ int main(void)
 }
 
 /**
-  * @brief  Configure HSI as Systemclock source
+  * @brief  Configure Systemclock
   * @param  None
   * @retval None
   */
@@ -148,7 +156,7 @@ void APP_ErrorHandler(void)
 void assert_failed(uint8_t *file, uint32_t line)
 {
   /* User can add His own implementation to report the file name and line number,
-     tex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
   /* Infinite loop */
   while (1)
   {

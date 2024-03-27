@@ -41,7 +41,6 @@
 ================================================================================
   [..]
       This driver provides functions to configure and program the comparator instances
-      of PY32F0xx devices.
 
       To use the comparator, perform the following steps:
 
@@ -62,7 +61,6 @@
 
       -@@- HAL_COMP_Init() calls internally __HAL_RCC_SYSCFG_CLK_ENABLE()
           to enable internal control clock of the comparators.
-          However, this is a legacy strategy. In future PY32 families,
           COMP clock enable must be implemented by user in "HAL_COMP_MspInit()".
           Therefore, for compatibility anticipation, it is recommended to
           implement __HAL_RCC_SYSCFG_CLK_ENABLE() in "HAL_COMP_MspInit()".
@@ -78,9 +76,6 @@
       (#) Disable the comparator using HAL_COMP_Stop() function.
 
       (#) De-initialize the comparator using HAL_COMP_DeInit() function.
-
-      (#) For safety purpose, comparator configuration can be locked using HAL_COMP_Lock() function.
-          The only way to unlock the comparator is a device hardware reset.
 
     *** Callback registration ***
     =============================================
@@ -143,8 +138,16 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) Puya Semiconductor Co.
+  * <h2><center>&copy; Copyright (c) 2023 Puya Semiconductor Co.
   * All rights reserved.</center></h2>
+  *
+  * This software component is licensed by Puya under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
+  *
+  ******************************************************************************
+  * @attention
   *
   * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
@@ -201,6 +204,16 @@
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
+
+/** @defgroup COMP_Private_Functions COMP Private Functions
+  * @{
+  */
+static void COMP_VrefConfig(COMP_HandleTypeDef *hcomp);
+/**
+  * @}
+  */
+  
+  
 /* Exported functions --------------------------------------------------------*/
 
 /** @defgroup COMP_Exported_Functions COMP Exported Functions
@@ -220,6 +233,8 @@
   * @{
   */
 
+  
+
 /**
   * @brief  Initialize the COMP according to the specified
   *         parameters in the COMP_InitTypeDef and initialize the associated handle.
@@ -230,7 +245,6 @@ HAL_StatusTypeDef HAL_COMP_Init(COMP_HandleTypeDef *hcomp)
 {
   uint32_t tmp_csr;
   uint32_t exti_line;
-  __IO uint32_t wait_loop_index = 0UL;
   HAL_StatusTypeDef status = HAL_OK;
 
   /* Check the COMP handle allocation and lock status */
@@ -306,9 +320,12 @@ HAL_StatusTypeDef HAL_COMP_Init(COMP_HandleTypeDef *hcomp)
     {
       WRITE_REG(hcomp->Instance->FR, (COMP_FR_FLTEN | ((hcomp->Init.DigitalFilter) << COMP_FR_FLTCNT_Pos)));
     }
-   
-    MODIFY_REG(COMP12_COMMON->CSR_ODD, COMP_CSR_COMP_VCSEL, hcomp->Init.VrefSrc);
-    MODIFY_REG(COMP12_COMMON->CSR_ODD, COMP_CSR_COMP_VCDIV_EN | COMP_CSR_COMP_VCDIV, hcomp->Init.VrefDiv);
+    
+    if((hcomp->Instance == COMP2) && (hcomp->Init.InputPlus == COMP_INPUT_PLUS_IO2))
+    {
+      /* Set Vrefcmp */
+      COMP_VrefConfig(hcomp);
+    }
     
     /* Set window mode */
     /* Note: Window mode bit is located into 1 out of the 2 pairs of COMP     */
@@ -317,12 +334,10 @@ HAL_StatusTypeDef HAL_COMP_Init(COMP_HandleTypeDef *hcomp)
     if(hcomp->Init.WindowMode == COMP_WINDOWMODE_COMP2_INPUT_PLUS_COMMON)
     {
       SET_BIT(COMP12_COMMON->CSR_ODD, COMP_CSR_WINMODE);
-      CLEAR_BIT(COMP12_COMMON->CSR_EVEN, COMP_CSR_WINMODE);
     }
     else
     {
       CLEAR_BIT(COMP12_COMMON->CSR_ODD, COMP_CSR_WINMODE);
-      CLEAR_BIT(COMP12_COMMON->CSR_EVEN, COMP_CSR_WINMODE);
     }    
     
     /* Get the EXTI line corresponding to the selected COMP instance */
@@ -748,14 +763,13 @@ void HAL_COMP_IRQHandler(COMP_HandleTypeDef *hcomp)
   /* Get the EXTI line corresponding to the selected COMP instance */
   uint32_t exti_line = COMP_GET_EXTI_LINE(hcomp->Instance);
   uint32_t comparator_window_mode_odd = READ_BIT(COMP12_COMMON->CSR_ODD, COMP_CSR_WINMODE);
-  uint32_t comparator_window_mode_even = READ_BIT(COMP12_COMMON->CSR_EVEN, COMP_CSR_WINMODE);
+
 
   /* Check COMP EXTI flag */
   if(LL_EXTI_IsActiveFlag(exti_line) != 0UL)
   {
     /* Check whether comparator is in independent or window mode */
-    if(   (comparator_window_mode_odd != 0UL)
-          || (comparator_window_mode_even != 0UL))
+    if(comparator_window_mode_odd != 0UL)
     {
       /* Clear COMP EXTI line pending bit of the pair of comparators          */
       /* in window mode.                                                      */
@@ -802,45 +816,6 @@ void HAL_COMP_IRQHandler(COMP_HandleTypeDef *hcomp)
 @endverbatim
   * @{
   */
-
-/**
-  * @brief  Lock the selected comparator configuration.
-  * @note   A system reset is required to unlock the comparator configuration.
-  * @note   Locking the comparator from reset state is possible
-  *         if __HAL_RCC_SYSCFG_CLK_ENABLE() is being called before.
-  * @param  hcomp  COMP handle
-  * @retval HAL status
-  */
-HAL_StatusTypeDef HAL_COMP_Lock(COMP_HandleTypeDef *hcomp)
-{
-  HAL_StatusTypeDef status = HAL_OK;
-
-  /* Check the COMP handle allocation and lock status */
-  if(hcomp == NULL)
-  {
-    status = HAL_ERROR;
-  }
-  else
-  {
-    /* Check the parameter */
-    assert_param(IS_COMP_ALL_INSTANCE(hcomp->Instance));
-
-    /* Set HAL COMP handle state */
-    switch(hcomp->State)
-    {
-    case HAL_COMP_STATE_RESET:
-      hcomp->State = HAL_COMP_STATE_RESET_LOCKED;
-      break;
-    case HAL_COMP_STATE_READY:
-      hcomp->State = HAL_COMP_STATE_READY_LOCKED;
-      break;
-    default: /* HAL_COMP_STATE_BUSY */
-      hcomp->State = HAL_COMP_STATE_BUSY_LOCKED;
-      break;
-    }
-  }
-  return status;
-}
 
 /**
   * @brief  Return the output level (high or low) of the selected comparator.
@@ -935,6 +910,58 @@ uint32_t HAL_COMP_GetError(COMP_HandleTypeDef *hcomp)
   assert_param(IS_COMP_ALL_INSTANCE(hcomp->Instance));
 
   return hcomp->ErrorCode;
+}
+
+/**
+  * @}
+  */
+
+/* Private functions ---------------------------------------------------------*/
+
+/** @addtogroup COMP_Private_Functions
+  * @{
+  */
+
+/**
+  * @brief  Configure the Vrefcmp
+  * @param  hcomp  COMP handle
+  * @retval None
+  */
+static void COMP_VrefConfig(COMP_HandleTypeDef *hcomp)
+{
+  FlagStatus comp1clkchanged = RESET;
+  FlagStatus adcclkchanged = RESET;
+    
+  if(hcomp->Init.VrefSrc == COMP_VREFCMP_SOURCE_VREFBUF)
+  { 
+    if (__HAL_RCC_ADC_IS_CLK_DISABLED() != 0U)
+    {
+      __HAL_RCC_ADC_CLK_ENABLE();
+      adcclkchanged = SET;
+    }
+    SET_BIT(ADC1_COMMON->CCR,ADC_CCR_VREFEN);
+    MODIFY_REG(ADC1->CR, ADC_CR_VREF_BUFFERE | ADC_CR_VREFBUFF_SEL, ADC_CR_VREF_BUFFERE );
+            
+    /* Restore clock configuration if changed */
+    if (adcclkchanged == SET)
+    {
+      __HAL_RCC_ADC_CLK_DISABLE();
+    }
+  }   
+  if (__HAL_RCC_COMP1_IS_CLK_DISABLED() != 0U)
+  {
+    __HAL_RCC_COMP1_CLK_ENABLE();
+    comp1clkchanged = SET;
+  }  
+  
+  MODIFY_REG(COMP12_COMMON->CSR_ODD, COMP_CSR_COMP_VCSEL, hcomp->Init.VrefSrc);
+  MODIFY_REG(COMP12_COMMON->CSR_ODD, COMP_CSR_COMP_VCDIV_EN | COMP_CSR_COMP_VCDIV, hcomp->Init.VrefDiv);   
+  /* Restore clock configuration if changed */
+  if (comp1clkchanged == SET)
+  {
+    __HAL_RCC_COMP1_CLK_DISABLE();
+  }    
+    
 }
 
 /**

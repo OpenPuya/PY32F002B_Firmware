@@ -7,8 +7,16 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) Puya Semiconductor Co.
+  * <h2><center>&copy; Copyright (c) 2023 Puya Semiconductor Co.
   * All rights reserved.</center></h2>
+  *
+  * This software component is licensed by Puya under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
+  *
+  ******************************************************************************
+  * @attention
   *
   * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
@@ -32,7 +40,7 @@
 /* External functions --------------------------------------------------------*/
 
 /**
-  * @brief 初始化全局MSP
+  * @brief Initialize global MSP.
   */
 void HAL_MspInit(void)
 {
@@ -41,15 +49,15 @@ void HAL_MspInit(void)
 }
 
 /**
-  * @brief 初始化SPI的MSP
+  * @brief Initialize MSP for SPI.
   */
 void HAL_SPI_MspInit(SPI_HandleTypeDef *hspi)
 {
   GPIO_InitTypeDef  GPIO_InitStruct;
 
-  __HAL_RCC_GPIOB_CLK_ENABLE();                   /* GPIOB时钟使能 */
-  __HAL_RCC_GPIOA_CLK_ENABLE();                   /* GPIOA时钟使能 */
-  __HAL_RCC_SPI1_CLK_ENABLE();                    /* SPI1时钟使能 */
+  __HAL_RCC_GPIOB_CLK_ENABLE();                   /* GPIOB clock enable */
+  __HAL_RCC_GPIOA_CLK_ENABLE();                   /* GPIOA clock enable */
+  __HAL_RCC_SPI1_CLK_ENABLE();                    /* SPI1 clock enable */
   
   /*
     PB2   ------> SCK
@@ -90,16 +98,16 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef *hspi)
 }
 
 /**
-  * @brief 反初始化I2C的MSP
+  * @brief De-initialize SPI's MSP
   */
 void HAL_SPI_MspDeInit(SPI_HandleTypeDef *hspi)
 {
-  /* 复位SPI外设 */
+  /* Reset SPI peripherals */
   __HAL_RCC_SPI1_FORCE_RESET();
   __HAL_RCC_SPI1_RELEASE_RESET();
 
-  /* 关闭外设和GPIO时钟 */
-  /* 取消配置SPI SCK*/
+  /* Turn off peripherals and GPIO clock */
+  /* Unconfigure SPI SCK*/
   HAL_GPIO_DeInit(GPIOB, GPIO_PIN_2);
   HAL_GPIO_DeInit(GPIOA, GPIO_PIN_6 | GPIO_PIN_1 | GPIO_PIN_7);
 }

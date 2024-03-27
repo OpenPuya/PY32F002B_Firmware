@@ -6,8 +6,16 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) Puya Semiconductor Co.
+  * <h2><center>&copy; Copyright (c) 2023 Puya Semiconductor Co.
   * All rights reserved.</center></h2>
+  *
+  * This software component is licensed by Puya under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
+  *
+  ******************************************************************************
+  * @attention
   *
   * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
@@ -64,7 +72,7 @@ int main(void)
     aADCxConvertedData = HAL_ADC_GetValue(&hadc);     
     
     /* print channel4 value */
-    printf("Channel 4:%d",aADCxConvertedData);
+    printf("Channel 4:%u",(unsigned int)aADCxConvertedData);
     
     HAL_Delay(1000);
   }

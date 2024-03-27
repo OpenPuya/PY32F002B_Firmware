@@ -6,8 +6,16 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) Puya Semiconductor Co.
+  * <h2><center>&copy; Copyright (c) 2023 Puya Semiconductor Co.
   * All rights reserved.</center></h2>
+  *
+  * This software component is licensed by Puya under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
+  *
+  ******************************************************************************
+  * @attention
   *
   * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
@@ -580,7 +588,7 @@ __STATIC_INLINE void LL_I2C_ConfigSpeed(I2C_TypeDef *I2Cx, uint32_t PeriphClock,
   * @}
   */
 
-/** @defgroup I2C_LL_EF_IT_Management IT_Management
+/** @defgroup I2C_LL_EF_IT_Management IT Management
   * @{
   */
 
@@ -746,8 +754,6 @@ __STATIC_INLINE uint32_t LL_I2C_IsEnabledIT_BUF(I2C_TypeDef *I2Cx)
 
 /**
   * @brief  Enable Error interrupts.
-  * @note   Macro @ref IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
-  *         SMBus feature is supported by the I2Cx Instance.
   * @note   Any of these errors will generate interrupt :
   *         Bus Error detection (BERR)
   *         Arbitration Loss (ARLO)
@@ -764,8 +770,6 @@ __STATIC_INLINE void LL_I2C_EnableIT_ERR(I2C_TypeDef *I2Cx)
 
 /**
   * @brief  Disable Error interrupts.
-  * @note   Macro @ref IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
-  *         SMBus feature is supported by the I2Cx Instance.
   * @note   Any of these errors will generate interrupt :
   *         Bus Error detection (BERR)
   *         Arbitration Loss (ARLO)
@@ -798,7 +802,7 @@ __STATIC_INLINE uint32_t LL_I2C_IsEnabledIT_ERR(I2C_TypeDef *I2Cx)
   * @}
   */
 
-/** @defgroup I2C_LL_EF_FLAG_management FLAG_management
+/** @defgroup I2C_LL_EF_FLAG_management FLAG Management
   * @{
   */
 
@@ -934,8 +938,6 @@ __STATIC_INLINE uint32_t LL_I2C_IsActiveFlag_OVR(I2C_TypeDef *I2Cx)
 
 /**
   * @brief  Indicate the status of SMBus PEC error flag in reception.
-  * @note   Macro @ref IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
-  *         SMBus feature is supported by the I2Cx Instance.
   * @rmtoll SR1          PECERR        LL_I2C_IsActiveSMBusFlag_PECERR
   * @param  I2Cx I2C Instance.
   * @retval State of bit (1 or 0).

@@ -16,14 +16,14 @@
         <TargetCommonOption>
           <Device>PY32F002Bx5</Device>
           <Vendor>Puya</Vendor>
-          <PackID>Puya.PY32F0xx_DFP.1.1.7</PackID>
-          <PackURL>https://www.puyasemi.com/</PackURL>
+          <PackID>Puya.PY32F0xx_DFP.1.2.0</PackID>
+          <PackURL>https://www.puyasemi.com/uploadfiles/</PackURL>
           <Cpu>IRAM(0x20000000,0x00000C00) IROM(0x08000000,0x00006000) CPUTYPE("Cortex-M0+") CLOCK(12000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile></StartupFile>
-          <FlashDriverDll>UL2CM3(-S0 -C0 -P0 -FD20000000 -FC800 -FN1 -FF0PY32F0xx_24 -FS08000000 -FL06000 -FP0($$Device:PY32F002Bx5$Flash\PY32F0xx_24.FLM))</FlashDriverDll>
+          <FlashDriverDll>UL2CM3(-S0 -C0 -P0 -FD20000000 -FC800 -FN1 -FF0PY32F002Bxx_24 -FS08000000 -FL06000 -FP0($$Device:PY32F002Bx5$CMSIS\Flash\PY32F002Bxx_24.FLM))</FlashDriverDll>
           <DeviceId>0</DeviceId>
-          <RegisterFile>$$Device:PY32F002Bx5$Device\Include\py32f0xx.h</RegisterFile>
+          <RegisterFile>$$Device:PY32F002Bx5$Drivers\CMSIS\Device\Puya\PY32F0xx\Include\py32f0xx.h</RegisterFile>
           <MemoryEnv></MemoryEnv>
           <Cmp></Cmp>
           <Asm></Asm>
@@ -33,7 +33,7 @@
           <SLE66CMisc></SLE66CMisc>
           <SLE66AMisc></SLE66AMisc>
           <SLE66LinkerMisc></SLE66LinkerMisc>
-          <SFDFile>$$Device:PY32F002Bx5$SVD\py32f002bxx.svd</SFDFile>
+          <SFDFile>$$Device:PY32F002Bx5$CMSIS\SVD\PY32F002Bxx.svd</SFDFile>
           <bCustSvd>0</bCustSvd>
           <UseEnv>0</UseEnv>
           <BinPath></BinPath>

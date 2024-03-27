@@ -6,8 +6,16 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) Puya Semiconductor Co.
+  * <h2><center>&copy; Copyright (c) 2023 Puya Semiconductor Co.
   * All rights reserved.</center></h2>
+  *
+  * This software component is licensed by Puya under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
+  *
+  ******************************************************************************
+  * @attention
   *
   * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
@@ -382,9 +390,11 @@ uint32_t RCC_GetSystemClockFreq(void)
     break;
   case LL_RCC_SYS_CLKSOURCE_STATUS_LSI:
     frequency = LL_RCC_LSI_GetFreq();
+    break;
 #if defined(RCC_LSE_SUPPORT)
   case LL_RCC_SYS_CLKSOURCE_STATUS_LSE:
     frequency = LSE_VALUE;
+    break;
 #endif
   case LL_RCC_SYS_CLKSOURCE_STATUS_HSISYS:  /* HSISYS used as system clock  source */
   default:
@@ -421,6 +431,10 @@ uint32_t RCC_GetPCLK1ClockFreq(uint32_t HCLK_Frequency)
   * @}
   */
 
+
+/**
+  * @}
+  */
 
 #endif /* defined(RCC) */
 

@@ -1,5 +1,6 @@
 ================================================================================
                                 样例使用说明
+                             Sample Description
 ================================================================================
 功能描述：
 此样例演示了COMP比较器中断功能，PA04作为比较器负端输入，1/2VCCA 作为正端输入，通
@@ -12,17 +13,18 @@ the negative input of the comparator and 1/2VCCA as the positive input. By
 adjusting the input voltage on PA04, when the comparator output state is detected
 to be high, the LED light will turn on, and when the comparator output state is 
 low, the LED light will turn off.
-
 ================================================================================
 测试环境：
 测试用板：PY32F002B_STK
 MDK版本： 5.28
 IAR版本： 9.20
+GCC 版本：GNU Arm Embedded Toolchain 10.3-2021.10
 
 Test environment:
 Test board: PY32F002B_STK
 MDK Version: 5.28
 IAR Version: 9.20
+GCC Version: GNU Arm Embedded Toolchain 10.3-2021.10
 ================================================================================
 使用步骤：
 1. 编译下载程序到MCU，并运行；

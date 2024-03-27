@@ -6,8 +6,16 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) Puya Semiconductor Co.
+  * <h2><center>&copy; Copyright (c) 2023 Puya Semiconductor Co.
   * All rights reserved.</center></h2>
+  *
+  * This software component is licensed by Puya under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
+  *
+  ******************************************************************************
+  * @attention
   *
   * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
@@ -1066,11 +1074,6 @@ __STATIC_INLINE uint32_t LL_USART_GetBaudRate(USART_TypeDef *USARTx, uint32_t Pe
   * @}
   */
 
-
-/**
-  * @}
-  */
-
 /** @defgroup USART_LL_EF_Configuration_HalfDuplex Configuration functions related to Half Duplex feature
   * @{
   */
@@ -1119,11 +1122,7 @@ __STATIC_INLINE uint32_t LL_USART_IsEnabledHalfDuplex(USART_TypeDef *USARTx)
   */
 
 
-/**
-  * @}
-  */
-
-/** @defgroup USART_LL_EF_AdvancedConfiguration Advanced Configurations services
+/** @defgroup USART_LL_EF_Advanced_Configuration Advanced Configurations services
   * @{
   */
 
@@ -1236,7 +1235,7 @@ __STATIC_INLINE void LL_USART_ConfigMultiProcessMode(USART_TypeDef *USARTx)
   * @}
   */
 
-/** @defgroup USART_LL_EF_FLAG_Management FLAG_Management
+/** @defgroup USART_LL_EF_FLAG_Management FLAG Management
   * @{
   */
 
@@ -1506,7 +1505,7 @@ __STATIC_INLINE void LL_USART_ClearFlag_nCTS(USART_TypeDef *USARTx)
   * @}
   */
 
-/** @defgroup USART_LL_EF_IT_Management IT_Management
+/** @defgroup USART_LL_EF_IT_Management IT Management
   * @{
   */
 
@@ -1841,10 +1840,6 @@ __STATIC_INLINE void LL_USART_RequestExitMuteMode(USART_TypeDef *USARTx)
 }
 
 /**
-  * @}
-  */
-
-/**
   * @brief  Enable automatic baud rate detection
   * @param  USARTx USART Instance
   * @retval None
@@ -1908,6 +1903,9 @@ __STATIC_INLINE void LL_USART_SendAutoBaudRateReq(USART_TypeDef *USARTx)
 {
   SET_BIT(USARTx->SR, USART_SR_ABRRQ);
 }
+/**
+  * @}
+  */
 
 #if defined(USE_FULL_LL_DRIVER)
 /** @defgroup USART_LL_EF_Init Initialization and de-initialization functions

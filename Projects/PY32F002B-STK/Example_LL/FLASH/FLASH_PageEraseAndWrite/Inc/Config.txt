@@ -1,0 +1,17 @@
+[FilePath]
+0=../../../../../../Drivers/PY32F002B_HAL_Driver/Src/py32f002b_hal_flash.c
+1=../../../../../../Drivers/PY32F002B_HAL_Driver/Src/py32f002b_hal.c
+2=../../../../../../Drivers/PY32F002B_HAL_Driver/Src/py32f002b_hal_cortex.c
+3=../../../../../../Drivers/PY32F002B_HAL_Driver/Src/py32f002b_ll_utils.c
+[FileName]
+0=py32f002b_hal_flash.c
+1=py32f002b_hal.c
+2=py32f002b_hal_cortex.c
+3=py32f002b_ll_utils.c
+[Define]
+0=USE_HAL_DRIVER
+1=PY32F002Bx5
+[User]
+0=../Src/main.c
+1=../Src/py32f002b_it.c
+2=../Src/py32f002b_hal_msp.c

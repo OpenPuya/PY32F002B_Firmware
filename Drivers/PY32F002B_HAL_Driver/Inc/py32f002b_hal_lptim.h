@@ -6,8 +6,16 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) Puya Semiconductor Co.
+  * <h2><center>&copy; Copyright (c) 2023 Puya Semiconductor Co.
   * All rights reserved.</center></h2>
+  *
+  * This software component is licensed by Puya under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
+  *
+  ******************************************************************************
+  * @attention
   *
   * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
@@ -121,10 +129,6 @@ typedef  void (*pLPTIM_CallbackTypeDef)(LPTIM_HandleTypeDef * hlptim); /*!< poin
 /* Exported constants --------------------------------------------------------*/
 /** @defgroup LPTIM_Exported_Constants LPTIM Exported Constants
   * @{
-  */
-
-/**
-  * @}
   */
 
 /** @defgroup LPTIM_Clock_Prescaler LPTIM Clock Prescaler
@@ -306,6 +310,10 @@ typedef  void (*pLPTIM_CallbackTypeDef)(LPTIM_HandleTypeDef * hlptim); /*!< poin
   * @{
   */
 
+/** @addtogroup LPTIM_Exported_Functions_Group1
+  *  @brief    Initialization and Configuration functions.
+  * @{
+  */
 /* Initialization/de-initialization functions  ********************************/
 HAL_StatusTypeDef HAL_LPTIM_Init(LPTIM_HandleTypeDef *hlptim);
 HAL_StatusTypeDef HAL_LPTIM_DeInit(LPTIM_HandleTypeDef *hlptim);
@@ -313,7 +321,14 @@ HAL_StatusTypeDef HAL_LPTIM_DeInit(LPTIM_HandleTypeDef *hlptim);
 /* MSP functions  *************************************************************/
 void HAL_LPTIM_MspInit(LPTIM_HandleTypeDef *hlptim);
 void HAL_LPTIM_MspDeInit(LPTIM_HandleTypeDef *hlptim);
+/**
+  * @}
+  */
 
+/** @addtogroup LPTIM_Exported_Functions_Group2
+  *  @brief   Start-Stop operation functions.
+  * @{
+  */
 /* ############################## Set once Mode ##############################*/
 /* Blocking mode: Polling */
 HAL_StatusTypeDef HAL_LPTIM_SetOnce_Start(LPTIM_HandleTypeDef *hlptim, uint32_t Period);
@@ -329,14 +344,28 @@ HAL_StatusTypeDef HAL_LPTIM_SetContinue_Stop(LPTIM_HandleTypeDef *hlptim);
 /* Non-Blocking mode: Interrupt */
 HAL_StatusTypeDef HAL_LPTIM_SetContinue_Start_IT(LPTIM_HandleTypeDef *hlptim, uint32_t Period);
 HAL_StatusTypeDef HAL_LPTIM_SetContinue_Stop_IT(LPTIM_HandleTypeDef *hlptim);
+/**
+  * @}
+  */
 
+/** @addtogroup LPTIM_Exported_Functions_Group3
+  *  @brief  Read operation functions.
+  * @{
+  */
 /* Reading operation functions ************************************************/
 uint32_t HAL_LPTIM_ReadCounter(LPTIM_HandleTypeDef *hlptim);
 uint32_t HAL_LPTIM_ReadAutoReload(LPTIM_HandleTypeDef *hlptim);
 
 /* Reset counter functions ****************************************************/
 uint32_t HAL_LPTIM_ResetCounter(LPTIM_HandleTypeDef *hlptim);
+/**
+  * @}
+  */
 
+/** @addtogroup LPTIM_Exported_Functions_Group4
+  *  @brief  LPTIM IRQ handler and callback functions.
+  * @{
+  */
 /* LPTIM IRQ functions  *******************************************************/
 void HAL_LPTIM_IRQHandler(LPTIM_HandleTypeDef *hlptim);
 
@@ -349,9 +378,19 @@ void HAL_LPTIM_AutoReloadUpdateCompletedCallback(LPTIM_HandleTypeDef *hlptim);
 HAL_StatusTypeDef HAL_LPTIM_RegisterCallback(LPTIM_HandleTypeDef *lphtim, HAL_LPTIM_CallbackIDTypeDef CallbackID, pLPTIM_CallbackTypeDef pCallback);
 HAL_StatusTypeDef HAL_LPTIM_UnRegisterCallback(LPTIM_HandleTypeDef *lphtim, HAL_LPTIM_CallbackIDTypeDef CallbackID);
 #endif /* USE_HAL_LPTIM_REGISTER_CALLBACKS */
+/**
+  * @}
+  */
 
+/** @addtogroup LPTIM_Group5
+  *  @brief   Peripheral State functions.
+  * @{
+  */
 /* Peripheral State functions  ************************************************/
 HAL_LPTIM_StateTypeDef HAL_LPTIM_GetState(LPTIM_HandleTypeDef *hlptim);
+/**
+  * @}
+  */
 
 /**
   * @}

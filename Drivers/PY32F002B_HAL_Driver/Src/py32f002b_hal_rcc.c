@@ -39,8 +39,16 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) Puya Semiconductor Co.
+  * <h2><center>&copy; Copyright (c) 2023 Puya Semiconductor Co.
   * All rights reserved.</center></h2>
+  *
+  * This software component is licensed by Puya under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
+  *
+  ******************************************************************************
+  * @attention
   *
   * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
@@ -75,6 +83,7 @@
 #define CLOCKSWITCH_TIMEOUT_VALUE  (5000U) /* 5 s    */
 #define HSI_TIMEOUT_VALUE          (2U)    /* 2 ms (minimum Tick + 1) */
 #define LSI_TIMEOUT_VALUE          (2U)    /* 2 ms (minimum Tick + 1) */
+#define AHB_24MHZ                  (24000000U)
 /**
   * @}
   */
@@ -97,7 +106,7 @@
   */
 
 /** @defgroup RCC_Exported_Functions_Group1 Initialization and de-initialization functions
-  *  @brief    Initialization and Configuration functions
+  * @brief    Initialization and Configuration functions
   *
   @verbatim
  ===============================================================================
@@ -160,10 +169,7 @@
              adapted accordingly.
 
   @endverbatim
-
-
-
-   * @{
+  * @{
   */
 
 /**
@@ -313,6 +319,12 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
       /* Otherwise, just the calibration is allowed */
       else
       {
+        /* Program the new number of wait states to the LATENCY bits in the FLASH_ACR register */
+        __HAL_FLASH_SET_LATENCY(FLASH_LATENCY_1);
+        
+        /* Adjust the HSI division factor */
+        __HAL_RCC_HSI_CONFIG(RCC_OscInitStruct->HSIDiv);
+        
         /* Adjusts the Internal High Speed oscillator (HSI) calibration value.*/
         __HAL_RCC_HSI_CALIBRATIONVALUE_ADJUST(RCC_OscInitStruct->HSICalibrationValue);
 
@@ -328,14 +340,14 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
           }
         }
 
-        if (temp_sysclksrc == RCC_CFGR_SWS_HSISYS)
+        /* Update the SystemCoreClock global variable with HSISYS value  */
+        SystemCoreClock = (HAL_RCC_GetSysClockFreq() >> ((AHBPrescTable[(RCC->CFGR & RCC_CFGR_HPRE) >> RCC_CFGR_HPRE_Pos]) & 0x1FU));
+        
+        if(SystemCoreClock <= AHB_24MHZ)
         {
-          /* Adjust the HSI division factor */
-          __HAL_RCC_HSI_CONFIG(RCC_OscInitStruct->HSIDiv);
-
-          /* Update the SystemCoreClock global variable with HSISYS value  */
-          SystemCoreClock = (HAL_RCC_GetSysClockFreq() >> ((AHBPrescTable[(RCC->CFGR & RCC_CFGR_HPRE) >> RCC_CFGR_HPRE_Pos]) & 0x1FU));
-        }
+          /* Program the new number of wait states to the LATENCY bits in the FLASH_ACR register */
+          __HAL_FLASH_SET_LATENCY(FLASH_LATENCY_0);
+        }    
 
         /* Adapt Systick interrupt period */
         if (HAL_InitTick(uwTickPrio) != HAL_OK)
@@ -420,11 +432,8 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
           }
         }
         
-        if (temp_sysclksrc == RCC_CFGR_SWS_LSI)
-        {
-          /* Update the SystemCoreClock global variable with LSI value  */
-          SystemCoreClock = (HAL_RCC_GetSysClockFreq() >> ((AHBPrescTable[(RCC->CFGR & RCC_CFGR_HPRE) >> RCC_CFGR_HPRE_Pos]) & 0x1FU));
-        }
+        /* Update the SystemCoreClock global variable with LSI value  */
+        SystemCoreClock = (HAL_RCC_GetSysClockFreq() >> ((AHBPrescTable[(RCC->CFGR & RCC_CFGR_HPRE) >> RCC_CFGR_HPRE_Pos]) & 0x1FU));
         
         /* Adapt Systick interrupt period */
         if (HAL_InitTick(uwTickPrio) != HAL_OK)
@@ -722,7 +731,7 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, ui
 /** @defgroup RCC_Exported_Functions_Group2 Peripheral Control functions
  *  @brief   RCC clocks control functions
  *
-@verbatim
+ @verbatim
  ===============================================================================
                       ##### Peripheral Control functions #####
  ===============================================================================
@@ -733,7 +742,7 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, ui
     (+) Retrieve current clock frequencies.
     (+) Enable the Clock Security System.
 
-@endverbatim
+ @endverbatim
   * @{
   */
 

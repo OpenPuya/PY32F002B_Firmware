@@ -6,8 +6,16 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) Puya Semiconductor Co.
+  * <h2><center>&copy; Copyright (c) 2023 Puya Semiconductor Co.
   * All rights reserved.</center></h2>
+  *
+  * This software component is licensed by Puya under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
+  *
+  ******************************************************************************
+  * @attention
   *
   * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
@@ -44,7 +52,7 @@ int main(void)
   LL_APB1_GRP2_EnableClock(LL_APB1_GRP2_PERIPH_SYSCFG);
   LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_PWR);
 
-  /* Configure HSI as Systemclock source */
+  /* Configure Systemclock */
   APP_SystemClockConfig();
 
   /* Initialize LED */
@@ -129,7 +137,7 @@ void APP_ComparatorTrigger()
 }
 
 /**
-  * @brief  Configure HSI as Systemclock source
+  * @brief  Configure Systemclock
   * @param  None
   * @retval None
   */
@@ -182,7 +190,7 @@ void APP_ErrorHandler(void)
 void assert_failed(uint8_t *file, uint32_t line)
 {
   /* User can add His own implementation to report the file name and line number,
-     tex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
   /* Infinite loop */
   while (1)
   {

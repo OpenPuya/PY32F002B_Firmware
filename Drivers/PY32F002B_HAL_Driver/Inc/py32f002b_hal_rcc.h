@@ -6,8 +6,16 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) Puya Semiconductor Co.
+  * <h2><center>&copy; Copyright (c) 2023 Puya Semiconductor Co.
   * All rights reserved.</center></h2>
+  *
+  * This software component is licensed by Puya under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
+  *
+  ******************************************************************************
+  * @attention
   *
   * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
@@ -57,7 +65,7 @@ extern "C" {
   */
 
 /* Private macros ------------------------------------------------------------*/
-/** @addtogroup RCC_Private_Macros
+/** @defgroup RCC_Private_Macros RCC Private Macros
   * @{
   */
 #define IS_RCC_OSCILLATORTYPE(__OSCILLATOR__) (((__OSCILLATOR__) == RCC_OSCILLATORTYPE_NONE)                           || \
@@ -106,12 +114,12 @@ extern "C" {
 
 #define IS_RCC_MCO(__MCOX__)              (((__MCOX__) == RCC_MCO1) || ((__MCOX__) == RCC_MCO2))
 
-#define IS_RCC_MCO1SOURCE(__SOURCE__) (((__SOURCE__) == RCC_MCO1SOURCE_NOCLOCK) || \
-                                       ((__SOURCE__) == RCC_MCO1SOURCE_SYSCLK) || \
-                                       ((__SOURCE__) == RCC_MCO1SOURCE_HSI) || \
-                                       ((__SOURCE__) == RCC_MCO1SOURCE_HSE) || \
-                                       ((__SOURCE__) == RCC_MCO1SOURCE_LSI) || \
-                                       ((__SOURCE__) == RCC_MCO1SOURCE_LSE))
+#define IS_RCC_MCO1SOURCE(__SOURCE__) (((__SOURCE__) == RCC_MCOSOURCE_NOCLOCK) || \
+                                       ((__SOURCE__) == RCC_MCOSOURCE_SYSCLK) || \
+                                       ((__SOURCE__) == RCC_MCOSOURCE_HSI) || \
+                                       ((__SOURCE__) == RCC_MCOSOURCE_HSE) || \
+                                       ((__SOURCE__) == RCC_MCOSOURCE_LSI) || \
+                                       ((__SOURCE__) == RCC_MCOSOURCE_LSE))
 
 #define IS_RCC_MCODIV(__DIV__)        (((__DIV__) == RCC_MCODIV_1) || ((__DIV__) == RCC_MCODIV_2) || \
                                        ((__DIV__) == RCC_MCODIV_4) || ((__DIV__) == RCC_MCODIV_8) || \
@@ -863,26 +871,6 @@ typedef struct
   */
 
 
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
-
 /** @defgroup RCC_Clock_Configuration RCC Clock Configuration
   * @{
   */
@@ -1030,9 +1018,6 @@ typedef struct
   */
 #define __HAL_RCC_LSE_STARTUP_DELAY(__TIME__)   MODIFY_REG(RCC->ECSCR, RCC_ECSCR_LSE_STARTUP ,(__TIME__))
 
-/**
-  * @}
-  */
 
 /**
   * @brief  Macro to configure the system clock source.
@@ -1081,12 +1066,12 @@ typedef struct
 /** @brief  Macro to configure the MCO clock.
   * @param  __MCOCLKSOURCE__ specifies the MCO clock source.
   *          This parameter can be one of the following values:
-  *            @arg @ref RCC_MCO1SOURCE_NOCLOCK  MCO output disabled
-  *            @arg @ref RCC_MCO1SOURCE_SYSCLK System  clock selected as MCO source
-  *            @arg @ref RCC_MCO1SOURCE_HSI HSI clock selected as MCO source
-  *            @arg @ref RCC_MCO1SOURCE_HSE HSE clock selected as MCO sourcee
-  *            @arg @ref RCC_MCO1SOURCE_LSI LSI clock selected as MCO source
-  *            @arg @ref RCC_MCO1SOURCE_LSE LSE clock selected as MCO source
+  *            @arg @ref RCC_MCOSOURCE_NOCLOCK  MCO output disabled
+  *            @arg @ref RCC_MCOSOURCE_SYSCLK System  clock selected as MCO source
+  *            @arg @ref RCC_MCOSOURCE_HSI HSI clock selected as MCO source
+  *            @arg @ref RCC_MCOSOURCE_HSE HSE clock selected as MCO sourcee
+  *            @arg @ref RCC_MCOSOURCE_LSI LSI clock selected as MCO source
+  *            @arg @ref RCC_MCOSOURCE_LSE LSE clock selected as MCO source
   * @note   Depending on devices and packages, some clocks may not be available.
   *         Refer to device datasheet for clocks availability.
   * @param  __MCODIV__ specifies the MCO clock prescaler.
@@ -1248,6 +1233,8 @@ void              HAL_RCC_CSSCallback(void);
 /**
   * @}
   */
+
+
 
 /**
   * @}

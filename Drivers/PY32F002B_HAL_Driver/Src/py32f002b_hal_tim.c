@@ -171,8 +171,16 @@ all interrupt callbacks are set to the corresponding weak functions:
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) Puya Semiconductor Co.
+  * <h2><center>&copy; Copyright (c) 2023 Puya Semiconductor Co.
   * All rights reserved.</center></h2>
+  *
+  * This software component is licensed by Puya under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
+  *
+  ******************************************************************************
+  * @attention
   *
   * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
@@ -477,6 +485,9 @@ HAL_StatusTypeDef HAL_TIM_Base_Stop_IT(TIM_HandleTypeDef *htim)
   /* Return function status */
   return HAL_OK;
 }
+/**
+  * @}
+  */
 
 /** @defgroup TIM_Exported_Functions_Group2 TIM Output Compare functions
   *  @brief    TIM Output Compare functions
@@ -829,6 +840,9 @@ HAL_StatusTypeDef HAL_TIM_OC_Stop_IT(TIM_HandleTypeDef *htim, uint32_t Channel)
   /* Return function status */
   return HAL_OK;
 }
+/**
+  * @}
+  */
 
 /** @defgroup TIM_Exported_Functions_Group3 TIM PWM functions
   *  @brief    TIM PWM functions
@@ -2227,6 +2241,7 @@ HAL_StatusTypeDef HAL_TIM_Encoder_Stop_IT(TIM_HandleTypeDef *htim, uint32_t Chan
 /**
   * @}
   */
+
 /** @defgroup TIM_Exported_Functions_Group7 TIM IRQ handler management
   *  @brief    TIM IRQ handler management
   *
@@ -4112,7 +4127,9 @@ HAL_TIM_StateTypeDef HAL_TIM_Encoder_GetState(TIM_HandleTypeDef *htim)
 /**
   * @}
   */
+/* End of exported functions -------------------------------------------------*/
 
+/* Private functions----------------------------------------------------------*/
 /** @defgroup TIM_Private_Functions TIM Private Functions
   * @{
   */
@@ -4957,6 +4974,7 @@ void TIM_ResetCallback(TIM_HandleTypeDef *htim)
 /**
   * @}
   */
+/* End of private functions --------------------------------------------------*/
 
 #endif /* HAL_TIM_MODULE_ENABLED */
 /**

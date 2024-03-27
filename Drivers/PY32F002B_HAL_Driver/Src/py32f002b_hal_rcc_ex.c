@@ -11,8 +11,16 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) Puya Semiconductor Co.
+  * <h2><center>&copy; Copyright (c) 2023 Puya Semiconductor Co.
   * All rights reserved.</center></h2>
+  *
+  * This software component is licensed by Puya under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
+  *
+  ******************************************************************************
+  * @attention
   *
   * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
@@ -44,6 +52,7 @@
 /* Private macros ------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
+
 /* Exported functions --------------------------------------------------------*/
 
 /** @defgroup RCCEx_Exported_Functions RCCEx Exported Functions
@@ -137,8 +146,16 @@ HAL_StatusTypeDef HAL_RCCEx_PeriphCLKConfig(RCC_PeriphCLKInitTypeDef  *PeriphClk
 void HAL_RCCEx_GetPeriphCLKConfig(RCC_PeriphCLKInitTypeDef  *PeriphClkInit)
 {
   /* Set all possible values for the extended clock type parameter------------*/
-PeriphClkInit->PeriphClockSelection = RCC_PERIPHCLK_COMP1 | RCC_PERIPHCLK_COMP2 | \
-                                      RCC_PERIPHCLK_LPTIM;
+  PeriphClkInit->PeriphClockSelection = 0;
+#if defined(RCC_CCIPR_COMP1SEL)
+  PeriphClkInit->PeriphClockSelection |= RCC_PERIPHCLK_COMP1;
+#endif /* RCC_CCIPR_COMP1SEL */
+#if defined(RCC_CCIPR_COMP2SEL)
+  PeriphClkInit->PeriphClockSelection |= RCC_PERIPHCLK_COMP2;
+#endif /* RCC_CCIPR_COMP2SEL */
+#if defined(RCC_CCIPR_LPTIMSEL)
+  PeriphClkInit->PeriphClockSelection |= RCC_PERIPHCLK_LPTIM;
+#endif /* RCC_CCIPR_LPTIM2SEL */
 
 #if defined(RCC_CCIPR_COMP1SEL)
   /* Get the COMP1 clock source --------------------------------------------*/
@@ -347,9 +364,6 @@ void HAL_RCCEx_DisableLSCO(void)
   * @}
   */
 
-/**
-  * @}
-  */
 
 #endif /* HAL_RCC_MODULE_ENABLED */
 /**

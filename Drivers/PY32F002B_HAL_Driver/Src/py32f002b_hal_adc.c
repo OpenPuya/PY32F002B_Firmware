@@ -48,12 +48,21 @@
 
   (+) ADC input range: from Vref- (connected to Vssa) to Vref+ (connected to
       Vdda or to an external voltage reference).
+  @endverbatim
 
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) Puya Semiconductor Co.
+  * <h2><center>&copy; Copyright (c) 2023 Puya Semiconductor Co.
   * All rights reserved.</center></h2>
+  *
+  * This software component is licensed by Puya under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
+  *
+  ******************************************************************************
+  * @attention
   *
   * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
@@ -288,7 +297,7 @@ HAL_StatusTypeDef HAL_ADC_Init(ADC_HandleTypeDef* hadc)
     /*  - data alignment                                                      */
     /*  - resolution                                                          */
     /*  - scan direction                                                      */
-    /*  - DMA continuous request                                              */	
+    /*  - DMA continuous request                                              */  
     hadc->Instance->CFGR1 &= ~( ADC_CFGR1_DISCEN  |
                                 ADC_CFGR1_CONT    |
                                 ADC_CFGR1_OVRMOD  |
@@ -1362,7 +1371,7 @@ void HAL_ADC_IRQHandler(ADC_HandleTypeDef* hadc)
     /* overrun ")                                                             */
     /* Exception for usage with DMA overrun event always considered as an     */
     /* error.                                                                 */
-#if (defined(DMA) || defined(DMA1))		
+#if (defined(DMA) || defined(DMA1))    
     if ((hadc->Init.Overrun == ADC_OVR_DATA_PRESERVED)            ||
         HAL_IS_BIT_SET(hadc->Instance->CFGR1, ADC_CFGR1_DMAEN)  )
 #else

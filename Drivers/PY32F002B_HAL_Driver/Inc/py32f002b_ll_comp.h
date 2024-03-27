@@ -6,8 +6,16 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) Puya Semiconductor Co.
+  * <h2><center>&copy; Copyright (c) 2023 Puya Semiconductor Co.
   * All rights reserved.</center></h2>
+  *
+  * This software component is licensed by Puya under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
+  *
+  ******************************************************************************
+  * @attention
   *
   * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
@@ -160,7 +168,7 @@ typedef struct
   * @}
   */
   
-/** @defgroup COMP_LL_EC_INPUT_MINUS Comparator inputs - Input minus (input inverting) selection
+/** @defgroup COMP_LL_EC_VREFCMP_DIV Comparator Vrefcmp div
   * @{
   */
 #define LL_COMP_VREFCMP_DIV_1_16VREFCMP     (0x00000000U)     
@@ -183,7 +191,7 @@ typedef struct
   * @}
   */  
  
-/** @defgroup COMP_LL_EC_INPUT_MINUS Comparator inputs - Input minus (input inverting) selection
+/** @defgroup COMP_LL_EC_VREFCMP_SRC Comparator Vrefcmp source
   * @{
   */
 #define LL_COMP_VREFCMP_SOURCE_VREFBUF       (0x00000000U)     
@@ -345,15 +353,11 @@ __STATIC_INLINE uint32_t LL_COMP_GetCommonWindowMode(COMP_Common_TypeDef *COMPxy
    return (uint32_t)(window_mode_comp_odd | window_mode_comp_even
                     | ((window_mode_comp_even >> LL_COMP_WINDOWMODE_BITOFFSET_POS) * LL_COMP_WINDOWMODE_COMP_EVEN_REGOFFSET_MASK));
 }
-
 /**
   * @}
   */
 
 
-/**
-  * @}
-  */
 
 /** @defgroup COMP_LL_EF_Configuration_comparator_inputs Configuration of comparator inputs
   * @{
@@ -485,22 +489,22 @@ __STATIC_INLINE uint32_t LL_COMP_IsEnabledVrefCmpDivider(COMP_TypeDef *COMPx)
   * @rmtoll CSR      COMP_CSR_COMP_VCDIV      LL_COMP_SetVrefCmpDivider
   * @param  COMPx Comparator instance    
   * @param  VrefCmpDiv can be one of the following values:
-  *         @arg @ref LL_COMP_VREF_DIV_1_16VREF
-  *         @arg @ref LL_COMP_VREF_DIV_2_16VREF
-  *         @arg @ref LL_COMP_VREF_DIV_3_16VREF
-  *         @arg @ref LL_COMP_VREF_DIV_4_16VREF
-  *         @arg @ref LL_COMP_VREF_DIV_5_16VREF
-  *         @arg @ref LL_COMP_VREF_DIV_6_16VREF
-  *         @arg @ref LL_COMP_VREF_DIV_7_16VREF
-  *         @arg @ref LL_COMP_VREF_DIV_8_16VREF
-  *         @arg @ref LL_COMP_VREF_DIV_9_16VREF
-  *         @arg @ref LL_COMP_VREF_DIV_10_16VREF
-  *         @arg @ref LL_COMP_VREF_DIV_11_16VREF
-  *         @arg @ref LL_COMP_VREF_DIV_12_16VREF
-  *         @arg @ref LL_COMP_VREF_DIV_13_16VREF
-  *         @arg @ref LL_COMP_VREF_DIV_14_16VREF
-  *         @arg @ref LL_COMP_VREF_DIV_15_16VREF
-  *         @arg @ref LL_COMP_VREF_DIV_VREF
+  *         @arg @ref LL_COMP_VREFCMP_DIV_1_16VREFCMP
+  *         @arg @ref LL_COMP_VREFCMP_DIV_2_16VREFCMP
+  *         @arg @ref LL_COMP_VREFCMP_DIV_3_16VREFCMP
+  *         @arg @ref LL_COMP_VREFCMP_DIV_4_16VREFCMP
+  *         @arg @ref LL_COMP_VREFCMP_DIV_5_16VREFCMP
+  *         @arg @ref LL_COMP_VREFCMP_DIV_6_16VREFCMP
+  *         @arg @ref LL_COMP_VREFCMP_DIV_7_16VREFCMP
+  *         @arg @ref LL_COMP_VREFCMP_DIV_8_16VREFCMP
+  *         @arg @ref LL_COMP_VREFCMP_DIV_9_16VREFCMP
+  *         @arg @ref LL_COMP_VREFCMP_DIV_10_16VREFCMP
+  *         @arg @ref LL_COMP_VREFCMP_DIV_11_16VREFCMP
+  *         @arg @ref LL_COMP_VREFCMP_DIV_12_16VREFCMP
+  *         @arg @ref LL_COMP_VREFCMP_DIV_13_16VREFCMP
+  *         @arg @ref LL_COMP_VREFCMP_DIV_14_16VREFCMP
+  *         @arg @ref LL_COMP_VREFCMP_DIV_15_16VREFCMP
+  *         @arg @ref LL_COMP_VREFCMP_DIV_VREFCMP
   * @retval None
   */
 __STATIC_INLINE void LL_COMP_SetVrefCmpDivider(COMP_TypeDef *COMPx, uint32_t VrefCmpDiv)
@@ -513,22 +517,22 @@ __STATIC_INLINE void LL_COMP_SetVrefCmpDivider(COMP_TypeDef *COMPx, uint32_t Vre
   * @rmtoll CSR      COMP_CSR_COMP_VCDIV      LL_COMP_GetVrefCmpDivider
   * @param  COMPx Comparator instance       
   * @retval Returned value can be one of the following values:
-  *         @arg @ref LL_COMP_VREF_DIV_1_16VREF
-  *         @arg @ref LL_COMP_VREF_DIV_2_16VREF
-  *         @arg @ref LL_COMP_VREF_DIV_3_16VREF
-  *         @arg @ref LL_COMP_VREF_DIV_4_16VREF
-  *         @arg @ref LL_COMP_VREF_DIV_5_16VREF
-  *         @arg @ref LL_COMP_VREF_DIV_6_16VREF
-  *         @arg @ref LL_COMP_VREF_DIV_7_16VREF
-  *         @arg @ref LL_COMP_VREF_DIV_8_16VREF
-  *         @arg @ref LL_COMP_VREF_DIV_9_16VREF
-  *         @arg @ref LL_COMP_VREF_DIV_10_16VREF
-  *         @arg @ref LL_COMP_VREF_DIV_11_16VREF
-  *         @arg @ref LL_COMP_VREF_DIV_12_16VREF
-  *         @arg @ref LL_COMP_VREF_DIV_13_16VREF
-  *         @arg @ref LL_COMP_VREF_DIV_14_16VREF
-  *         @arg @ref LL_COMP_VREF_DIV_15_16VREF
-  *         @arg @ref LL_COMP_VREF_DIV_VREF
+  *         @arg @ref LL_COMP_VREFCMP_DIV_1_16VREFCMP
+  *         @arg @ref LL_COMP_VREFCMP_DIV_2_16VREFCMP
+  *         @arg @ref LL_COMP_VREFCMP_DIV_3_16VREFCMP
+  *         @arg @ref LL_COMP_VREFCMP_DIV_4_16VREFCMP
+  *         @arg @ref LL_COMP_VREFCMP_DIV_5_16VREFCMP
+  *         @arg @ref LL_COMP_VREFCMP_DIV_6_16VREFCMP
+  *         @arg @ref LL_COMP_VREFCMP_DIV_7_16VREFCMP
+  *         @arg @ref LL_COMP_VREFCMP_DIV_8_16VREFCMP
+  *         @arg @ref LL_COMP_VREFCMP_DIV_9_16VREFCMP
+  *         @arg @ref LL_COMP_VREFCMP_DIV_10_16VREFCMP
+  *         @arg @ref LL_COMP_VREFCMP_DIV_11_16VREFCMP
+  *         @arg @ref LL_COMP_VREFCMP_DIV_12_16VREFCMP
+  *         @arg @ref LL_COMP_VREFCMP_DIV_13_16VREFCMP
+  *         @arg @ref LL_COMP_VREFCMP_DIV_14_16VREFCMP
+  *         @arg @ref LL_COMP_VREFCMP_DIV_15_16VREFCMP
+  *         @arg @ref LL_COMP_VREFCMP_DIV_VREFCMP
   */
 __STATIC_INLINE uint32_t LL_COMP_GetVrefCmpDivider(COMP_TypeDef *COMPx)
 {
@@ -540,9 +544,9 @@ __STATIC_INLINE uint32_t LL_COMP_GetVrefCmpDivider(COMP_TypeDef *COMPx)
   * @brief  Set comparator VrefCmp reference source selection. 
   * @rmtoll CSR      COMP_CSR_COMP_VCSEL      LL_COMP_SetVrefCmpSource
   * @param  COMPx Comparator instance       
-  * @param  VrefCmpDiv can be one of the following values:
-  *         @arg @ref LL_COMP_VREF_SOURCE_VREFBUF
-  *         @arg @ref LL_COMP_VREF_SOURCE_VCC
+  * @param  VrefCmpSource can be one of the following values:
+  *         @arg @ref LL_COMP_VREFCMP_SOURCE_VREFBUF
+  *         @arg @ref LL_COMP_VREFCMP_SOURCE_VCC
   * @retval None
   */
 __STATIC_INLINE void LL_COMP_SetVrefCmpSource(COMP_TypeDef *COMPx, uint32_t VrefCmpSource)
@@ -555,8 +559,8 @@ __STATIC_INLINE void LL_COMP_SetVrefCmpSource(COMP_TypeDef *COMPx, uint32_t Vref
   * @rmtoll CSR      COMP_CSR_COMP_VCSEL      LL_COMP_GetVrefCmpSource
   * @param  COMPx Comparator instance       
   * @retval Returned value can be one of the following values:
-  *         @arg @ref LL_COMP_VREF_SOURCE_VREFBUF
-  *         @arg @ref LL_COMP_VREF_SOURCE_VCC
+  *         @arg @ref LL_COMP_VREFCMP_SOURCE_VREFBUF
+  *         @arg @ref LL_COMP_VREFCMP_SOURCE_VCC
   */
 __STATIC_INLINE uint32_t LL_COMP_GetVrefCmpSource(COMP_TypeDef *COMPx)
 {
@@ -713,7 +717,7 @@ __STATIC_INLINE uint32_t LL_COMP_IsEnabledDigitalFilter(COMP_TypeDef *COMPx)
   * @brief  Set comparator DigitalFilter Value.
   * @rmtoll FR       FLTCNT         LL_COMP_SetDigitalFilter
   * @param  COMPx Comparator instance      
-  * @param  DigitalFilter Value between Min_Data=0x0000 and Max_Data=0xFFFF
+  * @param  FLTCNTValue DigitalFilter Value between Min_Data=0x0000 and Max_Data=0xFFFF
   * @retval None
   */
 __STATIC_INLINE void LL_COMP_SetDigitalFilter(COMP_TypeDef *COMPx,uint32_t FLTCNTValue)
@@ -759,9 +763,6 @@ void        LL_COMP_StructInit(LL_COMP_InitTypeDef *COMP_InitStruct);
   * @}
   */
 
-/**
-  * @}
-  */
 
 #endif /* COMP1 || COMP2 */
 
