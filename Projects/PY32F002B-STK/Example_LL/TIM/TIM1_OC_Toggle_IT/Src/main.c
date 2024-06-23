@@ -51,7 +51,7 @@ int main(void)
   APP_SystemClockConfig();
 
  /* Enable TIM1 peripheral clock */
-  LL_APB1_GRP2_EnableClock(RCC_APBENR2_TIM1EN);
+  LL_APB1_GRP2_EnableClock(LL_APB1_GRP2_PERIPH_TIM1);
 
   /* Enabel GPIOA clock */
   LL_IOP_GRP1_EnableClock(LL_IOP_GRP1_PERIPH_GPIOA);

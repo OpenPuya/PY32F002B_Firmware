@@ -84,21 +84,9 @@ void SysTick_Handler(void)
 }
 
 /******************************************************************************/
-/* PY32F002B Peripheral Interrupt Handlers                                     */
+/* PY32F002B Peripheral Interrupt Handlers                                    */
 /* Add here the Interrupt Handlers for the used peripherals.                  */
 /* For the available peripheral interrupt handler names,                      */
 /* please refer to the startup file.                                          */
 /******************************************************************************/
-/**
-  * @brief This function handles EXTI4_15 interrupt.
-  */
-void EXTI0_1_IRQHandler(void)
-{
-  /* Handle EXTI interrupt request */
-  if(LL_EXTI_IsActiveFlag(LL_EXTI_LINE_0))
-  {
-    BSP_LED_Toggle(LED_GREEN);
-    LL_EXTI_ClearFlag(LL_EXTI_LINE_0);
-  }
-}
 /************************ (C) COPYRIGHT Puya *****END OF FILE******************/

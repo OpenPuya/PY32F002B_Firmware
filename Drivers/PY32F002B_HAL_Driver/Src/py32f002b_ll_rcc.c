@@ -228,7 +228,7 @@ uint32_t LL_RCC_GetMCOClockFreq(uint32_t MCOx)
   return mco_frequency;
 }
 
-#if defined(RCC_BDCR_LSCOEN)
+#if defined(RCC_BDCR_LSCOSEL)
 /**
   * @brief  Return LSC clock frequency
   * @retval LSC clock frequency (in Hz)

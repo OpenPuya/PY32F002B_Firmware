@@ -95,6 +95,7 @@ void APP_UsartConfig(void)
   UartHandle.Init.Parity       = UART_PARITY_NONE;
   UartHandle.Init.HwFlowCtl    = UART_HWCONTROL_NONE;
   UartHandle.Init.Mode         = UART_MODE_TX_RX;
+  UartHandle.Init.OverSampling = UART_OVERSAMPLING_16;
 
   UartHandle.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_AUTOBAUDRATE_INIT;
   UartHandle.AdvancedInit.AutoBaudRateEnable = UART_ADVFEATURE_AUTOBAUDRATE_ENABLE; /* Automatic Baud enable */
@@ -107,10 +108,6 @@ void APP_UsartConfig(void)
                                                                                             from falling edge to falling edge, and
                                                                                             the upper computer sends 0x55 */
 #endif
-  if (HAL_UART_DeInit(&UartHandle) != HAL_OK)
-  {
-    APP_ErrorHandler();
-  }
   if (HAL_UART_Init(&UartHandle) != HAL_OK)
   {
     APP_ErrorHandler();

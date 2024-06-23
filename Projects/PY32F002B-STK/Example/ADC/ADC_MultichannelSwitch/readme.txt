@@ -22,14 +22,14 @@ GCC Version: GNU Arm Embedded Toolchain 10.3-2021.10
 ================================================================================
 使用步骤：
 1. 编译并下载程序；
-2. 串口先打印一次通道3(PA6)的电压值
-3. 之后切换到通道4(PA7)转换并打印其电压值.
+2. 串口先打印一次通道3(PA6)的转换值
+3. 之后切换到通道4(PA7)转换并打印其转换值.
 4. 1s后又切换回通道3
 
 Example execution steps:
 1. Compile and download the program;
-2. The serial port prints the voltage value of channel 3(PA6) first.
-3. Then switch to channel 4(PA7) to convert and print its voltage value.
+2. The serial port prints the conversion value of channel 3(PA6) first.
+3. Then switch to channel 4(PA7) to convert and print its conversion value.
 4. Switch back to channel 3 after 1 second
 ================================================================================
 注意事项：

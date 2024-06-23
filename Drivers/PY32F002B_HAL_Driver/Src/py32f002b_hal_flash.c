@@ -707,7 +707,6 @@ HAL_StatusTypeDef HAL_FLASH_Program_IT(uint32_t TypeProgram, uint32_t Address, u
   *         This parameter can be a combination of:
   *           @arg @ref FLASH_OB_USER_BOR_ENABLE
   *           @arg @ref FLASH_OB_USER_BOR_LEVEL
-  *           @arg @ref FLASH_OB_USER_IWDG_STOP
   *           @arg @ref FLASH_OB_USER_IWDG_SW
   *           @arg @ref FLASH_OB_USER_SWD_NRST
   * @retval None
@@ -873,9 +872,9 @@ void HAL_FLASH_OBGetConfig(FLASH_OBProgramInitTypeDef *pOBInit)
   /*Get USER*/
   pOBInit->USERType = OB_USER_ALL;
 
-  pOBInit->USERConfig = (FLASH->OPTR)&(FLASH_OPTR_IWDG_SW   | FLASH_OPTR_IWDG_STOP |  \
-                                       FLASH_OPTR_NRST_MODE | FLASH_OPTR_BOR_EN   |    \
-                                       FLASH_OPTR_BOR_LEV   | FLASH_OPTR_SWD_MODE);
+  pOBInit->USERConfig = (FLASH->OPTR)&(FLASH_OPTR_IWDG_SW  | FLASH_OPTR_NRST_MODE | \
+                                       FLASH_OPTR_BOR_EN   | FLASH_OPTR_BOR_LEV   | \
+                                       FLASH_OPTR_SWD_MODE);
 
 }
 

@@ -66,9 +66,6 @@ int main(void)
   /* Initialize USART( for printf use) */
   BSP_USART_Config();
 
-  /* Intialize BUTTON */
-  BSP_PB_Init(BUTTON_KEY,BUTTON_MODE_GPIO);
-
   /* Initialize SPI peripheral */
   APP_ConfigSpi();
 

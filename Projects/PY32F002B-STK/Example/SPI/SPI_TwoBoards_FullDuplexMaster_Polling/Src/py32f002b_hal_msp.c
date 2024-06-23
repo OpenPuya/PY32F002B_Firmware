@@ -53,7 +53,7 @@ void HAL_MspInit(void)
   */
 void HAL_SPI_MspInit(SPI_HandleTypeDef *hspi)
 {
-  GPIO_InitTypeDef  GPIO_InitStruct;
+  GPIO_InitTypeDef  GPIO_InitStruct = {0};
 
   __HAL_RCC_GPIOB_CLK_ENABLE();                   /* GPIOB clock enable */
   __HAL_RCC_GPIOA_CLK_ENABLE();                   /* GPIOA clock enable */

@@ -31,8 +31,8 @@ GCC Version: GNU Arm Embedded Toolchain 10.3-2021.10
 
 Example execution steps:
 1. Compile and download the program and run it
-2. when the PB0 input is greater than 1.65V,LED off
-3. When the PB0 input is less than 1.65V,LED on
+2. When the PB0 input is less than 1.65V,LED on
+3. when the PB0 input is greater than 1.65V,LED off
 ================================================================================
 注意事项：
 

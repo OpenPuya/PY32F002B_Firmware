@@ -164,7 +164,7 @@ typedef struct
   * @param  __COMP1_CLKSOURCE__ specifies the COMP1 clock source.
   *          This parameter can be one of the following values:
   *            @arg @ref RCC_COMP1CLKSOURCE_PCLK   PCLK selected as COMP1 clock
-  *            @arg @ref RCC_COMP1CLKSOURCE_HSI  LSC selected as COMP1 clock
+  *            @arg @ref RCC_COMP1CLKSOURCE_LSC  LSC selected as COMP1 clock
   */
 #define __HAL_RCC_COMP1_CONFIG(__COMP1_CLKSOURCE__) \
                   do {                                                                                                            \
@@ -178,8 +178,8 @@ typedef struct
 
 /** @brief  Macro to get the COMP1 clock source.
   * @retval The clock source can be one of the following values:
-  *            @arg @ref RCC_COMP1CLKSOURCE_PCLK1   PCLK selected as COMP1 clock
-  *            @arg @ref RCC_COMP1CLKSOURCE_HSI  LSC selected as COMP1 clock
+  *            @arg @ref RCC_COMP1CLKSOURCE_PCLK   PCLK selected as COMP1 clock
+  *            @arg @ref RCC_COMP1CLKSOURCE_LSC  LSC selected as COMP1 clock
   */
 #define __HAL_RCC_GET_COMP1_SOURCE() ((uint32_t)(READ_BIT(RCC->CCIPR, RCC_CCIPR_COMP1SEL)))
 #endif /* RCC_CCIPR_COMP1SEL */
@@ -190,7 +190,7 @@ typedef struct
   * @param  __COMP2_CLKSOURCE__ specifies the COMP2 clock source.
   *          This parameter can be one of the following values:
   *            @arg @ref RCC_COMP2CLKSOURCE_PCLK   PCLK selected as COMP2 clock
-  *            @arg @ref RCC_COMP2CLKSOURCE_HSI  LSC selected as COMP2 clock
+  *            @arg @ref RCC_COMP2CLKSOURCE_LSC  LSC selected as COMP2 clock
   */
 #define __HAL_RCC_COMP2_CONFIG(__COMP2_CLKSOURCE__) \
                   do {                                                                                                            \
@@ -203,8 +203,8 @@ typedef struct
 
 /** @brief  Macro to get the COMP2 clock source.
   * @retval The clock source can be one of the following values:
-  *            @arg @ref RCC_COMP2CLKSOURCE_PCLK1   PCLK selected as COMP2 clock
-  *            @arg @ref RCC_COMP2CLKSOURCE_HSI  LSC selected as COMP2 clock
+  *            @arg @ref RCC_COMP2CLKSOURCE_PCLK   PCLK selected as COMP2 clock
+  *            @arg @ref RCC_COMP2CLKSOURCE_LSC  LSC selected as COMP2 clock
   */
 #define __HAL_RCC_GET_COMP2_SOURCE() ((uint32_t)(READ_BIT(RCC->CCIPR, RCC_CCIPR_COMP2SEL)))
 #endif /* RCC_CCIPR_COMP2SEL */
@@ -214,10 +214,9 @@ typedef struct
   *
   * @param  __LPTIM1_CLKSOURCE__ specifies the LPTIM1 clock source.
   *          This parameter can be one of the following values:
-  *            @arg @ref RCC_LPTIM1CLKSOURCE_PCLK1  PCLK1 selected as LPTIM1 clock
-  *            @arg @ref RCC_LPTIM1CLKSOURCE_LSI  HSI  selected as LPTIM1 clock
-  *            @arg @ref RCC_LPTIM1CLKSOURCE_HSI  LSI  selected as LPTIM1 clock
-  *            @arg @ref RCC_LPTIM1CLKSOURCE_LSE  LSE  selected as LPTIM1 clock
+  *            @arg @ref RCC_LPTIMCLKSOURCE_PCLK  PCLK selected as LPTIM1 clock
+  *            @arg @ref RCC_LPTIMCLKSOURCE_LSI  LSI  selected as LPTIM1 clock
+  *            @arg @ref RCC_LPTIMCLKSOURCE_LSE  LSE  selected as LPTIM1 clock
   * @note   Depending on devices and packages, some clocks may not be available.
   *         Refer to device datasheet for clocks availability.
   */
@@ -231,8 +230,8 @@ typedef struct
 
 /** @brief  Macro to get the LPTIM clock source.
   * @retval The clock source can be one of the following values:
-  *            @arg @ref RCC_LPTIMCLKSOURCE_PCLK1  PCLK1 selected as LPTIM clock
-  *            @arg @ref RCC_LPTIMCLKSOURCE_LSI  HSI selected as LPTIM clock
+  *            @arg @ref RCC_LPTIMCLKSOURCE_PCLK  PCLK selected as LPTIM clock
+  *            @arg @ref RCC_LPTIMCLKSOURCE_LSI  LSI selected as LPTIM clock
   *            @arg @ref RCC_LPTIMCLKSOURCE_LSE  LSE selected as LPTIM clock
   * @note   Depending on devices and packages, some clocks may not be available.
   *         Refer to device datasheet for clocks availability.
@@ -276,7 +275,7 @@ uint32_t          HAL_RCCEx_GetPeriphCLKFreq(uint32_t PeriphClk);
 /** @addtogroup RCCEx_Exported_Functions_Group2
   * @{
   */
-#if defined(RCC_BDCR_LSCOEN)
+#if defined(RCC_BDCR_LSCOSEL)
 void              HAL_RCCEx_EnableLSCO(uint32_t LSCOSource);
 void              HAL_RCCEx_DisableLSCO(void);
 #endif

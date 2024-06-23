@@ -61,9 +61,6 @@ int main(void)
   
   /* Initialize debugging serial port (used by printf) */
   BSP_USART_Config();
-
-  /* Initialization button */
-  BSP_PB_Init(BUTTON_KEY,BUTTON_MODE_GPIO);
   
   /*De-initialize SPI configuration*/
   Spi1Handle.Instance               = SPI1;                       /* SPI1 */

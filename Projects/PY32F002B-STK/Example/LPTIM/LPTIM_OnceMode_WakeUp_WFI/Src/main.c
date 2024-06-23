@@ -52,7 +52,7 @@ static void APP_GpioConfig(void);
   */
 int main(void)
 {
-  EXTI_ConfigTypeDef        ExtiCfg;
+  EXTI_ConfigTypeDef        ExtiCfg ={0};
   
   /* Reset of all peripherals, Initializes the Systick. */ 
   HAL_Init();
@@ -173,8 +173,10 @@ static void APP_RCCOscConfig(void)
 static void APP_GpioConfig(void)
 {
   /* Configuration pins */
-  GPIO_InitTypeDef  GPIO_InitStruct;
+  GPIO_InitTypeDef  GPIO_InitStruct = {0};
+
   __HAL_RCC_GPIOA_CLK_ENABLE();                  /* Enable the GPIO clock*/
+
   GPIO_InitStruct.Mode  = GPIO_MODE_OUTPUT_PP;   /* GPIO mode is OutputPP */
   GPIO_InitStruct.Pull  = GPIO_PULLUP;           /* pull up */
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;  /* The speed is high */

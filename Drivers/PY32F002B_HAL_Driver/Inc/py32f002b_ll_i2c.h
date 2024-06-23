@@ -126,7 +126,6 @@ typedef struct
 #define LL_I2C_SR1_ARLO                     I2C_SR1_ARLO            /*!< Arbitration lost                          */
 #define LL_I2C_SR1_AF                       I2C_SR1_AF              /*!< Acknowledge failure flag                  */
 #define LL_I2C_SR1_OVR                      I2C_SR1_OVR             /*!< Overrun/Underrun                          */
-#define LL_I2C_SR1_PECERR                   I2C_SR1_PECERR          /*!< PEC Error in reception (SMBus mode)       */
 #define LL_I2C_SR2_MSL                      I2C_SR2_MSL             /*!< Master/Slave flag                         */
 #define LL_I2C_SR2_BUSY                     I2C_SR2_BUSY            /*!< Bus busy flag                             */
 #define LL_I2C_SR2_TRA                      I2C_SR2_TRA             /*!< Transmitter/receiver direction            */
@@ -776,7 +775,6 @@ __STATIC_INLINE void LL_I2C_EnableIT_ERR(I2C_TypeDef *I2Cx)
   *         Acknowledge Failure(AF)
   *         Overrun/Underrun (OVR)
   *         SMBus Timeout detection (TIMEOUT)
-  *         SMBus PEC error detection (PECERR)
   *         SMBus Alert pin event detection (SMBALERT)
   * @rmtoll CR2          ITERREN       LL_I2C_DisableIT_ERR
   * @param  I2Cx I2C Instance.
@@ -937,17 +935,6 @@ __STATIC_INLINE uint32_t LL_I2C_IsActiveFlag_OVR(I2C_TypeDef *I2Cx)
 }
 
 /**
-  * @brief  Indicate the status of SMBus PEC error flag in reception.
-  * @rmtoll SR1          PECERR        LL_I2C_IsActiveSMBusFlag_PECERR
-  * @param  I2Cx I2C Instance.
-  * @retval State of bit (1 or 0).
-  */
-__STATIC_INLINE uint32_t LL_I2C_IsActiveSMBusFlag_PECERR(I2C_TypeDef *I2Cx)
-{
-  return (READ_BIT(I2Cx->SR1, I2C_SR1_PECERR) == (I2C_SR1_PECERR));
-}
-
-/**
   * @brief  Indicate the status of Bus Busy flag.
   * @note   RESET: Clear default value.
   *         SET: When a Start condition is detected.
@@ -1063,17 +1050,6 @@ __STATIC_INLINE void LL_I2C_ClearFlag_ARLO(I2C_TypeDef *I2Cx)
 __STATIC_INLINE void LL_I2C_ClearFlag_OVR(I2C_TypeDef *I2Cx)
 {
   CLEAR_BIT(I2Cx->SR1, I2C_SR1_OVR);
-}
-
-/**
-  * @brief  Clear SMBus PEC error flag.
-  * @rmtoll SR1          PECERR        LL_I2C_ClearSMBusFlag_PECERR
-  * @param  I2Cx I2C Instance.
-  * @retval None
-  */
-__STATIC_INLINE void LL_I2C_ClearSMBusFlag_PECERR(I2C_TypeDef *I2Cx)
-{
-  CLEAR_BIT(I2Cx->SR1, I2C_SR1_PECERR);
 }
 
 /**

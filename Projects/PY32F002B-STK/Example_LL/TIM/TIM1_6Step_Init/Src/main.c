@@ -83,36 +83,54 @@ static void APP_Config6StepPWMChannel(void)
   TIM1CH1MapInit.Pin        = LL_GPIO_PIN_5;
   TIM1CH1MapInit.Mode       = LL_GPIO_MODE_ALTERNATE;
   TIM1CH1MapInit.Alternate  = LL_GPIO_AF_2;
+  TIM1CH1MapInit.Speed      = LL_GPIO_SPEED_FREQ_HIGH;
+  TIM1CH1MapInit.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  TIM1CH1MapInit.Pull       = LL_GPIO_PULL_NO;
   LL_GPIO_Init(GPIOA,&TIM1CH1MapInit);
 
   /* Set PB2 as TIM1_CH1N */
   TIM1CH1MapInit.Pin        = LL_GPIO_PIN_2;
   TIM1CH1MapInit.Mode       = LL_GPIO_MODE_ALTERNATE;
   TIM1CH1MapInit.Alternate  = LL_GPIO_AF_2;
+  TIM1CH1MapInit.Speed      = LL_GPIO_SPEED_FREQ_HIGH;
+  TIM1CH1MapInit.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  TIM1CH1MapInit.Pull       = LL_GPIO_PULL_NO;
   LL_GPIO_Init(GPIOB,&TIM1CH1MapInit);
 
   /* Set PA3 as TIM1_CH2 */
   TIM1CH1MapInit.Pin        = LL_GPIO_PIN_3;
   TIM1CH1MapInit.Mode       = LL_GPIO_MODE_ALTERNATE;
   TIM1CH1MapInit.Alternate  = LL_GPIO_AF_2;
+  TIM1CH1MapInit.Speed      = LL_GPIO_SPEED_FREQ_HIGH;
+  TIM1CH1MapInit.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  TIM1CH1MapInit.Pull       = LL_GPIO_PULL_NO;
   LL_GPIO_Init(GPIOA,&TIM1CH1MapInit);
 
   /* Set PB1 as TIM1_CH2N */
   TIM1CH1MapInit.Pin        = LL_GPIO_PIN_1;
   TIM1CH1MapInit.Mode       = LL_GPIO_MODE_ALTERNATE;
   TIM1CH1MapInit.Alternate  = LL_GPIO_AF_2;
+  TIM1CH1MapInit.Speed      = LL_GPIO_SPEED_FREQ_HIGH;
+  TIM1CH1MapInit.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  TIM1CH1MapInit.Pull       = LL_GPIO_PULL_NO;
   LL_GPIO_Init(GPIOB,&TIM1CH1MapInit);
 
   /* Set PA4 as TIM1_CH3 */
   TIM1CH1MapInit.Pin        = LL_GPIO_PIN_4;
   TIM1CH1MapInit.Mode       = LL_GPIO_MODE_ALTERNATE;
   TIM1CH1MapInit.Alternate  = LL_GPIO_AF_2;
+  TIM1CH1MapInit.Speed      = LL_GPIO_SPEED_FREQ_HIGH;
+  TIM1CH1MapInit.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  TIM1CH1MapInit.Pull       = LL_GPIO_PULL_NO;
   LL_GPIO_Init(GPIOA,&TIM1CH1MapInit);
 
   /* Set PB0 as TIM1_CH3N */
   TIM1CH1MapInit.Pin        = LL_GPIO_PIN_0;
   TIM1CH1MapInit.Mode       = LL_GPIO_MODE_ALTERNATE;
   TIM1CH1MapInit.Alternate  = LL_GPIO_AF_3;
+  TIM1CH1MapInit.Speed      = LL_GPIO_SPEED_FREQ_HIGH;
+  TIM1CH1MapInit.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  TIM1CH1MapInit.Pull       = LL_GPIO_PULL_NO;
   LL_GPIO_Init(GPIOB,&TIM1CH1MapInit);
 
   /* Configure PWM channel */

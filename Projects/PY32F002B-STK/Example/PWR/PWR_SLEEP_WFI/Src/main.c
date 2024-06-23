@@ -132,8 +132,10 @@ static void APP_SystemClockConfig(void)
   */
 static void APP_ExtiConfig(void)
 {
-  GPIO_InitTypeDef  GPIO_InitStruct;
+  GPIO_InitTypeDef  GPIO_InitStruct = {0};
+
   __HAL_RCC_GPIOA_CLK_ENABLE();                   /* Enable GPIOA clock */
+
   GPIO_InitStruct.Mode  = GPIO_MODE_IT_FALLING;   /* GPIO mode is a falling edge interrupt */
   GPIO_InitStruct.Pull  = GPIO_PULLUP;            /* pull up */
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;   /* The speed is high */

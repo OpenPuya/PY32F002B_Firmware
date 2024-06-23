@@ -89,7 +89,7 @@ static void APP_ADCConfig(void)
 
   hadc.Instance = ADC1;
   
-  hadc.Init.ClockPrescaler        = ADC_CLOCK_SYNC_PCLK_DIV32;               /* Set ADC clock*/
+  hadc.Init.ClockPrescaler        = ADC_CLOCK_SYNC_PCLK_DIV64;               /* Set ADC clock*/
   hadc.Init.Resolution            = ADC_RESOLUTION_12B;                      /* 12-bit resolution for converted data */
   hadc.Init.DataAlign             = ADC_DATAALIGN_RIGHT;                     /* Right-alignment for converted data */
   hadc.Init.ScanConvMode          = ADC_SCAN_DIRECTION_FORWARD;              /* Scan sequence direction: forward */
@@ -100,7 +100,7 @@ static void APP_ADCConfig(void)
   hadc.Init.ExternalTrigConv      = ADC_SOFTWARE_START;                      /* Software start to trig the 1st conversion manually, without external event */
   hadc.Init.ExternalTrigConvEdge  = ADC_EXTERNALTRIGCONVEDGE_NONE;           /* Parameter discarded because software trigger chosen */
   hadc.Init.Overrun               = ADC_OVR_DATA_OVERWRITTEN;                /* DR register is overwritten with the last conversion result in case of overrun */
-  hadc.Init.SamplingTimeCommon    = ADC_SAMPLETIME_41CYCLES_5;               /* The channel sampling time is 41.5 ADC clock cycles */
+  hadc.Init.SamplingTimeCommon    = ADC_SAMPLETIME_239CYCLES_5;              /* The channel sampling time is 239.5 ADC clock cycles */
   if (HAL_ADC_Init(&hadc) != HAL_OK)                                         /* ADC initialization */
   {
     APP_ErrorHandler();

@@ -204,7 +204,7 @@ uint32_t HAL_RCCEx_GetPeriphCLKFreq(uint32_t PeriphClk)
       frequency = HAL_RCC_GetPCLK1Freq();
     }
     else if ((HAL_IS_BIT_SET(RCC->CSR, RCC_CSR_LSIRDY)) && (HAL_IS_BIT_CLR(RCC->BDCR, RCC_BDCR_LSCOSEL)) \
-             && (HAL_IS_BIT_SET(RCC->BDCR, RCC_BDCR_LSCOEN)) && (srcclk == RCC_COMP1CLKSOURCE_LSC))
+             && (srcclk == RCC_COMP1CLKSOURCE_LSC))
     {
       if ((READ_BIT(RCC->ICSCR, RCC_ICSCR_LSI_TRIM) >> RCC_ICSCR_LSI_TRIM_Pos) == RCC_LSICALIBRATION_32768Hz)
       {
@@ -220,7 +220,7 @@ uint32_t HAL_RCCEx_GetPeriphCLKFreq(uint32_t PeriphClk)
       }
     }
     else if ((HAL_IS_BIT_SET(RCC->BDCR, RCC_BDCR_LSERDY)) && (HAL_IS_BIT_SET(RCC->BDCR, RCC_BDCR_LSCOSEL)) \
-             && (HAL_IS_BIT_SET(RCC->BDCR, RCC_BDCR_LSCOEN)) && (srcclk == RCC_COMP1CLKSOURCE_LSC))
+             && (srcclk == RCC_COMP1CLKSOURCE_LSC))
     {
       frequency = LSE_VALUE;
     }
@@ -242,7 +242,7 @@ uint32_t HAL_RCCEx_GetPeriphCLKFreq(uint32_t PeriphClk)
       frequency = HAL_RCC_GetPCLK1Freq();
     }
     else if ((HAL_IS_BIT_SET(RCC->CSR, RCC_CSR_LSIRDY)) && (HAL_IS_BIT_CLR(RCC->BDCR, RCC_BDCR_LSCOSEL)) \
-             && (HAL_IS_BIT_SET(RCC->BDCR, RCC_BDCR_LSCOEN)) && (srcclk == RCC_COMP2CLKSOURCE_LSC))
+             && (srcclk == RCC_COMP2CLKSOURCE_LSC))
     {
       if ((READ_BIT(RCC->ICSCR, RCC_ICSCR_LSI_TRIM) >> RCC_ICSCR_LSI_TRIM_Pos) == RCC_LSICALIBRATION_32768Hz)
       {
@@ -258,7 +258,7 @@ uint32_t HAL_RCCEx_GetPeriphCLKFreq(uint32_t PeriphClk)
       }
     }
     else if ((HAL_IS_BIT_SET(RCC->BDCR, RCC_BDCR_LSERDY)) && (HAL_IS_BIT_SET(RCC->BDCR, RCC_BDCR_LSCOSEL)) \
-             && (HAL_IS_BIT_SET(RCC->BDCR, RCC_BDCR_LSCOEN)) && (srcclk == RCC_COMP2CLKSOURCE_LSC))
+             && (srcclk == RCC_COMP2CLKSOURCE_LSC))
     {
       frequency = LSE_VALUE;
     }
@@ -331,8 +331,9 @@ uint32_t HAL_RCCEx_GetPeriphCLKFreq(uint32_t PeriphClk)
 @endverbatim
   * @{
   */
+
 /**
-  * @brief  Select the Low Speed clock source to output on LSCO pin (PA2).
+  * @brief  Select the Low Speed clock source.
   * @param  LSCOSource  specifies the Low Speed clock source to output.
   *          This parameter can be one of the following values:
   *            @arg @ref RCC_LSCOSOURCE_LSI  LSI clock selected as LSCO source
@@ -344,7 +345,7 @@ void HAL_RCCEx_EnableLSCO(uint32_t LSCOSource)
   /* Check the parameters */
   assert_param(IS_RCC_LSCOSOURCE(LSCOSource));
 
-  MODIFY_REG(RCC->BDCR, RCC_BDCR_LSCOSEL | RCC_BDCR_LSCOEN, LSCOSource | RCC_BDCR_LSCOEN);
+  MODIFY_REG(RCC->BDCR, RCC_BDCR_LSCOSEL, LSCOSource);
 }
 
 /**
@@ -353,7 +354,7 @@ void HAL_RCCEx_EnableLSCO(uint32_t LSCOSource)
   */
 void HAL_RCCEx_DisableLSCO(void)
 {
-  CLEAR_BIT(RCC->BDCR, RCC_BDCR_LSCOEN);
+/*  CLEAR_BIT(RCC->BDCR, RCC_BDCR_LSCOEN); */
 }
 /**
   * @}

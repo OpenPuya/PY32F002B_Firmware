@@ -117,7 +117,7 @@ typedef enum
 #define BUTTONx_GPIO_CLK_DISABLE(__INDEX__)     (((__INDEX__) == 0) ? USER_BUTTON_GPIO_CLK_DISABLE() : 0)
 
 
-//debug printf redirect config
+/* debug printf redirect config */
 #define DEBUG_USART_BAUDRATE                    115200
 
 #define DEBUG_USART                             USART1

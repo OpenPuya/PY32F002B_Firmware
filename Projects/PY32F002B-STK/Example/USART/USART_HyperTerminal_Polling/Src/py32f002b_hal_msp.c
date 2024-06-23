@@ -54,7 +54,7 @@ void HAL_MspInit(void)
   */
 void HAL_UART_MspInit(UART_HandleTypeDef *huart)
 {
-  GPIO_InitTypeDef  GPIO_InitStruct;
+  GPIO_InitTypeDef  GPIO_InitStruct = {0};
 
   /* Clock Enable */
   __HAL_RCC_GPIOB_CLK_ENABLE();
@@ -74,9 +74,5 @@ void HAL_UART_MspInit(UART_HandleTypeDef *huart)
   GPIO_InitStruct.Pin = GPIO_PIN_5;
   GPIO_InitStruct.Alternate = GPIO_AF1_USART1;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-  
-  /* USART1 interrupt enable */
-  HAL_NVIC_SetPriority(USART1_IRQn, 0, 1);
-  HAL_NVIC_EnableIRQ(USART1_IRQn);
 }
 /************************ (C) COPYRIGHT Puya *****END OF FILE******************/

@@ -155,7 +155,7 @@ static void APP_LedBlinking(void)
 {
   while (1)
   {
-    BSP_LED_Toggle(LED_GREEN);; 
+    BSP_LED_Toggle(LED_GREEN);
     HAL_Delay(500);
   }
 }

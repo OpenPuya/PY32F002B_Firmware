@@ -35,7 +35,7 @@
 #define DATA_LENGTH       15                /* Data length*/
 #define I2C_ADDRESS        0xA0             /* Local address 0xA0 */
 #define I2C_SPEEDCLOCK   100000             /* Communication speed 100K */
-#define I2C_DUTYCYCLE    I2C_DUTYCYCLE_2    /* Duty cycle */
+#define I2C_DUTYCYCLE    I2C_DUTYCYCLE_16_9 /* Duty cycle */
 
 /* Private variables ---------------------------------------------------------*/
 I2C_HandleTypeDef I2cHandle;
@@ -60,9 +60,6 @@ int main(void)
   
   /* Initialize LED */
   BSP_LED_Init(LED_GREEN);
-
-  /* Initialization button */
-  BSP_PB_Init(BUTTON_KEY,BUTTON_MODE_GPIO);
   
   /* I2C initialization */
   I2cHandle.Instance             = I2C;                       /* I2C */

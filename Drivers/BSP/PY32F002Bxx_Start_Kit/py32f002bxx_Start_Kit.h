@@ -105,7 +105,7 @@ typedef enum
 
 
 #ifdef HAL_UART_MODULE_ENABLED
-//debug printf redirect config
+/* debug printf redirect config */
 #define DEBUG_USART_BAUDRATE                    115200
 
 #define DEBUG_USART                             USART1

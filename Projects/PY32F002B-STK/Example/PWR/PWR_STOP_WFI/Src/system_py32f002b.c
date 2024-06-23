@@ -132,10 +132,10 @@ void SystemCoreClockUpdate(void)             /* Get Core Clock Frequency      */
 void SystemInit(void)
 {
   /*Set the HSI clock to 24MHz by default*/
-  RCC->ICSCR = (RCC->ICSCR & 0xFFFF0000) | (*(uint32_t *)(0x1FFF0100));
+  RCC->ICSCR = (RCC->ICSCR & 0xFFFF0000) | ((*(uint32_t *)(0x1FFF0100) & 0xFFFF));
 
   /*Set the LSI clock to 32.768KHz by default*/
-  RCC->ICSCR = (RCC->ICSCR & 0xFE00FFFF) | ((*(uint32_t *)(0x1FFF0144)) << RCC_ICSCR_LSI_TRIM_Pos);
+  RCC->ICSCR = (RCC->ICSCR & 0xFE00FFFF) | (((*(uint32_t *)(0x1FFF0144)) & 0x1FF) << RCC_ICSCR_LSI_TRIM_Pos);
 
   /* Configure the Vector Table location add offset address ------------------*/
 #ifdef VECT_TAB_SRAM

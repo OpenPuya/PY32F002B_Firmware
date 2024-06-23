@@ -95,7 +95,6 @@ typedef struct
                                    @ref FLASH_OB_USER_BOR_ENABLE,
                                    @ref FLASH_OB_USER_BOR_LEVEL,
                                    @ref FLASH_OB_USER_IWDG_SW,
-                                   @ref FLASH_OB_USER_IWDG_STOP,
                                    @ref FLASH_OB_USER_SWD_NRST */
 } FLASH_OBProgramInitTypeDef;
 
@@ -232,9 +231,8 @@ typedef struct
 #define OB_USER_BOR_LEV         FLASH_OPTR_BOR_LEV
 #define OB_USER_IWDG_SW         FLASH_OPTR_IWDG_SW
 #define OB_USER_SWD_NRST_MODE   (FLASH_OPTR_SWD_MODE | FLASH_OPTR_NRST_MODE)
-#define OB_USER_IWDG_STOP       FLASH_OPTR_IWDG_STOP
 #define OB_USER_ALL             (OB_USER_BOR_EN  | OB_USER_BOR_LEV   | OB_USER_IWDG_SW | \
-                                 OB_USER_SWD_NRST_MODE | OB_USER_IWDG_STOP)
+                                 OB_USER_SWD_NRST_MODE)
 /**
   * @}
   */
@@ -288,16 +286,6 @@ typedef struct
 
 #define OB_IWDG_SW                     FLASH_OPTR_IWDG_SW  /*!< Software IWDG selected */
 #define OB_IWDG_HW                     0x00000000U         /*!< Hardware IWDG selected */
-
-/**
-  * @}
-  */
-  
-/** @defgroup FLASH_OB_USER_IWDG_STOP FLASH IWDG Counter Freeze in STOP
-  * @{
-  */
-#define OB_IWDG_STOP_FREEZE            0x00000000U  /*!< Freeze IWDG counter in STOP mode */
-#define OB_IWDG_STOP_ACTIVE            ((uint32_t)FLASH_OPTR_IWDG_STOP) /*!< IWDG counter active in STOP mode */
 
 /**
   * @}

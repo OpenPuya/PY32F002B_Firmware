@@ -33,8 +33,6 @@
 
 /* Private define ------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-EXTI_HandleTypeDef exti_handle;
-
 /* Private user code ---------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
@@ -68,8 +66,10 @@ int main(void)
 static void APP_ConfigureExti(void)
 {
   /* Configuration pins */
-  GPIO_InitTypeDef  GPIO_InitStruct;
+  GPIO_InitTypeDef  GPIO_InitStruct = {0};
+
   __HAL_RCC_GPIOA_CLK_ENABLE();                  /* Enable GPIOA clock */
+
   GPIO_InitStruct.Mode  = GPIO_MODE_IT_FALLING;  /* GPIO mode is a falling edge interrupt */
   GPIO_InitStruct.Pull  = GPIO_PULLUP;           /* pull up */
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;  /* The speed is high */

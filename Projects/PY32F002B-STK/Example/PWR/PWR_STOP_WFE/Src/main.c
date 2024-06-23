@@ -74,6 +74,9 @@ int main(void)
   
   /* Entering STOP mode */
   HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFE); 
+
+  /* Entering DEEP STOP mode (some devices may not be supported) */
+  /* HAL_PWR_EnterSTOPMode(PWR_DEEPLOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFE); */
   
   /* Systick interrupt enable */
   HAL_ResumeTick();
@@ -132,15 +135,15 @@ static void APP_SystemClockConfig(void)
   */
 static void APP_ExtiConfig(void)
 {
-  GPIO_InitTypeDef  GPIO_InitStruct;
+  GPIO_InitTypeDef  GPIO_InitStruct = {0};
+
   __HAL_RCC_GPIOA_CLK_ENABLE();                  /* Enable GPIOA clock */
+
   GPIO_InitStruct.Mode  = GPIO_MODE_EVT_FALLING; /* GPIO mode is a falling edge event */
   GPIO_InitStruct.Pull  = GPIO_PULLUP;           /* pull up */
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;  /* The speed is high */
   GPIO_InitStruct.Pin = GPIO_PIN_6;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-  HAL_NVIC_EnableIRQ(EXTI4_15_IRQn);             /* Enable EXTI interrupt */
 }
 
 /**

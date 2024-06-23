@@ -78,7 +78,7 @@ static void APP_ConfigGPIO(void)
   LL_IOP_GRP1_EnableClock(LL_IOP_GRP1_PERIPH_GPIOA);
 
   /* Configure PA07 as an MCO alternate function*/
-  LL_GPIO_InitTypeDef GPIO_InitStruct;
+  LL_GPIO_InitTypeDef GPIO_InitStruct = {0};
   /* Select pin 7*/
   GPIO_InitStruct.Pin = LL_GPIO_PIN_7;
   /* Select alternate function mode */

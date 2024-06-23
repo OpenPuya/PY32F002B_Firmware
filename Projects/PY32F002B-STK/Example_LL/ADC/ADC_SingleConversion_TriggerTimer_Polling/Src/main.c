@@ -111,8 +111,8 @@ static void APP_AdcConfig(void)
   /* Configure PA7 pin in analog input mode */
   LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_7, LL_GPIO_MODE_ANALOG);
 
-  /* Set ADC clock to pclk/8 */
-  LL_ADC_SetClock(ADC1, LL_ADC_CLOCK_SYNC_PCLK_DIV8);
+  /* Set ADC clock to pclk/64 */
+  LL_ADC_SetClock(ADC1, LL_ADC_CLOCK_SYNC_PCLK_DIV64);
 
   /* Set ADC resolution to 12 bit */
   LL_ADC_SetResolution(ADC1, LL_ADC_RESOLUTION_12B);

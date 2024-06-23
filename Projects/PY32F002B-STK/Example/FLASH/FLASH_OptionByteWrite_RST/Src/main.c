@@ -33,8 +33,8 @@
 #include "main.h"
 
 /* Private define ------------------------------------------------------------*/
-#define MODE_PC0 OB_SWD_PB6_GPIO_PC0
-/* #define MODE_PC0 OB_SWD_PB6_NRST_PC0 */
+#define OB_GPIO_PIN_MODE OB_SWD_PB6_GPIO_PC0
+/* #define OB_GPIO_PIN_MODE OB_SWD_PB6_NRST_PC0 */
 
 
 /* Private variables ---------------------------------------------------------*/
@@ -62,7 +62,7 @@ int main(void)
   /* Wait For Button */
   while(BSP_PB_GetState(BUTTON_KEY) == 1);
    
-  if(READ_BIT(FLASH->OPTR, OB_USER_SWD_NRST_MODE)!= MODE_PC0 )
+  if(READ_BIT(FLASH->OPTR, OB_USER_SWD_NRST_MODE)!= OB_GPIO_PIN_MODE )
   {
     /* OPTION Program */
     APP_FlashOBProgram();
@@ -90,9 +90,9 @@ static void APP_FlashOBProgram(void)
   HAL_FLASH_OB_Unlock();     /* Unlock Option */
   
   OBInitCfg.OptionType = OPTIONBYTE_USER;
-  OBInitCfg.USERType = OB_USER_BOR_EN | OB_USER_BOR_LEV | OB_USER_IWDG_SW | OB_USER_IWDG_STOP | OB_USER_SWD_NRST_MODE;
+  OBInitCfg.USERType = OB_USER_BOR_EN | OB_USER_BOR_LEV | OB_USER_IWDG_SW | OB_USER_SWD_NRST_MODE;
 
-  OBInitCfg.USERConfig = OB_BOR_DISABLE | OB_BOR_LEVEL_3p1_3p2 | OB_IWDG_SW | OB_IWDG_STOP_ACTIVE | MODE_PC0 ;
+  OBInitCfg.USERConfig = OB_BOR_DISABLE | OB_BOR_LEVEL_3p1_3p2 | OB_IWDG_SW | OB_GPIO_PIN_MODE;
 
   /* Option Program */
   HAL_FLASH_OBProgram(&OBInitCfg);

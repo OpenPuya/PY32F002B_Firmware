@@ -123,10 +123,12 @@ static void APP_SystemClockConfig(void)
   */
 static void APP_ExtiConfig(void)
 {
+   LL_GPIO_InitTypeDef GPIO_InitStruct = {0};
+   LL_EXTI_InitTypeDef EXTI_InitStruct = {0};
+
    /* Enable GPIOA clock */
    LL_IOP_GRP1_EnableClock (LL_IOP_GRP1_PERIPH_GPIOA);
 
-   LL_GPIO_InitTypeDef GPIO_InitStruct;
    /* Choose PA06 Pin */
    GPIO_InitStruct.Pin = LL_GPIO_PIN_6;
    /* Choose input mode */
@@ -139,7 +141,6 @@ static void APP_ExtiConfig(void)
    /* Configure PA6 as the EXTI6 interrupt input */
    LL_EXTI_SetEXTISource(LL_EXTI_CONFIG_PORTA,LL_EXTI_CONFIG_LINE6);
 
-   LL_EXTI_InitTypeDef EXTI_InitStruct;
    /* Enable EXTI6 */
    EXTI_InitStruct.Line = LL_EXTI_LINE_6;
 
@@ -164,6 +165,9 @@ static void APP_EnterStop(void)
 
   /* STOP mode with low power regulator ON */
   LL_PWR_SetLprMode(LL_PWR_LPR_MODE_LPR);
+
+  /* STOP mode with deep low power regulator ON (some devices may not be supported) */
+  /* LL_PWR_SetLprMode(LL_PWR_LPR_MODE_DLPR); */
 
   /* SRAM retention voltage aligned with digital LDO output */
   LL_PWR_SetStopModeSramVoltCtrl(LL_PWR_SRAM_RETENTION_VOLT_CTRL_LDO);

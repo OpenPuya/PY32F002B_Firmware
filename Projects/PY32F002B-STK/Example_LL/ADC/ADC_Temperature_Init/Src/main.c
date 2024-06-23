@@ -98,8 +98,8 @@ int main(void)
 static void APP_AdcConfig(void)
 {
   __IO uint32_t wait_loop_index = 0;
-  LL_ADC_InitTypeDef ADC_Init;
-  LL_ADC_REG_InitTypeDef LL_ADC_REG_InitType;
+  LL_ADC_InitTypeDef ADC_Init = {0};
+  LL_ADC_REG_InitTypeDef LL_ADC_REG_InitType = {0};
 
   /* Enable ADC clock */
   LL_APB1_GRP2_EnableClock(LL_APB1_GRP2_PERIPH_ADC1);

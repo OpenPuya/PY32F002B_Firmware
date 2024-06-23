@@ -49,11 +49,6 @@ void HAL_MspInit(void)
   
   BSP_LED_Init(LED_GREEN);
 
-  /* Enable LSI Clock */
-  __HAL_RCC_LSI_ENABLE();
-
-  /* Wait until LSI READY */
-  while (READ_BIT(RCC->CSR, RCC_CSR_LSIRDY) == 0U);
 }
 
 /************************ (C) COPYRIGHT Puya *****END OF FILE******************/

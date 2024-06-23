@@ -47,10 +47,10 @@ receives data, the LED lights on the host board and slave board respectively.
 Otherwise, the LED light is blinking
 ================================================================================
 注意事项：
-PA9     ------> I2C_SCL
-PA10    ------> I2C_SDA
+PB3     ------> I2C_SCL
+PB4     ------> I2C_SDA
 
 Notes:
-PA9     ------> I2C_SCL
-PA10    ------> I2C_SDA
+PB3     ------> I2C_SCL
+PB4     ------> I2C_SDA
 ================================================================================

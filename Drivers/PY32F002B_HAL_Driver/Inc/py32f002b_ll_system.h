@@ -184,18 +184,6 @@ extern "C" {
 /** @defgroup SYSTEM_LL_EC_APB1_GRP1_STOP_IP  DBGMCU APB1 GRP1 STOP IP
   * @{
   */
-#if defined(DBGMCU_APB_FZ1_DBG_TIM3_STOP)
-#define LL_DBGMCU_APB1_GRP1_TIM3_STOP      DBGMCU_APB_FZ1_DBG_TIM3_STOP        /*!< TIM3 counter stopped when core is halted */
-#endif
-#if defined(DBGMCU_APB_FZ1_DBG_TIM6_STOP)
-#define LL_DBGMCU_APB1_GRP1_TIM6_STOP      DBGMCU_APB_FZ1_DBG_TIM6_STOP        /*!< TIM6 counter stopped when core is halted */
-#endif
-#if defined(DBGMCU_APB_FZ1_DBG_IWDG_STOP)
-#define LL_DBGMCU_APB1_GRP1_IWDG_STOP      DBGMCU_APB_FZ1_DBG_IWDG_STOP        /*!< Debug Independent Watchdog stopped when Core is halted */
-#endif
-#if defined(DBGMCU_APB_FZ1_DBG_I2C1_STOP)
-#define LL_DBGMCU_APB1_GRP1_I2C1_STOP      DBGMCU_APB_FZ1_DBG_I2C1_STOP        /*!< I2C1 stopped when Core is halted */
-#endif
 #if defined(DBGMCU_APB_FZ1_DBG_LPTIM_STOP)
 #define LL_DBGMCU_APB1_GRP1_LPTIM1_STOP    DBGMCU_APB_FZ1_DBG_LPTIM_STOP      /*!< LPTIM1 counter stopped when Core is halted */
 #endif
@@ -211,12 +199,6 @@ extern "C" {
 #endif
 #if defined(DBGMCU_APB_FZ2_DBG_TIM14_STOP)
 #define LL_DBGMCU_APB1_GRP2_TIM14_STOP     DBGMCU_APB_FZ2_DBG_TIM14_STOP       /*!< TIM14 counter stopped when core is halted */
-#endif
-#if defined(DBGMCU_APB_FZ2_DBG_TIM16_STOP)
-#define LL_DBGMCU_APB1_GRP2_TIM16_STOP     DBGMCU_APB_FZ2_DBG_TIM16_STOP       /*!< TIM16 counter stopped when core is halted */
-#endif
-#if defined(DBGMCU_APB_FZ2_DBG_TIM17_STOP)
-#define LL_DBGMCU_APB1_GRP2_TIM17_STOP     DBGMCU_APB_FZ2_DBG_TIM17_STOP       /*!< TIM17 counter stopped when core is halted */
 #endif
 /**
   * @}
@@ -486,7 +468,7 @@ __STATIC_INLINE uint32_t LL_FLASH_GetLatency(void)
 
 /**
   * @brief  Return the device identifier
-  * @retval Values between Min_Data=0x00 and Max_Data=0xFFF
+  * @retval Values between Min_Data=0x00 and Max_Data=0x03
   */
 __STATIC_INLINE uint32_t LL_DBGMCU_GetDeviceID(void)
 {
@@ -534,8 +516,6 @@ __STATIC_INLINE uint32_t LL_DBGMCU_IsEnabledDBGStopMode(void)
   * @note   Depending on devices and packages, some Peripherals may not be available.
   *         Refer to device datasheet for Peripherals availability.
   * @param  Periphs This parameter can be a combination of the following values:
-  *         @arg @ref LL_DBGMCU_APB1_GRP1_I2C1_STOP
-  *         @arg @ref LL_DBGMCU_APB1_GRP1_IWDG_STOP
   *         @arg @ref LL_DBGMCU_APB1_GRP1_LPTIM1_STOP
   * @retval None
   */
@@ -549,8 +529,6 @@ __STATIC_INLINE void LL_DBGMCU_APB1_GRP1_FreezePeriph(uint32_t Periphs)
   * @note   Depending on devices and packages, some Peripherals may not be available.
   *         Refer to device datasheet for Peripherals availability.
   * @param  Periphs This parameter can be a combination of the following values:
-  *         @arg @ref LL_DBGMCU_APB1_GRP1_I2C1_STOP
-  *         @arg @ref LL_DBGMCU_APB1_GRP1_IWDG_STOP
   *         @arg @ref LL_DBGMCU_APB1_GRP1_LPTIM1_STOP
   * @retval None
   */
@@ -564,8 +542,6 @@ __STATIC_INLINE void LL_DBGMCU_APB1_GRP1_UnFreezePeriph(uint32_t Periphs)
   * @note   Depending on devices and packages, some Peripherals may not be available.
   *         Refer to device datasheet for Peripherals availability.
   * @param  Periphs This parameter can be one of the following values:
-  *         @arg @ref LL_DBGMCU_APB1_GRP1_I2C1_STOP
-  *         @arg @ref LL_DBGMCU_APB1_GRP1_IWDG_STOP
   *         @arg @ref LL_DBGMCU_APB1_GRP1_LPTIM1_STOP
   * @retval State of bit (1 or 0).
   */

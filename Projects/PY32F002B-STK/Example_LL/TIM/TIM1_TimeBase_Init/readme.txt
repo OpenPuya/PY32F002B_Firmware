@@ -24,7 +24,7 @@ GCC Version: GNU Arm Embedded Toolchain 10.3-2021.10
 ================================================================================
 使用步骤：
 1. 编译下载程序到MCU，并运行
-2. 程序会每隔1s在TIM的更新中翻转LED。
+2. 程序会每隔1s在TIM的更新中断中翻转LED。
 
 Example execution steps:
 1. compile and download the program to MCU and run it;

@@ -3,10 +3,10 @@
                                 Sample Description
 ================================================================================
 功能描述：
-此样例演示了LPTIM单次模式中断唤醒STOP模式。
+此样例演示了LPTIM单次模式事件唤醒STOP模式。
 
 Function descriptions:
-This sample demonstrates waking up from stop mode by LPTIM(single mode) interrupt 
+This sample demonstrates waking up from stop mode by LPTIM(single mode) event
 request.
 ================================================================================
 测试环境：

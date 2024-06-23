@@ -88,11 +88,10 @@ int main(void)
 
   while (1)
   {
-    /* Wrong CRC value: LED toggle */
+    /* Wrong CRC value: LED off */
     if (CRCValue != ExpectedCRCValue)
     {
-      BSP_LED_Toggle(LED_GREEN);
-      LL_mDelay(200);
+      BSP_LED_Off(LED_GREEN);
     }
     /* Right CRC valu：LED on */
     else

@@ -3,11 +3,10 @@
                              Sample Description
 ================================================================================
 功能描述：
-此样例配置系统时钟为LSE，并通过MCO（PA07）引脚输出。
+此样例使能LSE，并通过MCO（PA07）引脚输出。
 
 Function descriptions:
-This example configures the system clock as LSE and outputs it through the 
-MCO (PA07) pin.
+This sample enables LSE and outputs it on the MCO (PA07) pin.
 ================================================================================
 测试环境：
 测试用板：PY32F002B_STK
@@ -33,15 +32,6 @@ Example execution steps:
 it matches the configured LSE frequency.
 ================================================================================
 注意事项：
-1. 样例中默认启动的系统时钟是HSI，只有按下用户按键后，系统时钟才会切换到LSE。
-2. 注意系统时钟切换为LSE之前，要求把systick中断关闭掉，因为systick中断默认是1ms
-一次中断，由于LSE时钟频率过低，systick中断会导致程序无法正常运行。
 
 Notes:
-1.The default startup system clock in the example is HSI, and the system clock
-will only switch to LSE after pressing the user button.
-2.Before switching the system clock to LSE, it is required to turn off the
-systick interrupt, as the systick interrupt defaults to a 1ms interrupt.
-Due to the low LSE clock frequency, the systick interrupt can cause the program
-to not run properly.
 ================================================================================

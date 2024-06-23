@@ -34,12 +34,12 @@
 
 /* Private define ------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-/* 发送缓冲区*/
+/* Send buffer define */
 uint8_t aTxBuffer[] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
 uint8_t ubNbDataToTransmit = sizeof(aTxBuffer);
 uint8_t ubTransmitIndex = 0;
 
-/* 接收缓冲区 */
+/* Receive buffer define */
 uint8_t aRxBuffer[sizeof(aTxBuffer)] = {0};
 uint8_t ubNbDataToReceive = sizeof(aTxBuffer);
 uint8_t ubReceiveIndex = 0;
@@ -64,9 +64,6 @@ int main(void)
 
   /* Initialize USART( for printf use) */
   BSP_USART_Config();
-
-  /* Intialize BUTTON */
-  BSP_PB_Init(BUTTON_KEY,BUTTON_MODE_GPIO);
 
   /* Initialize SPI peripheral */
   APP_ConfigSpi();

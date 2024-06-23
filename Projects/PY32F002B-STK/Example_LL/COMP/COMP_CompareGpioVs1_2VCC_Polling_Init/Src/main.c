@@ -75,7 +75,7 @@ int main(void)
   */
 static void APP_CompInit(void)
 {
-  LL_COMP_InitTypeDef COMPInitDef={0};
+  LL_COMP_InitTypeDef COMPInitDef = {0};
 
   /* Enable GPIOA clock */
   LL_IOP_GRP1_EnableClock(LL_IOP_GRP1_PERIPH_GPIOA);

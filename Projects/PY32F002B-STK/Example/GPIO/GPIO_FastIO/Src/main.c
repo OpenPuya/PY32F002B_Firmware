@@ -90,7 +90,7 @@ int main(void)
   */
 static void APP_GpioInit()
 {
-  GPIO_InitTypeDef  GPIO_InitStruct;
+  GPIO_InitTypeDef  GPIO_InitStruct = {0};
 
   __HAL_RCC_GPIOA_CLK_ENABLE();                          /* GPIOA clock enable */
 

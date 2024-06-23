@@ -90,7 +90,7 @@ void SysTick_Handler(void)
 /******************************************************************************/
 void TIM1_BRK_UP_TRG_COM_IRQHandler(void)
 {
-  if((LL_TIM_ReadReg(TIM1,SR) & LL_TIM_SR_UIF) == 1 && LL_TIM_IsEnabledIT_UPDATE(TIM1))
+  if(LL_TIM_IsActiveFlag_UPDATE(TIM1) && LL_TIM_IsEnabledIT_UPDATE(TIM1))
   {
     LL_TIM_ClearFlag_UPDATE(TIM1);
     

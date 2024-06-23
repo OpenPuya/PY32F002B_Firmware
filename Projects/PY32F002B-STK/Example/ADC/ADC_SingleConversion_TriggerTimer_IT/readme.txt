@@ -22,11 +22,11 @@ GCC Version: GNU Arm Embedded Toolchain 10.3-2021.10
 ================================================================================
 使用步骤：
 1. 编译并下载程序；
-2. 串口每隔1s打印一次通道4(PA7)的电压值.
+2. 串口每隔1s打印一次通道4(PA7)的转换值.
 
 Example execution steps:
 1. Compile and download the program;
-2. The serial port prints the voltage value of channel 4 (PA7) every 1 second
+2. The serial port prints the conversion value of channel 4 (PA7) every 1 second
 ================================================================================
 注意事项：
 通过USB转TTL模块连接PC与STK板,STK板与USB转TTL模块的连线方式如下；

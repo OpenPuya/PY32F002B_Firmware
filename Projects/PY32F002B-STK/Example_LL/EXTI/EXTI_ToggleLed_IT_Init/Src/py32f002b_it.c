@@ -90,7 +90,7 @@ void SysTick_Handler(void)
 /* please refer to the startup file.                                          */
 /******************************************************************************/
 /**
-  * @brief This function handles EXTI4_15 interrupt.
+  * @brief This function handles EXTI0_1 interrupt.
   */
 void EXTI0_1_IRQHandler(void)
 {

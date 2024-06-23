@@ -48,7 +48,8 @@ static void APP_ConfigTIM1(void);
 int main(void)
 {
   /* Enable TIM1 clock */
-  LL_APB1_GRP2_EnableClock(RCC_APBENR2_TIM1EN);
+  LL_APB1_GRP2_EnableClock(LL_APB1_GRP2_PERIPH_TIM1);
+  
   /* Configure Systemclock */
   APP_SystemClockConfig();
 

@@ -40,7 +40,6 @@
 /* Private function prototypes -----------------------------------------------*/
 /* Private user code ---------------------------------------------------------*/
 /* External variables --------------------------------------------------------*/
-extern LPTIM_HandleTypeDef       LPTIMConf;
 
 /******************************************************************************/
 /*          Cortex-M0+ Processor Interruption and Exception Handlers          */

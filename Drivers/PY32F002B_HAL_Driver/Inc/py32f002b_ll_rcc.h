@@ -836,7 +836,6 @@ __STATIC_INLINE uint32_t LL_RCC_LSI_GetFreq(void)
 /**
   * @}
   */
-#if defined(RCC_BDCR_LSCOEN)
 /** @defgroup RCC_LL_EF_LSCO LSCO
   * @{
   */
@@ -848,7 +847,7 @@ __STATIC_INLINE uint32_t LL_RCC_LSI_GetFreq(void)
   */
 __STATIC_INLINE void LL_RCC_LSCO_Enable(void)
 {
-  SET_BIT(RCC->BDCR, RCC_BDCR_LSCOEN);
+/*  SET_BIT(RCC->BDCR, RCC_BDCR_LSCOEN); */
 }
 
 /**
@@ -858,8 +857,9 @@ __STATIC_INLINE void LL_RCC_LSCO_Enable(void)
   */
 __STATIC_INLINE void LL_RCC_LSCO_Disable(void)
 {
-  CLEAR_BIT(RCC->BDCR, RCC_BDCR_LSCOEN);
+/*  CLEAR_BIT(RCC->BDCR, RCC_BDCR_LSCOEN); */
 }
+
 #if defined(RCC_BDCR_LSCOSEL)
 /**
   * @brief  Configure Low speed clock selection
@@ -889,7 +889,6 @@ __STATIC_INLINE uint32_t LL_RCC_LSCO_GetSource(void)
 /**
   * @}
   */
-#endif
 #endif
 /** @defgroup RCC_LL_EF_System System
   * @{

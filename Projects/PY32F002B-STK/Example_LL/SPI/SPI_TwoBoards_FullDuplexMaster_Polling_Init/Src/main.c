@@ -165,10 +165,6 @@ static void APP_ConfigSPI(void)
   GPIO_InitStruct.Alternate = LL_GPIO_AF_0;
   LL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /* Enable SPI1 interrupt request */
-  NVIC_SetPriority(SPI1_IRQn, 1);
-  NVIC_EnableIRQ(SPI1_IRQn);
-
   /* Set SPI1 features */
   SPI_InitStruct.TransferDirection = LL_SPI_FULL_DUPLEX;
   SPI_InitStruct.Mode = LL_SPI_MODE_MASTER;

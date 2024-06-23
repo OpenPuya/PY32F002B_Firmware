@@ -25,8 +25,8 @@ GCC Version: GNU Arm Embedded Toolchain 10.3-2021.10
 1. 编译下载程序到MCU，并运行；
 2. 请将MCU断电并重新上电；
 3. 按下按键，RST键变为GPIO功能，再次按下按键，LED亮；
-4. 注释掉"MODE_PC0 OB_SWD_PB6_GPIO_PC0",打开"MODE_PC0 OB_SWD_PB6_NRST_PC0",
-编译重新下载到MCU;
+4. 注释掉"OB_GPIO_PIN_MODE OB_SWD_PB6_GPIO_PC0",打开"OB_GPIO_PIN_MODE 
+OB_SWD_PB6_NRST_PC0",编译重新下载到MCU;
 5. 将MCU断电并重新上电；
 6. 按下按键，RST键变为RESET功能，再次按下按键，LED亮；
 
@@ -34,8 +34,8 @@ Example execution steps:
 1. compile and download the program to the MCU and run it;
 2. power off and re-power the MCU;
 3. Press the button,the RST key changes to GPIO function and the LED lights up;
-4. Comment out "MODE_PC0 OB_SWD_PB6_GPIO_PC0" and turn on "MODE_PC0 OB_SWD_PB6_
-NRST_PC0".Compile and re-download to MCU.
+4. Comment out "OB_GPIO_PIN_MODE OB_SWD_PB6_GPIO_PC0" and turn on "OB_GPIO_PIN_MODE
+ OB_SWD_PB6_NRST_PC0".Compile and re-download to MCU.
 5. power off and re-power the MCU;
 6. Press the button,the RST key changes to RESET function and the LED lights up;
 ================================================================================
