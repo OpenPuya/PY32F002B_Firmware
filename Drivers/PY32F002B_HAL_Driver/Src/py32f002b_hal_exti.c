@@ -566,4 +566,4 @@ void HAL_EXTI_GenerateSWI(EXTI_HandleTypeDef *hexti)
   * @}
   */
 
-/************************ (C) COPYRIGHT Puya *****END OF FILE****/
+/************************ (C) COPYRIGHT Puya *****END OF FILE******************/

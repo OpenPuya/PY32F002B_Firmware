@@ -214,7 +214,7 @@ static void APP_ConfigLptim(void)
   LL_LPTIM_Enable(LPTIM);
 
   /* Set autoreload value */
-  LL_LPTIM_SetAutoReload(LPTIM, 51);
+  LL_LPTIM_SetAutoReload(LPTIM, 51 - 1);
 
   /* LPTIM starts in continuous mode */
   LL_LPTIM_StartCounter(LPTIM, LL_LPTIM_OPERATING_MODE_CONTINUOUS);

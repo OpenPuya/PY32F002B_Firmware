@@ -31,6 +31,10 @@
 #include "main.h"
 
 /* Private define ------------------------------------------------------------*/
+#define LED_GPIO_PIN                 LED3_PIN
+#define LED_GPIO_PORT                LED3_GPIO_PORT
+#define LED_GPIO_CLK_ENABLE()        LED3_GPIO_CLK_ENABLE()
+
 /* Private variables ---------------------------------------------------------*/
 /* Private user code ---------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
@@ -55,7 +59,7 @@ int main(void)
     HAL_Delay(250);
 
     /* LED flipping */
-    HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_1);
+    HAL_GPIO_TogglePin(LED_GPIO_PORT, LED_GPIO_PIN);
   }
 }
 
@@ -68,14 +72,14 @@ static void APP_GpioConfig(void)
 {
   GPIO_InitTypeDef  GPIO_InitStruct = {0};
 
-  __HAL_RCC_GPIOA_CLK_ENABLE();                          /* Enable GPIOA clock */
+  LED_GPIO_CLK_ENABLE();                                 /* Enable GPIOA clock */
 
-  GPIO_InitStruct.Pin = GPIO_PIN_1;
+  GPIO_InitStruct.Pin = LED_GPIO_PIN;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;            /* Push-pull output */
   GPIO_InitStruct.Pull = GPIO_PULLUP;                    /* Enable pull-up */
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;          /* GPIO speed */  
   /* GPIO initialization */
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);                
+  HAL_GPIO_Init(LED_GPIO_PORT, &GPIO_InitStruct);
 }
 
 /**

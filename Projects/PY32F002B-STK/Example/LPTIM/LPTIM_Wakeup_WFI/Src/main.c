@@ -85,9 +85,6 @@ int main(void)
   /* Enable LPTIM1 interrupt */
   HAL_NVIC_SetPriority(LPTIM1_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(LPTIM1_IRQn);
-    
-  /* Suspend Systick */
-  HAL_SuspendTick();
 
   /* LED ON*/
   BSP_LED_On(LED_GREEN);
@@ -101,7 +98,7 @@ int main(void)
   BSP_LED_Off(LED_GREEN);
   
   /* Start LPTIM Continue in interrupt Mode */
-  HAL_LPTIM_SetContinue_Start_IT(&LPTIMConf, 51);
+  HAL_LPTIM_SetContinue_Start_IT(&LPTIMConf, 51 - 1);
 
   /* Calculate the value required for a delay of macro-defined(Delay) us */
   RatioNops = Delay * (SystemCoreClock / 1000000U) / 4;
@@ -110,10 +107,16 @@ int main(void)
   { 
      /* Need to wait one LSI Time before enter the Stop mode */
     APP_DelayNops(RatioNops);     
-    
+
+    /* Suspend Systick */
+    HAL_SuspendTick();
+
     /* Enter Stop Mode and Wakeup by WFI */
-    HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);   
-    
+    HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
+
+    /* Resume Systick */
+    HAL_ResumeTick();
+
     HAL_GPIO_TogglePin(GPIOA,GPIO_PIN_3);
   }
 }

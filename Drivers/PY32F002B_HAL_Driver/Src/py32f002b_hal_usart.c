@@ -1937,4 +1937,4 @@ static void USART_SetConfig(USART_HandleTypeDef *husart)
   * @}
   */
 
-/************************ (C) COPYRIGHT Puya *****END OF FILE****/
+/************************ (C) COPYRIGHT Puya *****END OF FILE******************/

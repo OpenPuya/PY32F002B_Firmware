@@ -73,9 +73,9 @@ uint32_t SystemCoreClock = HSI_VALUE;
 const uint32_t AHBPrescTable[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9};
 const uint32_t APBPrescTable[8] =  {0, 0, 0, 0, 1, 2, 3, 4};
 #if defined(RCC_HSI48M_SUPPORT)
-const uint32_t HSIFreqTable[8] = {0U, 0U, 0U, 0U, 24000000U, 48000000U, 0U, 0U};
+const uint32_t HSIFreqTable[8] = {4000000U, 8000000U, 0U, 0U, 24000000U, 48000000U, 0U, 0U};
 #else
-const uint32_t HSIFreqTable[8] = {0U, 0U, 0U, 0U, 24000000U, 0U, 0U, 0U};
+const uint32_t HSIFreqTable[8] = {4000000U, 8000000U, 0U, 0U, 24000000U, 0U, 0U, 0U};
 #endif
 
 /* Private function prototypes -----------------------------------------------*/
@@ -132,7 +132,7 @@ void SystemCoreClockUpdate(void)             /* Get Core Clock Frequency      */
 void SystemInit(void)
 {
   /*Set the HSI clock to 24MHz by default*/
-  RCC->ICSCR = (RCC->ICSCR & 0xFFFF0000) | ((*(uint32_t *)(0x1FFF0100) & 0xFFFF));
+  RCC->ICSCR = (RCC->ICSCR & 0xFFFF0000) | ((*(uint32_t *)(0x1FFF0100)) & 0xFFFF);
 
   /*Set the LSI clock to 32.768KHz by default*/
   RCC->ICSCR = (RCC->ICSCR & 0xFE00FFFF) | (((*(uint32_t *)(0x1FFF0144)) & 0x1FF) << RCC_ICSCR_LSI_TRIM_Pos);

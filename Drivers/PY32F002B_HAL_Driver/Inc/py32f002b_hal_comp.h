@@ -224,7 +224,14 @@ typedef  void (*pCOMP_CallbackTypeDef)(COMP_HandleTypeDef *hcomp); /*!< pointer 
 /** @defgroup COMP_VrefSrc COMP VREFCMP SOURCE
   * @{
   */
-#define COMP_VREFCMP_SOURCE_VREFBUF       (0x00000000U)                /* Vrefbuf 1.5V */  
+/* Note: If the internal reference voltage is selected for the comparator reference source */
+/*       voltage, it is recommended to use COMP_VREFCMP_SOURCE_VREFBUF1P5V, which is more  */
+/*       accurate than other values.                                                       */
+
+#define COMP_VREFCMP_SOURCE_VREFBUF       (0x00000000U)                /* Vrefbuf 1.5V */
+#define COMP_VREFCMP_SOURCE_VREFBUF1P5V   COMP_VREFCMP_SOURCE_VREFBUF  /* Vrefbuf 1.5V */
+#define COMP_VREFCMP_SOURCE_VREFBUF2P048V ADC_CR_VREFBUFF_SEL_0        /* Vrefbuf 2.048V */
+#define COMP_VREFCMP_SOURCE_VREFBUF2P5V   ADC_CR_VREFBUFF_SEL_1        /* Vrefbuf 2.5V */
 #define COMP_VREFCMP_SOURCE_VCC           (COMP_CSR_COMP_VCSEL) 
 /**
   * @}
@@ -390,30 +397,6 @@ typedef  void (*pCOMP_CallbackTypeDef)(COMP_HandleTypeDef *hcomp); /*!< pointer 
 #define __HAL_COMP_COMP1_EXTI_DISABLE_EVENT()         LL_EXTI_DisableEvent(COMP_EXTI_LINE_COMP1)
 
 /**
-  * @brief  Check whether the COMP1 EXTI line rising flag is set.
-  * @retval RESET or SET
-  */
-#define __HAL_COMP_COMP1_EXTI_GET_RISING_FLAG()       LL_EXTI_IsActiveRisingFlag(COMP_EXTI_LINE_COMP1)
-
-/**
-  * @brief  Clear the COMP1 EXTI rising flag.
-  * @retval None
-  */
-#define __HAL_COMP_COMP1_EXTI_CLEAR_RISING_FLAG()     LL_EXTI_ClearRisingFlag(COMP_EXTI_LINE_COMP1)
-
-/**
-  * @brief  Check whether the COMP1 EXTI line falling flag is set.
-  * @retval RESET or SET
-  */
-#define __HAL_COMP_COMP1_EXTI_GET_FALLING_FLAG()      LL_EXTI_IsActiveFallingFlag(COMP_EXTI_LINE_COMP1)
-
-/**
-  * @brief  Clear the COMP1 EXTI falling flag.
-  * @retval None
-  */
-#define __HAL_COMP_COMP1_EXTI_CLEAR_FALLING_FLAG()    LL_EXTI_ClearFallingFlag(COMP_EXTI_LINE_COMP1)
-
-/**
   * @brief  Enable the COMP2 EXTI line rising edge trigger.
   * @retval None
   */
@@ -484,30 +467,6 @@ typedef  void (*pCOMP_CallbackTypeDef)(COMP_HandleTypeDef *hcomp); /*!< pointer 
   * @retval None
   */
 #define __HAL_COMP_COMP2_EXTI_DISABLE_EVENT()         LL_EXTI_DisableEvent(COMP_EXTI_LINE_COMP2)
-
-/**
-  * @brief  Check whether the COMP2 EXTI line rising flag is set.
-  * @retval RESET or SET
-  */
-#define __HAL_COMP_COMP2_EXTI_GET_RISING_FLAG()       LL_EXTI_IsActiveRisingFlag(COMP_EXTI_LINE_COMP2)
-
-/**
-  * @brief  Clear the COMP2 EXTI rising flag.
-  * @retval None
-  */
-#define __HAL_COMP_COMP2_EXTI_CLEAR_RISING_FLAG()     LL_EXTI_ClearRisingFlag(COMP_EXTI_LINE_COMP2)
-
-/**
-  * @brief  Check whether the COMP2 EXTI line falling flag is set.
-  * @retval RESET or SET
-  */
-#define __HAL_COMP_COMP2_EXTI_GET_FALLING_FLAG()      LL_EXTI_IsActiveFallingFlag(COMP_EXTI_LINE_COMP2)
-
-/**
-  * @brief  Clear the COMP2 EXTI falling flag.
-  * @retval None
-  */
-#define __HAL_COMP_COMP2_EXTI_CLEAR_FALLING_FLAG()    LL_EXTI_ClearFallingFlag(COMP_EXTI_LINE_COMP2)
 
 /**
   * @}
@@ -620,6 +579,9 @@ typedef  void (*pCOMP_CallbackTypeDef)(COMP_HandleTypeDef *hcomp); /*!< pointer 
                                              ((__VREFDIV__) == COMP_VREFCMP_DIV_VREFCMP))
                                              
 #define IS_COMP_VREFSRC(__VREFSRC__)        (((__VREFSRC__) == COMP_VREFCMP_SOURCE_VREFBUF)         || \
+                                             ((__VREFSRC__) == COMP_VREFCMP_SOURCE_VREFBUF1P5V)     || \
+                                             ((__VREFSRC__) == COMP_VREFCMP_SOURCE_VREFBUF2P048V)   || \
+                                             ((__VREFSRC__) == COMP_VREFCMP_SOURCE_VREFBUF2P5V)     || \
                                              ((__VREFSRC__) == COMP_VREFCMP_SOURCE_VCC))
 /**
   * @}
@@ -705,4 +667,4 @@ uint32_t              HAL_COMP_GetError(COMP_HandleTypeDef *hcomp);
 
 #endif /* PY32F002B_HAL_COMP_H */
 
-/************************ (C) COPYRIGHT Puya *****END OF FILE****/
+/************************ (C) COPYRIGHT Puya *****END OF FILE******************/

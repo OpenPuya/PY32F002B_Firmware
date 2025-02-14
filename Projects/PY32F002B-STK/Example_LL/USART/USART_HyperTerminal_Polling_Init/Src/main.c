@@ -33,9 +33,14 @@
 #include "py32f002bxx_ll_Start_Kit.h"
 
 /* Private define ------------------------------------------------------------*/
+#define COUNTOF(__BUFFER__)   (sizeof(__BUFFER__) / sizeof(*(__BUFFER__)))
+#define TXSTARTMESSAGESIZE    (COUNTOF(aTxStartMessage) - 1)
+#define TXENDMESSAGESIZE      (COUNTOF(aTxEndMessage) - 1)
+
 /* Private variables ---------------------------------------------------------*/
-uint8_t aTxBuffer[] = "UART Test";
-uint8_t aRxBuffer[30];
+uint8_t aRxBuffer[12] = {0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff};
+uint8_t aTxStartMessage[] = "\n\r USART Hyperterminal communication based on polling \n\r Enter 12 characters using keyboard :\n\r";
+uint8_t aTxEndMessage[] = "\n\r Example Finished\n\r";
 
 uint8_t *TxBuff = NULL;
 __IO uint16_t TxCount = 0;
@@ -61,19 +66,31 @@ int main(void)
   /* Configure Systemclock */
   APP_SystemClockConfig();
 
+  /* Configure LED */
+  BSP_LED_Init(LED_GREEN);
+  
   /* Configure USART */
   APP_ConfigUsart(USART1);
 
-  /* Send string:"UART Test"，and wait send complete */
-  APP_UsartTransmit(USART1, (uint8_t*)aTxBuffer, sizeof(aTxBuffer)-1);
+  /* Start the transmission process */
+  APP_UsartTransmit(USART1, (uint8_t*)aTxStartMessage, TXSTARTMESSAGESIZE);
 
+  /* receive data */
+  APP_UsartReceive(USART1, (uint8_t *)aRxBuffer, 12);
+
+  /* Transmit data */
+  APP_UsartTransmit(USART1, (uint8_t*)aRxBuffer, 12);
+  
+  /* Send the End Message  */
+  APP_UsartTransmit(USART1, (uint8_t*)aTxEndMessage, TXENDMESSAGESIZE);
+  
+  /* Turn on LED if test passes then enter infinite loop */
+  BSP_LED_On(LED_GREEN);
+  
+  /* Infinite loop */
   while (1)
   {
-    /* receive data */
-    APP_UsartReceive(USART1, (uint8_t *)aRxBuffer, 12);
 
-    /* Transmit data */
-    APP_UsartTransmit(USART1, (uint8_t*)aRxBuffer, 12);
   }
 }
 
@@ -166,7 +183,7 @@ static void APP_ConfigUsart(USART_TypeDef *USARTx)
   /* Configure as full duplex asynchronous mode */
   LL_USART_ConfigAsyncMode(USARTx);
 
-  /* Enable UART */
+  /* Enable USART */
   LL_USART_Enable(USARTx);
 }
 

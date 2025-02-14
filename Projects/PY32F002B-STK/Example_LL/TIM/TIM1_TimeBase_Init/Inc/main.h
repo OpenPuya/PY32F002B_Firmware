@@ -48,15 +48,10 @@ extern "C" {
 
 #include "py32f002b_ll_adc.h"
 #include "py32f002b_ll_comp.h"
-//#include "py32f002b_ll_usart.h"
-//#include "py32f002b_ll_spi.h"
-//#include "py32f002b_ll_i2c.h"
 
 #include "py32f002b_ll_iwdg.h"
 #include "py32f002b_ll_crc.h"
 #include "py32f002b_ll_tim.h"
-
-//#include "py32f002b_ll_lptim.h"
 
 #if defined(USE_FULL_ASSERT)
 #include "py32_assert.h"

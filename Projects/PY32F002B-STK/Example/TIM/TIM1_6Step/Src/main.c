@@ -66,7 +66,7 @@ int main(void)
   sConfig1.OCMode       = TIM_OCMODE_TIMING;                                      /* Channel Mode: TIMING */
   sConfig1.OCPolarity   = TIM_OCPOLARITY_HIGH;                                    /* Channel effective polarity: high level */
   sConfig1.OCNPolarity  = TIM_OCNPOLARITY_HIGH;                                   /* Complementary channel effective polarity: high level */
-  sConfig1.OCIdleState  = TIM_OCNIDLESTATE_RESET;                                 /* Channel idle state: low level */
+  sConfig1.OCIdleState  = TIM_OCIDLESTATE_RESET;                                  /* Channel idle state: low level */
   sConfig1.OCNIdleState = TIM_OCNIDLESTATE_RESET;                                 /* Complementary channel idle state: low level */
   sConfig1.OCFastMode   = TIM_OCFAST_DISABLE;                                     /* Disable OC Fast Mode */
   /* Configure Channel 1 Comparison Value 50 */

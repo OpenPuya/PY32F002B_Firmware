@@ -2503,4 +2503,4 @@ static void SPI_AbortTx_ISR(SPI_HandleTypeDef *hspi)
   * @}
   */
 
-/************************ (C) COPYRIGHT Puya *****END OF FILE****/
+/************************ (C) COPYRIGHT Puya *****END OF FILE******************/

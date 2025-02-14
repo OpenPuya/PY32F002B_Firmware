@@ -289,4 +289,4 @@ void LL_SPI_StructInit(LL_SPI_InitTypeDef *SPI_InitStruct)
 
 #endif /* USE_FULL_LL_DRIVER */
 
-/************************ (C) COPYRIGHT Puya *****END OF FILE****/
+/************************ (C) COPYRIGHT Puya *****END OF FILE******************/

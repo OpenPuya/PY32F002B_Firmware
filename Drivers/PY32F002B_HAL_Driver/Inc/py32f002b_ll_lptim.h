@@ -572,4 +572,4 @@ __STATIC_INLINE uint32_t LL_LPTIM_IsEnabledIT_ARROK(LPTIM_TypeDef *LPTIMx)
 
 #endif /* PY32F002B_LL_LPTIM_H */
 
-/************************ (C) COPYRIGHT Puya *****END OF FILE****/
+/************************ (C) COPYRIGHT Puya *****END OF FILE******************/

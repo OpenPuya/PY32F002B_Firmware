@@ -389,6 +389,8 @@ typedef struct
 /** @defgroup RCC_HSI_EC_Calibration HSI Calibration
 * @{
 */
+#define LL_RCC_HSICALIBRATION_4MHz         ((*(uint32_t *)(0x1FFF0108)) & 0xFFFF)  /*!< 4MHz HSI calibration trimming value  */
+#define LL_RCC_HSICALIBRATION_8MHz         ((*(uint32_t *)(0x1FFF010C)) & 0xFFFF)  /*!< 8MHz HSI calibration trimming value  */
 #define LL_RCC_HSICALIBRATION_24MHz        ((*(uint32_t *)(0x1FFF0100)) & 0xFFFF)  /*!< 24MHz HSI calibration trimming value */
 #if defined(RCC_HSI48M_SUPPORT)
 #define LL_RCC_HSICALIBRATION_48MHz        ((*(uint32_t *)(0x1FFF0104)) & 0xFFFF)  /*!< 48MHz HSI calibration trimming value */
@@ -401,7 +403,6 @@ typedef struct
 * @{
 */
 #define LL_RCC_LSICALIBRATION_32768Hz        ((*(uint32_t *)(0x1FFF0144)) & 0x1FF)  /*!< 32.768KHz LSI calibration trimming value */
-#define LL_RCC_LSICALIBRATION_38400Hz        ((*(uint32_t *)(0x1FFF0148)) & 0x1FF)  /*!< 38.4KHz LSI calibration trimming value */
 /**
   * @}
   */
@@ -559,6 +560,8 @@ __STATIC_INLINE uint32_t LL_RCC_HSI_GetCalibTrimming(void)
 /**
   * @brief  Set HSI Calibration Frequency
   * @param  Value This parameter can be one of the following values:
+  *         @arg @ref LL_RCC_HSICALIBRATION_4MHz
+  *         @arg @ref LL_RCC_HSICALIBRATION_8MHz
   *         @arg @ref LL_RCC_HSICALIBRATION_24MHz
   *         @arg @ref LL_RCC_HSICALIBRATION_48MHz
   * @note   Depending on devices and packages, some calibration values may not be available.
@@ -805,7 +808,6 @@ __STATIC_INLINE uint32_t LL_RCC_LSI_IsReady(void)
   * @brief  Set LSI Calibration trimming
   * @param  Value This parameter can be one of the following values:
   *         @arg @ref LL_RCC_LSICALIBRATION_32768Hz
-  *         @arg @ref LL_RCC_LSICALIBRATION_38400Hz
   * @retval None
   */
 __STATIC_INLINE void LL_RCC_LSI_SetCalibTrimming(uint32_t Value)
@@ -816,7 +818,7 @@ __STATIC_INLINE void LL_RCC_LSI_SetCalibTrimming(uint32_t Value)
 /**
   * @brief  Get LSI Calibration trimming
   * @rmtoll ICSCR        LSI_TRIM       LL_RCC_LSI_GetCalibTrimming
-  * @retval Between Min_Data = 0 and Max_Data = 0x1FFF
+  * @retval Between Min_Data = 0 and Max_Data = 0x1FF
   */
 __STATIC_INLINE uint32_t LL_RCC_LSI_GetCalibTrimming(void)
 {
@@ -829,8 +831,7 @@ __STATIC_INLINE uint32_t LL_RCC_LSI_GetCalibTrimming(void)
   */
 __STATIC_INLINE uint32_t LL_RCC_LSI_GetFreq(void)
 {
-  return ((LL_RCC_LSI_GetCalibTrimming() == LL_RCC_LSICALIBRATION_32768Hz) ? 32768UL : \
-         ((LL_RCC_LSI_GetCalibTrimming() == LL_RCC_LSICALIBRATION_38400Hz) ? 38400UL : 0));
+  return (uint32_t)LSI_VALUE;
 }
 
 /**
@@ -1536,4 +1537,4 @@ uint32_t    LL_RCC_GetLPTIMClockFreq(uint32_t LPTIMx);
 
 #endif /* __PY32F002B_LL_RCC_H */
 
-/************************ (C) COPYRIGHT Puya *****END OF FILE****/
+/************************ (C) COPYRIGHT Puya *****END OF FILE******************/

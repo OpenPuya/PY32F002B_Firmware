@@ -337,7 +337,7 @@ typedef struct
   __IO uint32_t BDCR;        /*!< RCC Backup Domain Control Register,                                     Address offset: 0x5C */
   __IO uint32_t CSR;         /*!< RCC Unregulated Domain Clock Control and Status Register,               Address offset: 0x60 */
        uint32_t RESERVED4[7];/*!< Reserved,                                                               Address offset: 0x64-0x7F */
-  __IO uint32_t VREFBUF;     /*!< RCC VREFBUF calibration Register,                                       Address offset: 0x80 */
+/*  __IO uint32_t VREFBUF; */    /*!< RCC VREFBUF calibration Register,                                       Address offset: 0x80 */
 } RCC_TypeDef;
 
 /**
@@ -669,8 +669,11 @@ typedef struct
 
 /******************  Bit definition for ADC_CHSELR register  ******************/
 #define ADC_CHSELR_CHSEL_Pos      (0U)
-#define ADC_CHSELR_CHSEL_Msk      (0x7FFUL << ADC_CHSELR_CHSEL_Pos)             /*!< 0x00001BFF */
+#define ADC_CHSELR_CHSEL_Msk      (0x7FFUL << ADC_CHSELR_CHSEL_Pos)             /*!< 0x000007FF */
 #define ADC_CHSELR_CHSEL           ADC_CHSELR_CHSEL_Msk                         /*!< ADC group regular sequencer channels, available when ADC_CFGR1_CHSELRMOD is reset */
+#define ADC_CHSELR_CHSEL10_Pos    (10U)
+#define ADC_CHSELR_CHSEL10_Msk    (0x1UL << ADC_CHSELR_CHSEL10_Pos)             /*!< 0x00000400 */
+#define ADC_CHSELR_CHSEL10         ADC_CHSELR_CHSEL10_Msk                       /*!< ADC group regular sequencer channel 10, available when ADC_CFGR1_CHSELRMOD is reset */
 #define ADC_CHSELR_CHSEL9_Pos     (9U)
 #define ADC_CHSELR_CHSEL9_Msk     (0x1UL << ADC_CHSELR_CHSEL9_Pos)              /*!< 0x00000200 */
 #define ADC_CHSELR_CHSEL9          ADC_CHSELR_CHSEL9_Msk                        /*!< ADC group regular sequencer channel 9, available when ADC_CFGR1_CHSELRMOD is reset */
@@ -797,6 +800,9 @@ typedef struct
 #define DBGMCU_CR_DBG_STOP                                DBGMCU_CR_DBG_STOP_Msk
 
 /********************  Bit definition for DBGMCU_APB_FZ1 register  ***********/
+/* #define DBGMCU_APB_FZ1_DBG_IWDG_STOP_Pos                  (12U) */
+/* #define DBGMCU_APB_FZ1_DBG_IWDG_STOP_Msk                  (0x1UL << DBGMCU_APB_FZ1_DBG_IWDG_STOP_Pos) */ /*!< 0x00004000 */
+/* #define DBGMCU_APB_FZ1_DBG_IWDG_STOP                      DBGMCU_APB_FZ1_DBG_IWDG_STOP_Msk */
 #define DBGMCU_APB_FZ1_DBG_LPTIM_STOP_Pos                 (31U)
 #define DBGMCU_APB_FZ1_DBG_LPTIM_STOP_Msk                 (0x1UL << DBGMCU_APB_FZ1_DBG_LPTIM_STOP_Pos) /*!< 0x00001000 */
 #define DBGMCU_APB_FZ1_DBG_LPTIM_STOP                     DBGMCU_APB_FZ1_DBG_LPTIM_STOP_Msk
@@ -1165,6 +1171,9 @@ typedef struct
 #define FLASH_OPTR_NRST_MODE_Pos        (14U)
 #define FLASH_OPTR_NRST_MODE_Msk        (0x1UL << FLASH_OPTR_NRST_MODE_Pos) /*!< 0x00004000 */
 #define FLASH_OPTR_NRST_MODE            FLASH_OPTR_NRST_MODE_Msk
+/* #define FLASH_OPTR_IWDG_STOP_Pos        (15U) */
+/* #define FLASH_OPTR_IWDG_STOP_Msk        (0x1UL << FLASH_OPTR_IWDG_STOP_Pos) */ /*!< 0x02000000 */
+/* #define FLASH_OPTR_IWDG_STOP            FLASH_OPTR_IWDG_STOP_Msk */
 
 /*******************  Bits definition for FLASH_SDKR register  ****************/
 #define FLASH_SDKR_SDK_STRT_Pos         (0U)
@@ -2278,6 +2287,11 @@ typedef struct
 #define RCC_CFGR_SW_1                   (0x2UL << RCC_CFGR_SW_Pos)             /*!< 0x00000002 */
 #define RCC_CFGR_SW_2                   (0x4UL << RCC_CFGR_SW_Pos)             /*!< 0x00000004 */
 
+#define RCC_CFGR_SW_HSISYS              (0UL)                                  /*!< HSISYS used as system clock */
+#define RCC_CFGR_SW_HSE                 (0x00000001UL)                         /*!< HSE used as system clock */
+#define RCC_CFGR_SW_LSI                 (0x00000003UL)                         /*!< LSI used as system clock */
+#define RCC_CFGR_SW_LSE                 (0x00000004UL)                         /*!< LSE used as system clock */
+
 /*!< SWS configuration */
 #define RCC_CFGR_SWS_Pos                (3U)
 #define RCC_CFGR_SWS_Msk                (0x7UL << RCC_CFGR_SWS_Pos)            /*!< 0x00000038 */
@@ -2564,9 +2578,9 @@ typedef struct
 #define RCC_CSR_IWDGRSTF                RCC_CSR_IWDGRSTF_Msk
 
 /********************  Bit definition for RCC_CSR register  *******************/
-#define RCC_CSR_VREFBUF_TRIM_Pos        (0U)
-#define RCC_CSR_VREFBUF_TRIM_Msk        (0x1FUL << RCC_CSR_VREFBUF_TRIM_Pos)   /*!< 0x0000001F */
-#define RCC_CSR_VREFBUF_TRIM            RCC_CSR_VREFBUF_TRIM_Msk
+/* #define RCC_CSR_VREFBUF_TRIM_Pos        (0U) */
+/* #define RCC_CSR_VREFBUF_TRIM_Msk        (0x1FUL << RCC_CSR_VREFBUF_TRIM_Pos) */  /*!< 0x0000001F */
+/* #define RCC_CSR_VREFBUF_TRIM            RCC_CSR_VREFBUF_TRIM_Msk */
 
 /******************************************************************************/
 /*                                                                            */
@@ -3334,7 +3348,7 @@ typedef struct
 #define COMP_CSR_INNSEL_Msk             (0x1UL << COMP_CSR_INNSEL_Pos)              /*!< 0x00000020 */
 #define COMP_CSR_INNSEL                 COMP_CSR_INNSEL_Msk                         /*!< COMP negative input select */
 #define COMP_CSR_INPSEL_Pos             (9U)
-#define COMP_CSR_INPSEL_Msk             (0x1UL << COMP_CSR_INPSEL_Pos)              /*!< 0x00000020 */
+#define COMP_CSR_INPSEL_Msk             (0x1UL << COMP_CSR_INPSEL_Pos)              /*!< 0x00000200 */
 #define COMP_CSR_INPSEL                 COMP_CSR_INPSEL_Msk                         /*!< COMP negative input select */
 #define COMP_CSR_WINMODE_Pos            (11U)
 #define COMP_CSR_WINMODE_Msk            (0x1UL << COMP_CSR_WINMODE_Pos)             /*!< 0x00000800 */

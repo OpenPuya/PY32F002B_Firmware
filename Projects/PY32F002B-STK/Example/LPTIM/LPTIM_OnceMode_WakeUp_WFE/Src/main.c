@@ -84,9 +84,6 @@ int main(void)
   ExtiCfg.Mode = EXTI_MODE_EVENT;
   HAL_EXTI_SetConfigLine(&ExtiHandle, &ExtiCfg);
 
-  /* Suspend Systick interrupt */
-  HAL_SuspendTick();
-
   /* Turn on LED */
   BSP_LED_On(LED_GREEN);
   
@@ -109,11 +106,17 @@ int main(void)
     /* Wait at least three LSI times for the completion of the disable operation */
     APP_DelayNops(RatioNops); 
     
+    /* Suspend Systick */
+    HAL_SuspendTick();
+
     /* Configure LPTIM for once mode and enable interrupt */
     HAL_LPTIM_SetOnce_Start_IT(&LPTIMConf, 51);
     
     /* Enter Stop Mode and Wakeup by WFE */
     HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFE); 
+
+    /* Resume Systick */
+    HAL_ResumeTick();
 
     /* The Autoreload match flag must be cleared before entering stop mode the next time */
     if(__HAL_LPTIM_GET_FLAG(&LPTIMConf, LPTIM_FLAG_ARRM) != RESET)

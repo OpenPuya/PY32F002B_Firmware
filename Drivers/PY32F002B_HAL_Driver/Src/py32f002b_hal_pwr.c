@@ -405,4 +405,4 @@ void HAL_PWR_DisableSEVOnPend(void)
   * @}
   */
 
-/************************ (C) COPYRIGHT Puya *****END OF FILE****/
+/************************ (C) COPYRIGHT Puya *****END OF FILE******************/

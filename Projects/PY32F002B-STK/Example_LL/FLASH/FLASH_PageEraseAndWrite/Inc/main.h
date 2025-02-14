@@ -38,9 +38,6 @@ extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
-#include "py32f0xx_hal.h"
-#include "py32f002bxx_ll_Start_Kit.h"
-
 #include "py32f002b_ll_rcc.h"
 #include "py32f002b_ll_bus.h"
 #include "py32f002b_ll_system.h"
@@ -48,7 +45,11 @@ extern "C" {
 #include "py32f002b_ll_utils.h"
 #include "py32f002b_ll_pwr.h"
 #include "py32f002b_ll_gpio.h"
-#include "py32f002b_ll_rcc.h"
+#include "py32f002b_ll_flash.h"
+
+#if defined(USE_FULL_ASSERT)
+#include "py32_assert.h"
+#endif /* USE_FULL_ASSERT */
 
 /* Private includes ----------------------------------------------------------*/
 /* Private defines -----------------------------------------------------------*/
@@ -62,4 +63,4 @@ void APP_ErrorHandler(void);
 
 #endif /* __MAIN_H */
 
-/************************ (C) COPYRIGHT Puya *****END OF FILE****/
+/************************ (C) COPYRIGHT Puya *****END OF FILE******************/

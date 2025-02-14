@@ -35,15 +35,13 @@ BUILD_DIR = build\Project
 # source
 ######################################
 # C sources
-C_SOURCES =  \../Src/main.c \
+C_SOURCES =  \
+../Src/main.c \
 ../Src/py32f002b_it.c \
-../Src/py32f002b_hal_msp.c \
 ../Src/system_py32f002b.c \
 ../../../../../../Drivers/BSP/PY32F002Bxx_Start_Kit/py32f002bxx_ll_Start_Kit.c \
-../../../../../../Drivers/PY32F002B_HAL_Driver/Src/py32f002b_hal_flash.c \
-../../../../../../Drivers/PY32F002B_HAL_Driver/Src/py32f002b_hal.c \
-../../../../../../Drivers/PY32F002B_HAL_Driver/Src/py32f002b_hal_cortex.c \
 ../../../../../../Drivers/PY32F002B_HAL_Driver/Src/py32f002b_ll_utils.c
+
 
 
 # ASM sources
@@ -92,7 +90,7 @@ AS_DEFS =
 
 # C defines
 C_DEFS =  \
--DUSE_HAL_DRIVER\
+-DUSE_FULL_LL_DRIVER \
 -DPY32F002Bx5
 
 

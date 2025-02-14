@@ -268,4 +268,4 @@ void              HAL_PWR_DisableSEVOnPend(void);
 
 #endif /* __PY32F002B_HAL_PWR_H */
 
-/************************ (C) COPYRIGHT Puya *****END OF FILE****/
+/************************ (C) COPYRIGHT Puya *****END OF FILE******************/

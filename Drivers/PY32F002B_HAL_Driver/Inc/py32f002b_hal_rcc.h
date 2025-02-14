@@ -83,9 +83,13 @@ extern "C" {
 
 #if defined(RCC_HSI48M_SUPPORT)
 #define IS_RCC_HSI_CALIBRATION_VALUE(__VALUE__) (((__VALUE__) == RCC_HSICALIBRATION_24MHz)     || \
+                                                 ((__VALUE__) == RCC_HSICALIBRATION_4MHz)      || \
+                                                 ((__VALUE__) == RCC_HSICALIBRATION_8MHz)      || \
                                                  ((__VALUE__) == RCC_HSICALIBRATION_48MHz))
 #else
-#define IS_RCC_HSI_CALIBRATION_VALUE(__VALUE__) ((__VALUE__) == RCC_HSICALIBRATION_24MHz)
+#define IS_RCC_HSI_CALIBRATION_VALUE(__VALUE__) (((__VALUE__) == RCC_HSICALIBRATION_4MHz)      || \
+                                                 ((__VALUE__) == RCC_HSICALIBRATION_8MHz)      || \
+                                                 ((__VALUE__) == RCC_HSICALIBRATION_24MHz))
 #endif
 
 #define IS_RCC_HSIDIV(__DIV__)            (((__DIV__) == RCC_HSI_DIV1)  || ((__DIV__) == RCC_HSI_DIV2) || \
@@ -94,7 +98,9 @@ extern "C" {
                                            ((__DIV__) == RCC_HSI_DIV64) || ((__DIV__) == RCC_HSI_DIV128))
                                          
 #define IS_RCC_LSI(__LSI__)               (((__LSI__) == RCC_LSI_OFF) || ((__LSI__) == RCC_LSI_ON))
-                                         
+
+#define IS_RCC_LSI_CALIBRATION_VALUE(__VALUE__) ((__VALUE__) == RCC_LSICALIBRATION_32768Hz)
+
 #define IS_RCC_CLOCKTYPE(__CLK__)         ((((__CLK__) & RCC_CLOCKTYPE_ALL) != 0x00UL) && (((__CLK__) & ~RCC_CLOCKTYPE_ALL) == 0x00UL))
 
 #define IS_RCC_SYSCLKSOURCE(__SOURCE__)   (((__SOURCE__) == RCC_SYSCLKSOURCE_HSISYS)  || \
@@ -275,6 +281,8 @@ typedef struct
 /** @defgroup RCC_HSI_Calibration HSI Calibration
 * @{
 */
+#define RCC_HSICALIBRATION_4MHz         ((*(uint32_t *)(0x1FFF0108)) & 0xFFFF)  /*!< 4MHz  HSI calibration trimming value */
+#define RCC_HSICALIBRATION_8MHz         ((*(uint32_t *)(0x1FFF010C)) & 0xFFFF)  /*!< 8MHz  HSI calibration trimming value */
 #define RCC_HSICALIBRATION_24MHz        ((*(uint32_t *)(0x1FFF0100)) & 0xFFFF)  /*!< 24MHz HSI calibration trimming value */
 #if defined(RCC_HSI48M_SUPPORT)
 #define RCC_HSICALIBRATION_48MHz        ((*(uint32_t *)(0x1FFF0104)) & 0xFFFF)  /*!< 48MHz HSI calibration trimming value */
@@ -311,7 +319,6 @@ typedef struct
 * @{
 */
 #define RCC_LSICALIBRATION_32768Hz        ((*(uint32_t *)(0x1FFF0144)) & 0x1FF)  /*!< 32.768KHz LSI calibration trimming value */
-#define RCC_LSICALIBRATION_38400Hz        ((*(uint32_t *)(0x1FFF0148)) & 0x1FF)  /*!< 38.4KHz LSI calibration trimming value */
 /**
   * @}
   */
@@ -902,8 +909,11 @@ typedef struct
   * @note   The calibration is used to compensate for the variations in voltage
   *         and temperature that influence the frequency of the internal HSI RC.
   * @param  __HSICALIBRATIONVALUE__ specifies the calibration trimming value
-  *         (default is RCC_HSICALIBRATION_DEFAULT).
-  *         This parameter must be a number between 0 and 127.
+  *         This parameter can be one of the following values:
+  *            @arg @ref RCC_HSICALIBRATION_4MHz
+  *            @arg @ref RCC_HSICALIBRATION_8MHz
+  *            @arg @ref RCC_HSICALIBRATION_24MHz
+  *            @arg @ref RCC_HSICALIBRATION_48MHz
   * @retval None
   */
 #define __HAL_RCC_HSI_CALIBRATIONVALUE_ADJUST(__HSICALIBRATIONVALUE__) \
@@ -941,7 +951,6 @@ typedef struct
   * @param  __LSICALIBRATIONVALUE__ specifies the calibration trimming value.
   *         This parameter can be one of the following values:
   *            @arg @ref RCC_LSICALIBRATION_32768Hz
-  *            @arg @ref RCC_LSICALIBRATION_38400Hz
   * @retval None
   */
 #define __HAL_RCC_LSI_CALIBRATIONVALUE_ADJUST(__LSICALIBRATIONVALUE__) \
@@ -1250,4 +1259,4 @@ void              HAL_RCC_CSSCallback(void);
 
 #endif /* __PY32F002B_HAL_RCC_H */
 
-/************************ (C) COPYRIGHT Puya *****END OF FILE****/
+/************************ (C) COPYRIGHT Puya *****END OF FILE******************/

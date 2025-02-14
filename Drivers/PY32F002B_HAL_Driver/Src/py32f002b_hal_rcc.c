@@ -417,6 +417,9 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
       }
       else
       {
+        /* Check the parameters */
+        assert_param(IS_RCC_LSI_CALIBRATION_VALUE(RCC_OscInitStruct->LSICalibrationValue));
+        
         /* Adjusts the Internal Low Speed oscillator (LSI) calibration value.*/
         __HAL_RCC_LSI_CALIBRATIONVALUE_ADJUST(RCC_OscInitStruct->LSICalibrationValue);
         
@@ -447,6 +450,9 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
       /* Check the LSI State */
       if (RCC_OscInitStruct->LSIState != RCC_LSI_OFF)
       {
+        /* Check the parameters */
+        assert_param(IS_RCC_LSI_CALIBRATION_VALUE(RCC_OscInitStruct->LSICalibrationValue));
+        
         /* Enable the Internal Low Speed oscillator (LSI). */
         __HAL_RCC_LSI_ENABLE();
 
@@ -848,9 +854,9 @@ uint32_t HAL_RCC_GetSysClockFreq(void)
   uint32_t hsidiv;
   uint32_t sysclockfreq;
 #if defined(RCC_HSI48M_SUPPORT)
-  const uint32_t hsiValue[8] = {0U, 0U, 0U, 0U, 24000000U, 48000000U, 0U, 0U};
+  const uint32_t hsiValue[8] = {4000000U, 8000000U, 0U, 0U, 24000000U, 48000000U, 0U, 0U};
 #else
-  const uint32_t hsiValue[8] = {0U, 0U, 0U, 0U, 24000000U, 0U, 0U, 0U};
+  const uint32_t hsiValue[8] = {4000000U, 8000000U, 0U, 0U, 24000000U, 0U, 0U, 0U};
 #endif
   uint32_t hsiIndex;
   
@@ -877,18 +883,7 @@ uint32_t HAL_RCC_GetSysClockFreq(void)
   else if (__HAL_RCC_GET_SYSCLK_SOURCE() == RCC_CFGR_SWS_LSI)
   {
     /* LSI used as system clock source */
-    if ((READ_BIT(RCC->ICSCR, RCC_ICSCR_LSI_TRIM) >> RCC_ICSCR_LSI_TRIM_Pos) == RCC_LSICALIBRATION_32768Hz)
-    {
-      sysclockfreq = 32768U;
-    }
-    else if ((READ_BIT(RCC->ICSCR, RCC_ICSCR_LSI_TRIM) >> RCC_ICSCR_LSI_TRIM_Pos) == RCC_LSICALIBRATION_38400Hz)
-    {
-      sysclockfreq = 38400U;
-    }
-    else
-    {
-      sysclockfreq = 0U;
-    }
+    sysclockfreq = LSI_VALUE;
   }
   else
   {
@@ -1109,4 +1104,4 @@ __weak void HAL_RCC_LSECSSCallback(void)
   * @}
   */
 
-/************************ (C) COPYRIGHT Puya *****END OF FILE****/
+/************************ (C) COPYRIGHT Puya *****END OF FILE******************/

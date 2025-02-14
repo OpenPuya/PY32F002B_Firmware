@@ -100,7 +100,7 @@ void APP_SystemClockConfig(void)
   LL_FLASH_SetLatency(LL_FLASH_LATENCY_0);
 
   /* SET HSI to 24MHz */
-  LL_RCC_HSI_SetCalibTrimming(LL_RCC_HSICALIBRATION_24MHz);
+  LL_RCC_HSI_SetCalibFreq(LL_RCC_HSICALIBRATION_24MHz);
 
   /* Enable HSI */
   LL_RCC_HSI_Enable();
@@ -157,4 +157,4 @@ void assert_failed(uint8_t *file, uint32_t line)
 }
 #endif /* USE_FULL_ASSERT */
 
-/************************ (C) COPYRIGHT Puya *****END OF FILE****/
+/************************ (C) COPYRIGHT Puya *****END OF FILE******************/

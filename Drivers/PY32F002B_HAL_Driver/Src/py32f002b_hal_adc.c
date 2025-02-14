@@ -1621,8 +1621,10 @@ HAL_StatusTypeDef HAL_ADC_ConfigChannel(ADC_HandleTypeDef* hadc, ADC_ChannelConf
   * @param  hadc: ADC handle
   * @param  VrefBuf the ADC VrefBuf.
   *          This parameter can be one of the following values:
-  *            @arg ADC_VREFBUF_VCCA: VCCA
-  *            @arg ADC_VREFBUF_1P5V: 1P5V
+  *            @arg ADC_VREFBUF_VCCA:   VCCA
+  *            @arg ADC_VREFBUF_1P5V:   1P5V
+  *            @arg ADC_VREFBUF_2P048V: 2P048V
+  *            @arg ADC_VREFBUF_2P5V:   2P5V
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_ADC_ConfigVrefBuf(ADC_HandleTypeDef* hadc, uint32_t VrefBuf)
@@ -2187,4 +2189,4 @@ HAL_ADCCalibStatusTypeDef HAL_ADC_Calibration_GetStatus(ADC_HandleTypeDef* hadc)
   * @}
   */
 
-/************************ (C) COPYRIGHT Puya *****END OF FILE****/
+/************************ (C) COPYRIGHT Puya *****END OF FILE******************/

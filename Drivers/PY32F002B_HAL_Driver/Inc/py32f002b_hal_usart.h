@@ -611,4 +611,4 @@ uint32_t               HAL_USART_GetError(USART_HandleTypeDef *husart);
 
 #endif /* __PY32F002B_HAL_USART_H */
 
-/************************ (C) COPYRIGHT Puya *****END OF FILE****/
+/************************ (C) COPYRIGHT Puya *****END OF FILE******************/

@@ -253,4 +253,4 @@ ErrorStatus LL_SetFlashLatency(uint32_t HCLKFrequency);
 
 #endif /* PY32F002B_LL_UTILS_H */
 
-/************************ (C) COPYRIGHT Puya *****END OF FILE****/
+/************************ (C) COPYRIGHT Puya *****END OF FILE******************/

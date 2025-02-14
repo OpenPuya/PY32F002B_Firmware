@@ -206,18 +206,7 @@ uint32_t HAL_RCCEx_GetPeriphCLKFreq(uint32_t PeriphClk)
     else if ((HAL_IS_BIT_SET(RCC->CSR, RCC_CSR_LSIRDY)) && (HAL_IS_BIT_CLR(RCC->BDCR, RCC_BDCR_LSCOSEL)) \
              && (srcclk == RCC_COMP1CLKSOURCE_LSC))
     {
-      if ((READ_BIT(RCC->ICSCR, RCC_ICSCR_LSI_TRIM) >> RCC_ICSCR_LSI_TRIM_Pos) == RCC_LSICALIBRATION_32768Hz)
-      {
-        frequency = 32768U;
-      }
-      else if ((READ_BIT(RCC->ICSCR, RCC_ICSCR_LSI_TRIM) >> RCC_ICSCR_LSI_TRIM_Pos) == RCC_LSICALIBRATION_38400Hz)
-      {
-        frequency = 38400U;
-      }
-      else
-      {
-        frequency = 0U;
-      }
+      frequency = LSI_VALUE;
     }
     else if ((HAL_IS_BIT_SET(RCC->BDCR, RCC_BDCR_LSERDY)) && (HAL_IS_BIT_SET(RCC->BDCR, RCC_BDCR_LSCOSEL)) \
              && (srcclk == RCC_COMP1CLKSOURCE_LSC))
@@ -244,18 +233,7 @@ uint32_t HAL_RCCEx_GetPeriphCLKFreq(uint32_t PeriphClk)
     else if ((HAL_IS_BIT_SET(RCC->CSR, RCC_CSR_LSIRDY)) && (HAL_IS_BIT_CLR(RCC->BDCR, RCC_BDCR_LSCOSEL)) \
              && (srcclk == RCC_COMP2CLKSOURCE_LSC))
     {
-      if ((READ_BIT(RCC->ICSCR, RCC_ICSCR_LSI_TRIM) >> RCC_ICSCR_LSI_TRIM_Pos) == RCC_LSICALIBRATION_32768Hz)
-      {
-        frequency = 32768U;
-      }
-      else if ((READ_BIT(RCC->ICSCR, RCC_ICSCR_LSI_TRIM) >> RCC_ICSCR_LSI_TRIM_Pos) == RCC_LSICALIBRATION_38400Hz)
-      {
-        frequency = 38400U;
-      }
-      else
-      {
-        frequency = 0U;
-      }
+      frequency = LSI_VALUE;
     }
     else if ((HAL_IS_BIT_SET(RCC->BDCR, RCC_BDCR_LSERDY)) && (HAL_IS_BIT_SET(RCC->BDCR, RCC_BDCR_LSCOSEL)) \
              && (srcclk == RCC_COMP2CLKSOURCE_LSC))
@@ -281,18 +259,7 @@ uint32_t HAL_RCCEx_GetPeriphCLKFreq(uint32_t PeriphClk)
     }
     else if ((HAL_IS_BIT_SET(RCC->CSR, RCC_CSR_LSIRDY)) && (srcclk == RCC_LPTIMCLKSOURCE_LSI))
     {
-      if ((READ_BIT(RCC->ICSCR, RCC_ICSCR_LSI_TRIM) >> RCC_ICSCR_LSI_TRIM_Pos) == RCC_LSICALIBRATION_32768Hz)
-      {
-        frequency = 32768U;
-      }
-      else if ((READ_BIT(RCC->ICSCR, RCC_ICSCR_LSI_TRIM) >> RCC_ICSCR_LSI_TRIM_Pos) == RCC_LSICALIBRATION_38400Hz)
-      {
-        frequency = 38400U;
-      }
-      else
-      {
-        frequency = 0U;
-      }
+      frequency = LSI_VALUE;
     }
     else if ((HAL_IS_BIT_SET(RCC->BDCR, RCC_BDCR_LSERDY)) && (srcclk == RCC_LPTIMCLKSOURCE_LSE))
     {
@@ -375,4 +342,4 @@ void HAL_RCCEx_DisableLSCO(void)
   * @}
   */
 
-/************************ (C) COPYRIGHT Puya *****END OF FILE****/
+/************************ (C) COPYRIGHT Puya *****END OF FILE******************/

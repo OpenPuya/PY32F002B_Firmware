@@ -364,4 +364,4 @@ ErrorStatus LL_PWR_DeInit(void);
 
 #endif /* PY32F002B_LL_PWR_H */
 
-/************************ (C) COPYRIGHT Puya *****END OF FILE****/
+/************************ (C) COPYRIGHT Puya *****END OF FILE******************/

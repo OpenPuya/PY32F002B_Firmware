@@ -422,7 +422,9 @@ typedef struct
 /** @defgroup ADC_LL_VREFBUF_VOLTAGE  ADC instance - Vrefbuf Voltage
   * @{ 
   */
-#define LL_ADC_VREFBUF_1P5V     (0x00000000U)           /*!< VREFBUF Output voltage 1.5V. */
+#define LL_ADC_VREFBUF_1P5V      (0x00000000U)            /*!< VREFBUF Output voltage 1.5V. */
+#define LL_ADC_VREFBUF_2P048V    (ADC_CR_VREFBUFF_SEL_0)  /*!< VREFBUF 2.048V */
+#define LL_ADC_VREFBUF_2P5V      (ADC_CR_VREFBUFF_SEL_1)  /*!< VREFBUF 2.5V */
 
 /**
   * @}
@@ -621,6 +623,29 @@ typedef struct
   * @}
   */
 
+/** @defgroup ADC_Exported_Macros ADC Exported Macros
+  * @{
+  */
+/* Macro for application program usage, and possibly can be used into code of */
+/* final user.                                                                */
+
+#define LL_ADC_VREFBUF_1P5    (((*(uint16_t *)(0x1FFF002E))       & 0xf)        + \
+                               ((*(uint16_t *)(0x1FFF002E) >> 4 ) & 0xf) * 10   + \
+                               ((*(uint16_t *)(0x1FFF002E) >> 8 ) & 0xf) * 100  + \
+                               ((*(uint16_t *)(0x1FFF002E) >> 12) & 0xf) * 1000)
+
+#define LL_ADC_VREFBUF_2P048  (((*(uint16_t *)(0x1FFF0032))       & 0xf)        + \
+                               ((*(uint16_t *)(0x1FFF0032) >> 4 ) & 0xf) * 10   + \
+                               ((*(uint16_t *)(0x1FFF0032) >> 8 ) & 0xf) * 100  + \
+                               ((*(uint16_t *)(0x1FFF0032) >> 12) & 0xf) * 1000)
+
+#define LL_ADC_VREFBUF_2P5    (((*(uint16_t *)(0x1FFF0036))       & 0xf)        + \
+                               ((*(uint16_t *)(0x1FFF0036) >> 4 ) & 0xf) * 10   + \
+                               ((*(uint16_t *)(0x1FFF0036) >> 8 ) & 0xf) * 100  + \
+                               ((*(uint16_t *)(0x1FFF0036) >> 12) & 0xf) * 1000)
+/**
+  * @}
+  */
 
 /* Exported macro ------------------------------------------------------------*/
 /** @defgroup ADC_LL_Exported_Macros ADC Exported Macros
@@ -2865,4 +2890,4 @@ void        LL_ADC_REG_StructInit(LL_ADC_REG_InitTypeDef *ADC_REG_InitStruct);
 
 #endif /* __PY32F002B_LL_ADC_H */
 
-/************************ (C) COPYRIGHT Puya *****END OF FILE****/
+/************************ (C) COPYRIGHT Puya *****END OF FILE******************/

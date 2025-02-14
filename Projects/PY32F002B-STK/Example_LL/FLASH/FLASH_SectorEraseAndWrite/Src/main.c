@@ -31,17 +31,12 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "py32f002bxx_ll_Start_Kit.h"
 
 /* Private define ------------------------------------------------------------*/
-#define FLASH_USER_START_ADDR     0x08002000
-/* Private variables ---------------------------------------------------------*/
-typedef struct
-{
-  uint32_t arrA[64];
-} NewDataType;                                                      /* Structure definition */
-#define VarA (*(volatile NewDataType *)FLASH_USER_START_ADDR)       /* User flash start address definition */
-uint32_t dat2[10];
+#define FLASH_USER_START_ADDR     0x08001000
 
+/* Private variables ---------------------------------------------------------*/
 uint32_t DATA[64] = {0x01010101, 0x23456789, 0x3456789A, 0x456789AB, 0x56789ABC, 0x6789ABCD, 0x789ABCDE, 0x89ABCDEF,
                      0x9ABCDEF0, 0xABCDEF01, 0xBCDEF012, 0xCDEF0123, 0xDEF01234, 0xEF012345, 0xF0123456, 0x01234567,
                      0x01010101, 0x23456789, 0x3456789A, 0x456789AB, 0x56789ABC, 0x6789ABCD, 0x789ABCDE, 0x89ABCDEF,
@@ -60,6 +55,7 @@ static void APP_FlashErase(void);
 static void APP_FlashProgram(void);
 static void APP_FlashBlank(void);
 static void APP_FlashVerify(void);
+void APP_SystemClockConfig(void);
 
 /**
   * @brief  Main program.
@@ -67,27 +63,25 @@ static void APP_FlashVerify(void);
   */
 int main(void)
 {
-  /* Initialize SysTick */
-  HAL_Init();
+  /* Configure Systemclock */
+  APP_SystemClockConfig();
 
- /* Enable SYSCFG and PWR clocks */
+  /* Enable SYSCFG and PWR clocks */
   LL_APB1_GRP2_EnableClock(LL_APB1_GRP2_PERIPH_SYSCFG);
   LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_PWR);
 
- /* Initialize LED */
+  /* Initialize LED */
   BSP_LED_Init(LED_GREEN);
 
   /* Initialize BUTTON */
   BSP_PB_Init(BUTTON_KEY,BUTTON_MODE_GPIO);
 
-  /* Initialize USART(for printf use) */
-  BSP_USART_Config();
-
   /* Wait for the BUTTON to be pressed */
   while(BSP_PB_GetState(BUTTON_KEY) == 1);
 
-  /* Unlock the Flash to enable the flash control register access */
-  HAL_FLASH_Unlock();
+  LL_FLASH_Unlock(FLASH);
+
+  LL_FLASH_TIMMING_SEQUENCE_CONFIG_24M();
 
   /* Erase Flash */
   APP_FlashErase();
@@ -99,7 +93,7 @@ int main(void)
   APP_FlashProgram();
 
   /* Lock the Flash to disable the flash control register access */
-  HAL_FLASH_Lock();
+  LL_FLASH_Lock(FLASH);
 
   /* Verify that data is written */
   APP_FlashVerify();
@@ -118,16 +112,32 @@ int main(void)
   */
 static void APP_FlashErase(void)
 {
-  uint32_t SECTORError = 0;
-  FLASH_EraseInitTypeDef EraseInitStruct = {0};
+  /* Wait Busy=0 */
+  while(LL_FLASH_IsActiveFlag_BUSY(FLASH)==1);
 
-  EraseInitStruct.TypeErase   = FLASH_TYPEERASE_SECTORERASE;      /* Macro FLASH_TYPEERASE_PAGEERASE means Page erase , Macro FLASH_TYPEERASE_SECTORERASE means Sector erase */
-  EraseInitStruct.SectorAddress = FLASH_USER_START_ADDR;          /* Start address of erase area */
-  EraseInitStruct.NbSectors  = 1;                                 /* Number of pages to be erased */
-  if (HAL_FLASHEx_Erase(&EraseInitStruct, &SECTORError) != HAL_OK)/* Perform page erase,PAGEError save faulty page in case of error(0xFFFFFFFF means that all the pages have been correctly erased) */
-  {
-    APP_ErrorHandler();
-  }
+  /* Enable EOP */
+  LL_FLASH_EnableIT_EOP(FLASH);
+
+  /* Enable Sector Erase */
+  LL_FLASH_EnableSectorErase(FLASH);
+
+  /* Set Erase Address */
+  LL_FLASH_SetEraseAddress(FLASH,FLASH_USER_START_ADDR);
+
+  /* Wait Busy=0 */
+  while(LL_FLASH_IsActiveFlag_BUSY(FLASH)==1);
+
+  /* Wait EOP=1 */
+  while(LL_FLASH_IsActiveFlag_EOP(FLASH)==0);
+
+  /* Clear EOP */
+  LL_FLASH_ClearFlag_EOP(FLASH);
+
+  /* Disable EOP */
+  LL_FLASH_DisableIT_EOP(FLASH);
+
+  /* Disable Sector Erase */
+  LL_FLASH_DisableSectorErase(FLASH);
 }
 
 /**
@@ -143,13 +153,37 @@ static void APP_FlashProgram(void)
 
   while (flash_program_start < flash_program_end)
   {
-    if (HAL_FLASH_Program(FLASH_TYPEPROGRAM_PAGE, flash_program_start, src) == HAL_OK)  /* Perform Program */
-    {
-      flash_program_start += FLASH_PAGE_SIZE;                                           /* Point to the start address of the next page to be written */
-      src += FLASH_PAGE_SIZE / 4;                                                       /* Point to the next data to be written */
-    }
+    /* Wait Busy=0 */
+    while(LL_FLASH_IsActiveFlag_BUSY(FLASH)==1);
+    
+    /* Enable EOP */
+    LL_FLASH_EnableIT_EOP(FLASH);
+
+    /* Enable Program */
+    LL_FLASH_EnablePageProgram(FLASH);
+
+    /* Page Program */
+    LL_FLASH_PageProgram(FLASH,flash_program_start,src);
+    
+    /* Wait Busy=0 */
+    while(LL_FLASH_IsActiveFlag_BUSY(FLASH)==1);
+    
+    /* Wait EOP=1 */
+    while(LL_FLASH_IsActiveFlag_EOP(FLASH)==0);
+    
+    /* Clear EOP */
+    LL_FLASH_ClearFlag_EOP(FLASH);
+   
+    /* Disable EOP */
+    LL_FLASH_DisableIT_EOP(FLASH);
+
+    /* Disable Program */
+    LL_FLASH_DisablePageProgram(FLASH);
+    flash_program_start += FLASH_PAGE_SIZE;                                           /* Point to the start address of the next page to be written */
+    src += FLASH_PAGE_SIZE / 4;                                                       /* Point to the next data to be written */
   }
 }
+
 /**
   * @brief  Check Flash if blank
   * @param  None
@@ -169,7 +203,7 @@ static void APP_FlashBlank(void)
   }
 }
 /**
-  * @brief  Verify data that is written
+  * @brief  Verify that data is written
   * @param  None
   * @retval None
   */
@@ -200,6 +234,38 @@ void APP_ErrorHandler(void)
   }
 }
 
+/**
+  * @brief  Configure Systemclock
+  * @param  None
+  * @retval None
+  */
+void APP_SystemClockConfig(void)
+{
+  /*  Set FLASH Latency Before modifying the HSI */
+  LL_FLASH_SetLatency(LL_FLASH_LATENCY_0);
+
+  /* Enable HSI */
+  LL_RCC_HSI_Enable();
+  while(LL_RCC_HSI_IsReady() != 1)
+  {
+  }
+
+  /* Set AHB divider:HCLK = SYSCLK */
+  LL_RCC_SetAHBPrescaler(LL_RCC_SYSCLK_DIV_1);
+
+  /* HSISYS used as SYSCLK clock source */
+  LL_RCC_SetSysClkSource(LL_RCC_SYS_CLKSOURCE_HSISYS);
+  while(LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_HSISYS)
+  {
+  }
+
+  /* Set APB1 divider */
+  LL_RCC_SetAPB1Prescaler(LL_RCC_APB1_DIV_1);
+  LL_Init1msTick(24000000);
+
+  /* Update CMSIS variable (which can be updated also through SystemCoreClockUpdate function) */
+  LL_SetSystemCoreClock(24000000);
+}
 
 #ifdef  USE_FULL_ASSERT
 /**
@@ -220,4 +286,4 @@ void assert_failed(uint8_t *file, uint32_t line)
 }
 #endif /* USE_FULL_ASSERT */
 
-/************************ (C) COPYRIGHT Puya *****END OF FILE****/
+/************************ (C) COPYRIGHT Puya *****END OF FILE******************/

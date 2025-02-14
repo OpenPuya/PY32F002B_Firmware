@@ -115,5 +115,5 @@ ErrorStatus LL_CRC_DeInit(CRC_TypeDef *CRCx)
 
 #endif /* USE_FULL_LL_DRIVER */
 
-/************************ (C) COPYRIGHT Puya *****END OF FILE****/
+/************************ (C) COPYRIGHT Puya *****END OF FILE******************/
 

@@ -3314,6 +3314,234 @@ void HAL_I2C_ER_IRQHandler(I2C_HandleTypeDef *hi2c)
 }
 
 /**
+  * @brief  This function handles I2C interrupt request.
+  * @param  hi2c Pointer to a I2C_HandleTypeDef structure that contains
+  *                the configuration information for the specified I2C.
+  * @retval None
+  */
+void HAL_I2C_IRQHandler(I2C_HandleTypeDef *hi2c)
+{
+  uint32_t sr1itflags;
+  uint32_t sr2itflags               = 0U;
+  uint32_t itsources                = READ_REG(hi2c->Instance->CR2);
+  uint32_t CurrentXferOptions       = hi2c->XferOptions;
+  HAL_I2C_ModeTypeDef CurrentMode   = hi2c->Mode;
+  HAL_I2C_StateTypeDef CurrentState = hi2c->State;
+  
+  HAL_I2C_ModeTypeDef tmp1;
+  uint32_t tmp2;
+  HAL_I2C_StateTypeDef tmp3;
+  uint32_t tmp4;
+  uint32_t error      = HAL_I2C_ERROR_NONE;
+
+  /* Master or Memory mode selected */
+  if ((CurrentMode == HAL_I2C_MODE_MASTER) || (CurrentMode == HAL_I2C_MODE_MEM))
+  {
+    sr2itflags   = READ_REG(hi2c->Instance->SR2);
+    sr1itflags   = READ_REG(hi2c->Instance->SR1);
+
+    /* Exit IRQ event until Start Bit detected in case of Other frame requested */
+    if ((I2C_CHECK_FLAG(sr1itflags, I2C_FLAG_SB) == RESET) && (IS_I2C_TRANSFER_OTHER_OPTIONS_REQUEST(CurrentXferOptions) == 1U))
+    {
+      return;
+    }
+
+    /* SB Set ----------------------------------------------------------------*/
+    if ((I2C_CHECK_FLAG(sr1itflags, I2C_FLAG_SB) != RESET) && (I2C_CHECK_IT_SOURCE(itsources, I2C_IT_EVT) != RESET))
+    {
+      /* Convert OTHER_xxx XferOptions if any */
+      I2C_ConvertOtherXferOptions(hi2c);
+
+      I2C_Master_SB(hi2c);
+    }
+    /* ADD10 Set -------------------------------------------------------------*/
+    else if ((I2C_CHECK_FLAG(sr1itflags, I2C_FLAG_ADD10) != RESET) && (I2C_CHECK_IT_SOURCE(itsources, I2C_IT_EVT) != RESET))
+    {
+      I2C_Master_ADD10(hi2c);
+    }
+    /* ADDR Set --------------------------------------------------------------*/
+    else if ((I2C_CHECK_FLAG(sr1itflags, I2C_FLAG_ADDR) != RESET) && (I2C_CHECK_IT_SOURCE(itsources, I2C_IT_EVT) != RESET))
+    {
+      I2C_Master_ADDR(hi2c);
+    }
+    /* I2C in mode Transmitter -----------------------------------------------*/
+    else if (I2C_CHECK_FLAG(sr2itflags, I2C_FLAG_TRA) != RESET)
+    {
+        /* TXE set and BTF reset -----------------------------------------------*/
+        if ((I2C_CHECK_FLAG(sr1itflags, I2C_FLAG_TXE) != RESET) && (I2C_CHECK_IT_SOURCE(itsources, I2C_IT_BUF) != RESET) && (I2C_CHECK_FLAG(sr1itflags, I2C_FLAG_BTF) == RESET))
+        {
+          I2C_MasterTransmit_TXE(hi2c);
+        }
+        /* BTF set -------------------------------------------------------------*/
+        else if ((I2C_CHECK_FLAG(sr1itflags, I2C_FLAG_BTF) != RESET) && (I2C_CHECK_IT_SOURCE(itsources, I2C_IT_EVT) != RESET))
+        {
+          I2C_MasterTransmit_BTF(hi2c);
+        }
+        else
+        {
+          /* Do nothing */
+        }
+    }
+    /* I2C in mode Receiver --------------------------------------------------*/
+    else
+    {
+        /* RXNE set and BTF reset -----------------------------------------------*/
+        if ((I2C_CHECK_FLAG(sr1itflags, I2C_FLAG_RXNE) != RESET) && (I2C_CHECK_IT_SOURCE(itsources, I2C_IT_BUF) != RESET) && (I2C_CHECK_FLAG(sr1itflags, I2C_FLAG_BTF) == RESET))
+        {
+          I2C_MasterReceive_RXNE(hi2c);
+        }
+        /* BTF set -------------------------------------------------------------*/
+        else if ((I2C_CHECK_FLAG(sr1itflags, I2C_FLAG_BTF) != RESET) && (I2C_CHECK_IT_SOURCE(itsources, I2C_IT_EVT) != RESET))
+        {
+          I2C_MasterReceive_BTF(hi2c);
+        }
+        else
+        {
+          /* Do nothing */
+        }
+    }
+  }
+  /* Slave mode selected */
+  else
+  {
+    /* If an error is detected, read only SR1 register to prevent */
+    /* a clear of ADDR flags by reading SR2 after reading SR1 in Error treatment */
+    if (hi2c->ErrorCode != HAL_I2C_ERROR_NONE)
+    {
+      sr1itflags   = READ_REG(hi2c->Instance->SR1);
+    }
+    else
+    {
+      sr2itflags   = READ_REG(hi2c->Instance->SR2);
+      sr1itflags   = READ_REG(hi2c->Instance->SR1);
+    }
+
+    /* ADDR set --------------------------------------------------------------*/
+    if ((I2C_CHECK_FLAG(sr1itflags, I2C_FLAG_ADDR) != RESET) && (I2C_CHECK_IT_SOURCE(itsources, I2C_IT_EVT) != RESET))
+    {
+      /* Now time to read SR2, this will clear ADDR flag automatically */
+      if (hi2c->ErrorCode != HAL_I2C_ERROR_NONE)
+      {
+        sr2itflags   = READ_REG(hi2c->Instance->SR2);
+      }
+      I2C_Slave_ADDR(hi2c, sr2itflags);
+    }
+    /* STOPF set --------------------------------------------------------------*/
+    else if (I2C_CHECK_FLAG(sr1itflags, I2C_FLAG_STOPF) != RESET)
+    {
+      I2C_Slave_STOPF(hi2c);
+    }
+    /* I2C in mode Transmitter -----------------------------------------------*/
+    else if ((CurrentState == HAL_I2C_STATE_BUSY_TX) || (CurrentState == HAL_I2C_STATE_BUSY_TX_LISTEN))
+    {
+      /* TXE set and BTF reset -----------------------------------------------*/
+      if ((I2C_CHECK_FLAG(sr1itflags, I2C_FLAG_TXE) != RESET) && (I2C_CHECK_IT_SOURCE(itsources, I2C_IT_BUF) != RESET) && (I2C_CHECK_FLAG(sr1itflags, I2C_FLAG_BTF) == RESET))
+      {
+        I2C_SlaveTransmit_TXE(hi2c);
+      }
+      /* BTF set -------------------------------------------------------------*/
+      else if ((I2C_CHECK_FLAG(sr1itflags, I2C_FLAG_BTF) != RESET) && (I2C_CHECK_IT_SOURCE(itsources, I2C_IT_EVT) != RESET))
+      {
+        I2C_SlaveTransmit_BTF(hi2c);
+      }
+      else
+      {
+        /* Do nothing */
+      }
+    }
+    /* I2C in mode Receiver --------------------------------------------------*/
+    else
+    {
+      /* RXNE set and BTF reset ----------------------------------------------*/
+      if ((I2C_CHECK_FLAG(sr1itflags, I2C_FLAG_RXNE) != RESET) && (I2C_CHECK_IT_SOURCE(itsources, I2C_IT_BUF) != RESET) && (I2C_CHECK_FLAG(sr1itflags, I2C_FLAG_BTF) == RESET))
+      {
+        I2C_SlaveReceive_RXNE(hi2c);
+      }
+      /* BTF set -------------------------------------------------------------*/
+      else if ((I2C_CHECK_FLAG(sr1itflags, I2C_FLAG_BTF) != RESET) && (I2C_CHECK_IT_SOURCE(itsources, I2C_IT_EVT) != RESET))
+      {
+        I2C_SlaveReceive_BTF(hi2c);
+      }
+      else
+      {
+        /* Do nothing */
+      }
+    }
+  }
+  
+  /* I2C in Error Treatment --------------------------------------------------*/
+  if (((I2C_CHECK_FLAG(sr1itflags, I2C_FLAG_BERR) != RESET) || (I2C_CHECK_FLAG(sr1itflags, I2C_FLAG_ARLO) != RESET) || \
+       (I2C_CHECK_FLAG(sr1itflags, I2C_FLAG_AF) != RESET) || (I2C_CHECK_FLAG(sr1itflags, I2C_FLAG_OVR) != RESET)) && \
+       (I2C_CHECK_IT_SOURCE(itsources, I2C_IT_ERR) != RESET))
+  {
+    /* I2C Bus error interrupt occurred ----------------------------------------*/
+    if ((I2C_CHECK_FLAG(sr1itflags, I2C_FLAG_BERR) != RESET) && (I2C_CHECK_IT_SOURCE(itsources, I2C_IT_ERR) != RESET))
+    {
+      error |= HAL_I2C_ERROR_BERR;
+
+      /* Clear BERR flag */
+      __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_BERR);
+
+      /* Workaround: Start cannot be generated after a misplaced Stop */
+      SET_BIT(hi2c->Instance->CR1, I2C_CR1_SWRST);
+    }
+
+    /* I2C Arbitration Lost error interrupt occurred ---------------------------*/
+    if ((I2C_CHECK_FLAG(sr1itflags, I2C_FLAG_ARLO) != RESET) && (I2C_CHECK_IT_SOURCE(itsources, I2C_IT_ERR) != RESET))
+    {
+      error |= HAL_I2C_ERROR_ARLO;
+
+      /* Clear ARLO flag */
+      __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_ARLO);
+    }
+
+    /* I2C Acknowledge failure error interrupt occurred ------------------------*/
+    if ((I2C_CHECK_FLAG(sr1itflags, I2C_FLAG_AF) != RESET) && (I2C_CHECK_IT_SOURCE(itsources, I2C_IT_ERR) != RESET))
+    {
+      tmp1 = hi2c->Mode;
+      tmp2 = hi2c->XferCount;
+      tmp3 = hi2c->State;
+      tmp4 = hi2c->PreviousState;
+      if ((tmp1 == HAL_I2C_MODE_SLAVE) && (tmp2 == 0U) && \
+          ((tmp3 == HAL_I2C_STATE_BUSY_TX) || (tmp3 == HAL_I2C_STATE_BUSY_TX_LISTEN) || \
+          ((tmp3 == HAL_I2C_STATE_LISTEN) && (tmp4 == I2C_STATE_SLAVE_BUSY_TX))))
+      {
+        I2C_Slave_AF(hi2c);
+      }
+      else
+      {
+        /* Clear AF flag */
+        __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_AF);
+
+        error |= HAL_I2C_ERROR_AF;
+
+        /* Do not generate a STOP in case of Slave receive non acknowledge during transfer (mean not at the end of transfer) */
+        if (hi2c->Mode == HAL_I2C_MODE_MASTER)
+        {
+          /* Generate Stop */
+          SET_BIT(hi2c->Instance->CR1, I2C_CR1_STOP);
+        }
+      }
+    }
+
+    /* I2C Over-Run/Under-Run interrupt occurred -------------------------------*/
+    if ((I2C_CHECK_FLAG(sr1itflags, I2C_FLAG_OVR) != RESET) && (I2C_CHECK_IT_SOURCE(itsources, I2C_IT_ERR) != RESET))
+    {
+      error |= HAL_I2C_ERROR_OVR;
+      /* Clear OVR flag */
+      __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_OVR);
+    }
+
+    /* Call the Error Callback in case of Error detected -----------------------*/
+    if (error != HAL_I2C_ERROR_NONE)
+    {
+      hi2c->ErrorCode |= error;
+      I2C_ITError(hi2c);
+    }
+  }
+}
+
+/**
   * @brief  Master Tx Transfer completed callback.
   * @param  hi2c Pointer to a I2C_HandleTypeDef structure that contains
   *                the configuration information for the specified I2C.
@@ -5194,4 +5422,4 @@ static void I2C_ConvertOtherXferOptions(I2C_HandleTypeDef *hi2c)
   * @}
   */
 
-/************************ (C) COPYRIGHT Puya *****END OF FILE****/
+/************************ (C) COPYRIGHT Puya *****END OF FILE******************/

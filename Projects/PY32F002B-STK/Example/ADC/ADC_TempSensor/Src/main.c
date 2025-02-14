@@ -90,7 +90,7 @@ static void APP_AdcConfig(void)
   AdcHandle.Instance = ADC1;
                                               
   AdcHandle.Instance                   = ADC1;                                    /* ADC1 */
-  AdcHandle.Init.ClockPrescaler        = ADC_CLOCK_SYNC_PCLK_DIV64;               /* Set ADC clock */
+  AdcHandle.Init.ClockPrescaler        = ADC_CLOCK_SYNC_PCLK_DIV4;                /* Set ADC clock */
   AdcHandle.Init.Resolution            = ADC_RESOLUTION_12B;                      /* 12-bit resolution for converted data */
   AdcHandle.Init.DataAlign             = ADC_DATAALIGN_RIGHT;                     /* Right-alignment for converted data */
   AdcHandle.Init.ScanConvMode          = ADC_SCAN_DIRECTION_FORWARD;              /* Scan sequence direction: forward */

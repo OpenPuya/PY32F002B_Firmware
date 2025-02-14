@@ -31,18 +31,18 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "py32f002bxx_ll_Start_Kit.h"
 
 /* Private define ------------------------------------------------------------*/
-#define OB_GPIO_PIN_MODE OB_SWD_PB6_GPIO_PC0
-/* #define OB_GPIO_PIN_MODE OB_SWD_PB6_NRST_PC0 */
-
-
+#define OB_GPIO_PIN_MODE LL_FLASH_SWD_PB6_GPIO_PC0
+/* #define OB_GPIO_PIN_MODE LL_FLASH_SWD_PB6_NRST_PC0 */
+ 
 /* Private variables ---------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
 /* Private user code ---------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
-static void APP_FlashOBProgram(void);
+void APP_SystemClockConfig(void);
 
 /**
   * @brief  Main program.
@@ -50,64 +50,73 @@ static void APP_FlashOBProgram(void);
   */
 int main(void)
 {
-  /* Initialize SysTick */
-  HAL_Init();
+  /* Configure Systemclock */
+  APP_SystemClockConfig();
+
+  /* Enable SYSCFG and PWR clocks */
+  LL_APB1_GRP2_EnableClock(LL_APB1_GRP2_PERIPH_SYSCFG);
+  LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_PWR);
 
   /* Initialize LED */
   BSP_LED_Init(LED_GREEN);
 
   /* Initialize BUTTON */
   BSP_PB_Init(BUTTON_KEY,BUTTON_MODE_GPIO);
-  
-  /* Wait For Button */
+
+  /* Wait for the BUTTON to be pressed */
   while(BSP_PB_GetState(BUTTON_KEY) == 1);
 
-  if(READ_BIT(FLASH->OPTR, OB_USER_SWD_NRST_MODE)!= OB_GPIO_PIN_MODE )
+  if(LL_FLASH_GetSwdNrstMode(FLASH) != OB_GPIO_PIN_MODE)
   {
-    /* Option byte program */
-    APP_FlashOBProgram();
+    /* Unlock Flash */
+    LL_FLASH_Unlock(FLASH);
+  
+    /* Unlock Option */
+    LL_FLASH_OBUnlock(FLASH);
+
+    LL_FLASH_TIMMING_SEQUENCE_CONFIG_24M();
+
+    /* Wait Busy=0 */
+    while(LL_FLASH_IsActiveFlag_BUSY(FLASH)==1);
+    
+    /* Enable EOP */
+    LL_FLASH_EnableIT_EOP(FLASH);
+
+    /* Set PC0 GPIO Mode */
+    LL_FLASH_SetOPTR(FLASH,LL_FLASH_BOR_DISABLE,LL_FLASH_BOR_LEV0,LL_FLASH_IWDG_MODE_SW,OB_GPIO_PIN_MODE);
+    
+    LL_FLASH_EnableOptionProgramStart(FLASH);
+    LL_FLASH_TriggerOptionProgramStart(FLASH);
+
+    /* Wait Busy=0 */
+    while(LL_FLASH_IsActiveFlag_BUSY(FLASH)==1);
+
+    /* Wait EOP=1 */
+    while(LL_FLASH_IsActiveFlag_EOP(FLASH)==0);
+
+    /* Clear EOP Flag */
+    LL_FLASH_ClearFlag_EOP(FLASH);
+
+    /* Disable EOP */
+    LL_FLASH_DisableIT_EOP(FLASH);
+    
+    /* Lock Option */
+    LL_FLASH_OBLock(FLASH);
+    
+    /* Lock Flash */
+    LL_FLASH_Lock(FLASH);
+
+    /* Launch */
+    LL_FLASH_Launch(FLASH);
   }
   else
   {
     BSP_LED_On(LED_GREEN);
   }
 
-  while(1)
+  while (1)
   {
   }
-}
-
-/**
-  * @brief  Option byte program
-  * @param  None
-  * @retval None
-  */
-static void APP_FlashOBProgram(void)
-{
-  FLASH_OBProgramInitTypeDef OBInitCfg = {0};
-
-  /* Unlock the Flash to enable the flash control register access */
-  HAL_FLASH_Unlock();
-
-  /* Unlock the Flash to enable access to the part of flash control register that is about option byte */
-  HAL_FLASH_OB_Unlock();
-
-  /* Initialize FLASH Option Bytes PROGRAM structure */
-  OBInitCfg.OptionType = OPTIONBYTE_USER;
-  OBInitCfg.USERType = OB_USER_BOR_EN | OB_USER_BOR_LEV | OB_USER_IWDG_SW | OB_USER_SWD_NRST_MODE;
-  OBInitCfg.USERConfig = OB_BOR_DISABLE | OB_BOR_LEVEL_3p1_3p2 | OB_IWDG_SW | OB_GPIO_PIN_MODE ;
-
-  /* Execute option byte program */
-  HAL_FLASH_OBProgram(&OBInitCfg);
-
-  /* Lock the Flash to disable the flash control register access */
-  HAL_FLASH_Lock();
-
-  /* Lock the Flash to disable access to the part of flash control register that is about option byte */
-  HAL_FLASH_OB_Lock();
-
-  /* Generate a reset and let option byte reload */
-  HAL_FLASH_OB_Launch();
 }
 
 /**
@@ -121,6 +130,39 @@ void APP_ErrorHandler(void)
   while (1)
   {
   }
+}
+
+/**
+  * @brief  Configure Systemclock
+  * @param  None
+  * @retval None
+  */
+void APP_SystemClockConfig(void)
+{
+  /*  Set FLASH Latency Before modifying the HSI */
+  LL_FLASH_SetLatency(LL_FLASH_LATENCY_0);
+
+  /* Enable HSI */
+  LL_RCC_HSI_Enable();
+  while(LL_RCC_HSI_IsReady() != 1)
+  {
+  }
+
+  /* Set AHB divider:HCLK = SYSCLK */
+  LL_RCC_SetAHBPrescaler(LL_RCC_SYSCLK_DIV_1);
+
+  /* HSISYS used as SYSCLK clock source */
+  LL_RCC_SetSysClkSource(LL_RCC_SYS_CLKSOURCE_HSISYS);
+  while(LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_HSISYS)
+  {
+  }
+
+  /* Set APB1 divider */
+  LL_RCC_SetAPB1Prescaler(LL_RCC_APB1_DIV_1);
+  LL_Init1msTick(24000000);
+
+  /* Update CMSIS variable (which can be updated also through SystemCoreClockUpdate function) */
+  LL_SetSystemCoreClock(24000000);
 }
 
 #ifdef  USE_FULL_ASSERT
@@ -142,4 +184,4 @@ void assert_failed(uint8_t *file, uint32_t line)
 }
 #endif /* USE_FULL_ASSERT */
 
-/************************ (C) COPYRIGHT Puya *****END OF FILE****/
+/************************ (C) COPYRIGHT Puya *****END OF FILE******************/

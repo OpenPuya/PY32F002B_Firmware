@@ -2146,4 +2146,4 @@ void UART_AdvFeatureConfig(UART_HandleTypeDef *huart)
   * @}
   */
 
-/************************ (C) COPYRIGHT Puya *****END OF FILE****/
+/************************ (C) COPYRIGHT Puya *****END OF FILE******************/

@@ -415,8 +415,10 @@ typedef enum
 /** @defgroup ADC_VrefBuf ADC VrefBuf
   * @{
   */  
-#define ADC_VREFBUF_VCCA      (0x00000000U)                        /*!< VREFBUF VCCA */
-#define ADC_VREFBUF_1P5V      ((uint32_t)(ADC_CR_VREF_BUFFERE))    /*!< VREFBUF 1.5V */
+#define ADC_VREFBUF_VCCA      (0x00000000U)                                              /*!< VREFBUF VCCA */
+#define ADC_VREFBUF_1P5V      ((uint32_t)(ADC_CR_VREF_BUFFERE))                          /*!< VREFBUF 1.5V */
+#define ADC_VREFBUF_2P048V    ((uint32_t)(ADC_CR_VREF_BUFFERE | ADC_CR_VREFBUFF_SEL_0))  /*!< VREFBUF 2.048V */
+#define ADC_VREFBUF_2P5V      ((uint32_t)(ADC_CR_VREF_BUFFERE | ADC_CR_VREFBUFF_SEL_1))  /*!< VREFBUF 2.5V */
 
 /**
   * @}
@@ -570,6 +572,30 @@ typedef enum
 /**
   * @}
   */
+/**
+  * @}
+  */
+
+/** @defgroup ADC_Exported_Macros ADC Exported Macros
+  * @{
+  */
+/* Macro for application program usage, and possibly can be used into code of */
+/* final user.                                                                */
+
+#define ADC_VREFBUF_1P5    (((*(uint16_t *)(0x1FFF002E))       & 0xf)        + \
+                            ((*(uint16_t *)(0x1FFF002E) >> 4 ) & 0xf) * 10   + \
+                            ((*(uint16_t *)(0x1FFF002E) >> 8 ) & 0xf) * 100  + \
+                            ((*(uint16_t *)(0x1FFF002E) >> 12) & 0xf) * 1000)
+
+#define ADC_VREFBUF_2P048  (((*(uint16_t *)(0x1FFF0032))       & 0xf)        + \
+                            ((*(uint16_t *)(0x1FFF0032) >> 4 ) & 0xf) * 10   + \
+                            ((*(uint16_t *)(0x1FFF0032) >> 8 ) & 0xf) * 100  + \
+                            ((*(uint16_t *)(0x1FFF0032) >> 12) & 0xf) * 1000)
+
+#define ADC_VREFBUF_2P5    (((*(uint16_t *)(0x1FFF0036))       & 0xf)        + \
+                            ((*(uint16_t *)(0x1FFF0036) >> 4 ) & 0xf) * 10   + \
+                            ((*(uint16_t *)(0x1FFF0036) >> 8 ) & 0xf) * 100  + \
+                            ((*(uint16_t *)(0x1FFF0036) >> 12) & 0xf) * 1000)
 /**
   * @}
   */
@@ -1024,8 +1050,10 @@ typedef enum
                                  ((CHANNEL) == ADC_CHANNEL_VREFINT)     )
 #endif
                                  
-#define IS_ADC_VREFBUF(VREFBUF) (((VREFBUF) == ADC_VREFBUF_VCCA)    || \
-                                 ((VREFBUF) == ADC_VREFBUF_1P5V)   )                                 
+#define IS_ADC_VREFBUF(VREFBUF) (((VREFBUF) == ADC_VREFBUF_VCCA)   || \
+                                 ((VREFBUF) == ADC_VREFBUF_1P5V)   || \
+                                 ((VREFBUF) == ADC_VREFBUF_2P048V) || \
+                                 ((VREFBUF) == ADC_VREFBUF_2P5V))
 
 #define IS_ADC_CALIBRATION_SAMPLETIME(TIME) (((TIME) == ADC_CALIBSAMPLETIME_1CYCLE)   || \
                                              ((TIME) == ADC_CALIBSAMPLETIME_2CYCLES)   || \
@@ -1175,5 +1203,5 @@ uint32_t                HAL_ADC_GetError(ADC_HandleTypeDef *hadc);
 
 #endif /* __PY32F002B_HAL_ADC_H */
 
-/************************ (C) COPYRIGHT Puya *****END OF FILE****/
+/************************ (C) COPYRIGHT Puya *****END OF FILE******************/
 

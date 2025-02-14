@@ -41,33 +41,21 @@
       },
       {
         "name": "PY32F002B_HAL_Driver",
-        "files":[
+        "files": [
           {
-            "path":"../../../../../../Drivers/PY32F002B_HAL_Driver/Src/py32f002b_hal_flash.c"
-          },
-          {                
-            "path":"../../../../../../Drivers/PY32F002B_HAL_Driver/Src/py32f002b_hal.c"
-          },
-          {                
-            "path":"../../../../../../Drivers/PY32F002B_HAL_Driver/Src/py32f002b_hal_cortex.c"
-          },
-          {                
-            "path":"../../../../../../Drivers/PY32F002B_HAL_Driver/Src/py32f002b_ll_utils.c"
+            "path": "../../../../../../Drivers/PY32F002B_HAL_Driver/Src/py32f002b_ll_utils.c"
           }
         ],
         "folders": []
       },
       {
         "name": "User",
-        "files":[
+        "files": [
           {
-            "path":"../Src/main.c"
+            "path": "../Src/main.c"
           },
           {
-            "path":"../Src/py32f002b_it.c"
-          },
-          {
-            "path":"../Src/py32f002b_hal_msp.c"
+            "path": "../Src/py32f002b_it.c"
           }
         ],
         "folders": []
@@ -132,7 +120,10 @@
         ],
         "libList": [],
         "sourceDirList": [],
-        "defineList": ["USE_HAL_DRIVER","PY32F002Bx5"]
+        "defineList": [
+          "PY32F002Bx5",
+          "USE_FULL_LL_DRIVER"
+        ]
       }
     }
   },

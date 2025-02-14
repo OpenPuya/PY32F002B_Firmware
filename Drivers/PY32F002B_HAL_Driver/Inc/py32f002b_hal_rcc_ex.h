@@ -338,4 +338,4 @@ void              HAL_RCCEx_DisableLSCO(void);
 
 #endif /* __PY32F002B_HAL_RCC_EX_H */
 
-/************************ (C) COPYRIGHT Puya *****END OF FILE****/
+/************************ (C) COPYRIGHT Puya *****END OF FILE******************/

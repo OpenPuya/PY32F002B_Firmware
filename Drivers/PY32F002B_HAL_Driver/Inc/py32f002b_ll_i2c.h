@@ -1244,4 +1244,4 @@ void LL_I2C_StructInit(LL_I2C_InitTypeDef *I2C_InitStruct);
 
 #endif /* __PY32F002B_LL_I2C_H */
 
-/************************ (C) COPYRIGHT Puya *****END OF FILE****/
+/************************ (C) COPYRIGHT Puya *****END OF FILE******************/

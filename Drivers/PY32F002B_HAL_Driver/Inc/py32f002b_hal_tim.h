@@ -2096,4 +2096,4 @@ void TIM_ResetCallback(TIM_HandleTypeDef *htim);
 
 #endif /* PY32F002B_HAL_TIM_H */
 
-/************************ (C) COPYRIGHT Puya *****END OF FILE****/
+/************************ (C) COPYRIGHT Puya *****END OF FILE******************/

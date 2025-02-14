@@ -156,6 +156,11 @@ extern uint32_t uwTickFreq;
   */
 
 /* Peripherals on APB1 */
+
+#if defined(DBGMCU_APB_FZ1_DBG_IWDG_STOP)
+#define __HAL_DBGMCU_FREEZE_IWDG()           (DBGMCU->APBFZ1 |= (DBGMCU_APB_FZ1_DBG_IWDG_STOP))
+#define __HAL_DBGMCU_UNFREEZE_IWDG()         (DBGMCU->APBFZ1 &= ~(DBGMCU_APB_FZ1_DBG_IWDG_STOP))
+#endif /* DBGMCU_APB_FZ1_DBG_IWDG_STOP */
 #if defined(DBGMCU_APB_FZ1_DBG_LPTIM_STOP)
 #define __HAL_DBGMCU_FREEZE_LPTIM()            (DBGMCU->APBFZ1 |= (DBGMCU_APB_FZ1_DBG_LPTIM_STOP))
 #define __HAL_DBGMCU_UNFREEZE_LPTIM()          (DBGMCU->APBFZ1 &= ~(DBGMCU_APB_FZ1_DBG_LPTIM_STOP))
@@ -334,4 +339,4 @@ void HAL_SYSCFG_DisableGPIONoiseFilter(GPIO_TypeDef *GPIOx,uint16_t GPIO_Pin);
 
 #endif /* __PY32F002B_HAL_H */
 
-/************************ (C) COPYRIGHT Puya *****END OF FILE****/
+/************************ (C) COPYRIGHT Puya *****END OF FILE******************/

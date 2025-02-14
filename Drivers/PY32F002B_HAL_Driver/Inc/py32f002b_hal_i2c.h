@@ -566,6 +566,7 @@ HAL_StatusTypeDef HAL_I2C_Master_Abort_IT(I2C_HandleTypeDef *hi2c, uint16_t DevA
 /******* I2C IRQHandler and Callbacks used in non blocking modes (Interrupt) */
 void HAL_I2C_EV_IRQHandler(I2C_HandleTypeDef *hi2c);
 void HAL_I2C_ER_IRQHandler(I2C_HandleTypeDef *hi2c);
+void HAL_I2C_IRQHandler(I2C_HandleTypeDef *hi2c);
 void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef *hi2c);
 void HAL_I2C_MasterRxCpltCallback(I2C_HandleTypeDef *hi2c);
 void HAL_I2C_SlaveTxCpltCallback(I2C_HandleTypeDef *hi2c);
@@ -696,4 +697,4 @@ uint32_t HAL_I2C_GetError(I2C_HandleTypeDef *hi2c);
 
 #endif /* __PY32F002B_HAL_I2C_H */
 
-/************************ (C) COPYRIGHT Puya *****END OF FILE****/
+/************************ (C) COPYRIGHT Puya *****END OF FILE******************/

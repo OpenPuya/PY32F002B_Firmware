@@ -58,6 +58,8 @@
 #define UTILS_SCALE1_LATENCY1_FREQ  24000000U       /*!< HCLK frequency to set FLASH latency 1 in power scale 1  */
 #define UTILS_SCALE1_LATENCY2_FREQ  48000000U       /*!< HCLK frequency to set FLASH latency 2 in power scale 1  */
 
+uint32_t LL_FlashTimmingParam[8]=  {0x1FFF011C, 0x1FFF011C, 0x1FFF011C, 0x1FFF011C, 0x1FFF011C, 0x1FFF0130, 0x1FFF011C, 0x1FFF011C};
+
 /**
   * @}
   */
@@ -243,4 +245,4 @@ ErrorStatus LL_SetFlashLatency(uint32_t HCLKFrequency)
   * @}
   */
 
-/************************ (C) COPYRIGHT Puya *****END OF FILE****/
+/************************ (C) COPYRIGHT Puya *****END OF FILE******************/

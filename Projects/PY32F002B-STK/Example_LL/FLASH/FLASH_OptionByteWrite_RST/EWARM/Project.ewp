@@ -1085,15 +1085,6 @@
             <file>
                 <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\PY32F002B_HAL_Driver\Src\py32f002b_ll_utils.c</name>
             </file>
-			<file>
-                <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\PY32F002B_HAL_Driver\Src\py32f002b_hal_flash.c</name>
-            </file>
-			<file>
-                <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\PY32F002B_HAL_Driver\Src\py32f002b_hal.c</name>
-            </file>
-			<file>
-                <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\PY32F002B_HAL_Driver\Src\py32f002b_hal_cortex.c</name>
-            </file>
         </group>
     </group>
     <group>

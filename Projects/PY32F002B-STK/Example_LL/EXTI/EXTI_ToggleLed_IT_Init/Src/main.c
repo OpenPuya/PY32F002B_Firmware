@@ -121,7 +121,7 @@ static void APP_ConfigureEXTI(void)
   EXTI_InitStruct.Trigger = LL_EXTI_TRIGGER_FALLING;
   LL_EXTI_Init(&EXTI_InitStruct);
 
-  /* Enable and set EXTI line0 Interrupt to the lowest priority */
+  /* Enable interrupt */
   NVIC_SetPriority(EXTI0_1_IRQn, 0);
   NVIC_EnableIRQ(EXTI0_1_IRQn);
 }

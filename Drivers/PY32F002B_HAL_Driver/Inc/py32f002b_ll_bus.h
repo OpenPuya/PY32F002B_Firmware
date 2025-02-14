@@ -549,4 +549,4 @@ __STATIC_INLINE void LL_IOP_GRP1_ReleaseReset(uint32_t Periphs)
 
 #endif /* PY32F002B_LL_BUS_H */
 
-/************************ (C) COPYRIGHT Puya *****END OF FILE****/
+/************************ (C) COPYRIGHT Puya *****END OF FILE******************/

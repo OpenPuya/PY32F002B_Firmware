@@ -3,14 +3,13 @@
                              Sample Description
 ================================================================================
 功能描述：
-此样例演示了GPIO输出模式，配置LED引脚(PA1)为数字输出模式，并且每隔250ms翻转一次
-LED引脚电平，运行程序，可以看到LED灯以2Hz的频率闪烁。
+此样例演示了GPIO输出模式，配置LED引脚为数字输出模式，并且每隔250ms翻转一次LED引
+脚电平，运行程序，可以看到LED灯以2Hz的频率闪烁。
 
 Function descriptions:
-This example demonstrates the GPIO output mode, configuring the LED pin (PA1)
-to be in digital output mode, and flipping the LED pin level every 250ms. 
-Running the program, you can see that the LED light flashes at a frequency 
-of 2Hz.
+This example demonstrates the GPIO output mode, configuring the LED pin to be in
+ digital output mode, and flipping the LED pin level every 250ms. Running the 
+program, you can see that the LED light flashes at a frequency of 2Hz.
 ================================================================================
 测试环境：
 测试用板：PY32F002B_STK

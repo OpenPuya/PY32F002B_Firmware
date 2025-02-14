@@ -932,7 +932,9 @@ static void COMP_VrefConfig(COMP_HandleTypeDef *hcomp)
   FlagStatus comp1clkchanged = RESET;
   FlagStatus adcclkchanged = RESET;
     
-  if(hcomp->Init.VrefSrc == COMP_VREFCMP_SOURCE_VREFBUF)
+  if((hcomp->Init.VrefSrc == COMP_VREFCMP_SOURCE_VREFBUF1P5V)   || \
+     (hcomp->Init.VrefSrc == COMP_VREFCMP_SOURCE_VREFBUF2P048V) || \
+     (hcomp->Init.VrefSrc == COMP_VREFCMP_SOURCE_VREFBUF2P5V))
   { 
     if (__HAL_RCC_ADC_IS_CLK_DISABLED() != 0U)
     {
@@ -940,7 +942,7 @@ static void COMP_VrefConfig(COMP_HandleTypeDef *hcomp)
       adcclkchanged = SET;
     }
     SET_BIT(ADC1_COMMON->CCR,ADC_CCR_VREFEN);
-    MODIFY_REG(ADC1->CR, ADC_CR_VREF_BUFFERE | ADC_CR_VREFBUFF_SEL, ADC_CR_VREF_BUFFERE );
+    MODIFY_REG(ADC1->CR, ADC_CR_VREF_BUFFERE | ADC_CR_VREFBUFF_SEL, (ADC_CR_VREF_BUFFERE | hcomp->Init.VrefSrc));
             
     /* Restore clock configuration if changed */
     if (adcclkchanged == SET)
@@ -984,4 +986,4 @@ static void COMP_VrefConfig(COMP_HandleTypeDef *hcomp)
   * @}
   */
 
-/************************ (C) COPYRIGHT Puya *****END OF FILE****/
+/************************ (C) COPYRIGHT Puya *****END OF FILE******************/

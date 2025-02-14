@@ -88,9 +88,6 @@ int main(void)
   HAL_NVIC_SetPriority(LPTIM1_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(LPTIM1_IRQn);
 
-  /* Suspend Systick */
-  HAL_SuspendTick();
-
   /* LED ON*/
   BSP_LED_On(LED_GREEN);
   
@@ -113,11 +110,17 @@ int main(void)
     /* Wait at least three LSI times for the completion of the disable operation */
     APP_DelayNops(RatioNops); 
     
+    /* Suspend Systick */
+    HAL_SuspendTick();
+
     /* Configure LPTIM for once mode and enable interrupt */
     HAL_LPTIM_SetOnce_Start_IT(&LPTIMConf, 51);
 
     /* Enter Stop Mode and Wakeup by WFI */
     HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
+
+    /* Resume Systick */
+    HAL_ResumeTick();
 
     HAL_GPIO_TogglePin(GPIOA,GPIO_PIN_3);
   }

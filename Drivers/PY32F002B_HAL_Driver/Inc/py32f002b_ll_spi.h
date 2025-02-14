@@ -197,10 +197,10 @@ typedef struct
 /** @defgroup SPI_LL_EC_TRANSFER_MODE Transfer Mode
   * @{
   */
-#define LL_SPI_FULL_DUPLEX                 0x00000000U                          /*!< Full-Duplex mode. Rx and Tx transfer on 2 lines */
-#define LL_SPI_SIMPLEX_RX                  (SPI_CR1_RXONLY)                     /*!< Simplex Rx mode.  Rx transfer only on 1 line    */
-#define LL_SPI_HALF_DUPLEX_RX              (SPI_CR1_BIDIMODE)                   /*!< Half-Duplex Rx mode. Rx transfer on 1 line      */
-#define LL_SPI_HALF_DUPLEX_TX              (SPI_CR1_BIDIMODE | SPI_CR1_BIDIOE)  /*!< Half-Duplex Tx mode. Tx transfer on 1 line      */
+#define LL_SPI_FULL_DUPLEX                 0x00000000U                          /*!< Full-duplex communication or Simplex communication Transmit-only mode */
+#define LL_SPI_SIMPLEX_RX                  (SPI_CR1_RXONLY)                     /*!< Simplex communication Receive-only mode */
+#define LL_SPI_HALF_DUPLEX_RX              (SPI_CR1_BIDIMODE)                   /*!< Half-duplex communication Rx mode */
+#define LL_SPI_HALF_DUPLEX_TX              (SPI_CR1_BIDIMODE | SPI_CR1_BIDIOE)  /*!< Half-duplex communication Tx mode */
 /**
   * @}
   */
@@ -935,4 +935,4 @@ void        LL_SPI_StructInit(LL_SPI_InitTypeDef *SPI_InitStruct);
 
 #endif /* PY32F002B_LL_SPI_H */
 
-/************************ (C) COPYRIGHT Puya *****END OF FILE****/
+/************************ (C) COPYRIGHT Puya *****END OF FILE******************/

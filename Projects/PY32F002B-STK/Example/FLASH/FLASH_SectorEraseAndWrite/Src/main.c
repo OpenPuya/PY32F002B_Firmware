@@ -34,14 +34,8 @@
 
 /* Private define ------------------------------------------------------------*/
 #define FLASH_USER_START_ADDR     0x08002000
-/* Private variables ---------------------------------------------------------*/
-typedef struct
-{
-  uint32_t arrA[64];
-} NewDataType;                                                      /* Struct define */
-#define VarA (*(volatile NewDataType *)FLASH_USER_START_ADDR)       
-uint32_t dat2[10];
 
+/* Private variables ---------------------------------------------------------*/
 uint32_t DATA[64] = {0x01010101, 0x23456789, 0x3456789A, 0x456789AB, 0x56789ABC, 0x6789ABCD, 0x789ABCDE, 0x89ABCDEF,
                      0x9ABCDEF0, 0xABCDEF01, 0xBCDEF012, 0xCDEF0123, 0xDEF01234, 0xEF012345, 0xF0123456, 0x01234567,
                      0x01010101, 0x23456789, 0x3456789A, 0x456789AB, 0x56789ABC, 0x6789ABCD, 0x789ABCDE, 0x89ABCDEF,
@@ -217,4 +211,4 @@ void assert_failed(uint8_t *file, uint32_t line)
 }
 #endif /* USE_FULL_ASSERT */
 
-/************************ (C) COPYRIGHT Puya *****END OF FILE****/
+/************************ (C) COPYRIGHT Puya *****END OF FILE******************/

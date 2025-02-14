@@ -3,17 +3,18 @@
                              Sample Description
 ================================================================================
 功能描述:
-此样例是通过轮询方式对串口外设接口（SPI）与外部设备以全双工串行方式进行通信的演示,
-此接口设置为主模式，为外部从设备提供通信时钟SCK。主机通过MOSI引脚发送数据,从MISO
-引脚接收从机的数据，数据以主机提供的SCK沿同步被移位，完成全双工通信。
+此样例是通过轮询方式对串口外设接口（SPI）与外部设备以全双工串行方式进行通信的演
+示。主设备提供通信时钟SCK，通过MOSI/MISO引脚发送/接收数据。从设备通过MOSI/MISO引
+脚接收/发送数据。数据以主机提供的SCK沿同步被移位，完成全双工通信。
 
 Function descriptions:
-This example is a demonstration of communication between the serial peripheral
-interface (SPI) and external devices in full duplex serial mode through polling.
-This interface is set as the main mode and provides communication clock SCK for
-external slave devices. The host sends data through the MOSI pin and receives
-data from the slave through the MISO pin. The data is synchronously shifted
-along the SCK provided by the host, completing full duplex communication.
+This sample is a demonstration of the Serial Peripheral Interface (SPI) 
+communicating with an external device in full-duplex serial mode by polling. 
+The master device provides the communication clock SCK and sends/receives data 
+via the MOSI/MISO pin. The slave device receives/transmits data through the 
+MOSI/MISO pins. The data is shifted synchronously along the SCK provided by the 
+master to complete full-duplex communication.
+
 ================================================================================
 测试环境：
 测试用板：PY32F002B_STK
@@ -37,9 +38,9 @@ SCK(PB2)   ----->    SCK(PB2)
 MISO(PA1)  <-----    MISO(PA1)
 MOSI(PA7)  ----->    MOSI(PA7)
 NSS(PA6)   ----->    NSS(PA6)
-GND          <----->   GND
-5. 通过USB转TTL模块连接PC与STK板,STK板与USB转TTL模块的连线方式如下；
-STK板        USB转TTL模块
+GND       <----->    GND
+5.通过USB转TTL模块连接PC与STK板,STK板与USB转TTL模块的连线方式如下；
+STK板         USB转TTL模块
 PB4(TX)  -->  RX
 PB5(RX)  -->  TX
 GND      -->  GND
@@ -54,15 +55,15 @@ Example execution steps:
 3.Compile and download slave program SPI_TwoBoards_FullDuplexSlave_Polling_Init
 4.Connection between the master and slave pins (arrow pointing in the direction
 of signal transmission)
-MASTER：         SLAVE：
+MASTER：             SLAVE：
 SCK(PB2)   ----->    SCK(PB2)
 MISO(PA1)  <-----    MISO(PA1)
 MOSI(PA7)  ----->    MOSI(PA7)
 NSS(PA6)   ----->    NSS(PA6)
-GND        <----->   GND
+GND       <----->    GND
 5.Connect the PC to the STK board through the USB to TTL module, and the
 connection method between the STK board and the USB to TTL module is as follows:
-STK board        USB to TTL module
+STK board     USB to TTL module
 PB4(TX)  -->  RX
 PB5(RX)  -->  TX
 GND      -->  GND

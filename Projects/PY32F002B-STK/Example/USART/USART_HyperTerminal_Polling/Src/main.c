@@ -32,11 +32,15 @@
 #include "main.h"
 
 /* Private define ------------------------------------------------------------*/
+#define COUNTOF(__BUFFER__)   (sizeof(__BUFFER__) / sizeof(*(__BUFFER__)))
+#define TXSTARTMESSAGESIZE    (COUNTOF(aTxStartMessage) - 1)
+#define TXENDMESSAGESIZE      (COUNTOF(aTxEndMessage) - 1)
+
 /* Private variables ---------------------------------------------------------*/
 UART_HandleTypeDef UartHandle;
-uint8_t aTxBuffer[12] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
+uint8_t aTxStartMessage[] = "\r\n UART Hyperterminal communication based on Polling\r\n Enter 12 characters using keyboard :\r\n";
+uint8_t aTxEndMessage[] = "\r\n Example Finished\r\n";
 uint8_t aRxBuffer[12] = {0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff};
-__IO ITStatus UartReady = RESET;
 
 /* Private user code ---------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
@@ -51,6 +55,9 @@ int main(void)
   /* Reset of all peripherals, Initializes the Systick. */
   HAL_Init();
   
+  /* Configure LED */
+  BSP_LED_Init(LED_GREEN);
+  
   /* USART initialization */
   UartHandle.Instance          = USART1;
   UartHandle.Init.BaudRate     = 115200;
@@ -62,26 +69,41 @@ int main(void)
   UartHandle.Init.OverSampling = UART_OVERSAMPLING_16;
   UartHandle.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
   HAL_UART_Init(&UartHandle);
-  
-  /* Sending data through POLLING */
-  if (HAL_UART_Transmit(&UartHandle, (uint8_t *)aTxBuffer, 12, 5000) != HAL_OK)
+
+  /* Start the transmission process */
+  if(HAL_UART_Transmit(&UartHandle, (uint8_t*)aTxStartMessage, TXSTARTMESSAGESIZE, 5000)!= HAL_OK)
   {
+    /* Transfer error in transmission process */
     APP_ErrorHandler();
   }
 
+  /* Put UART peripheral in reception process */
+  if(HAL_UART_Receive(&UartHandle, (uint8_t *)aRxBuffer, 12, 5000) != HAL_OK)
+  {
+    /* Transfer error in reception process */
+    APP_ErrorHandler();
+  }
+
+  /* Send the received Buffer */
+  if(HAL_UART_Transmit(&UartHandle, (uint8_t*)aRxBuffer, 12, 5000)!= HAL_OK)
+  {
+    /* Transfer error in transmission process */
+    APP_ErrorHandler();
+  }
+
+  /* Send the End Message */
+  if(HAL_UART_Transmit(&UartHandle, (uint8_t*)aTxEndMessage, TXENDMESSAGESIZE, 5000)!= HAL_OK)
+  {
+    /* Transfer error in transmission process */
+    APP_ErrorHandler();
+  }
+
+  /* Turn on LED if test passes then enter infinite loop */
+  BSP_LED_On(LED_GREEN);
+  
+  /* Infinite loop */
   while (1)
   {
-    /* Receiving data through POLLING */
-    if (HAL_UART_Receive(&UartHandle, (uint8_t *)aRxBuffer, 12, 5000) != HAL_OK)
-    {
-      APP_ErrorHandler();
-    }
-
-    /* Sending data through POLLING */
-    if (HAL_UART_Transmit(&UartHandle, (uint8_t *)aRxBuffer, 12, 5000) != HAL_OK)
-    {
-      APP_ErrorHandler();
-    }
 
   }
 }

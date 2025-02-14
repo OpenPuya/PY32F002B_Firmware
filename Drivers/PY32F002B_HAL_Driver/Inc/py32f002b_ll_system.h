@@ -184,6 +184,9 @@ extern "C" {
 /** @defgroup SYSTEM_LL_EC_APB1_GRP1_STOP_IP  DBGMCU APB1 GRP1 STOP IP
   * @{
   */
+#if defined(DBGMCU_APB_FZ1_DBG_IWDG_STOP)
+#define LL_DBGMCU_APB1_GRP1_IWDG_STOP      DBGMCU_APB_FZ1_DBG_IWDG_STOP        /*!< Debug Independent Watchdog stopped when Core is halted */
+#endif
 #if defined(DBGMCU_APB_FZ1_DBG_LPTIM_STOP)
 #define LL_DBGMCU_APB1_GRP1_LPTIM1_STOP    DBGMCU_APB_FZ1_DBG_LPTIM_STOP      /*!< LPTIM1 counter stopped when Core is halted */
 #endif
@@ -516,6 +519,7 @@ __STATIC_INLINE uint32_t LL_DBGMCU_IsEnabledDBGStopMode(void)
   * @note   Depending on devices and packages, some Peripherals may not be available.
   *         Refer to device datasheet for Peripherals availability.
   * @param  Periphs This parameter can be a combination of the following values:
+  *         @arg @ref LL_DBGMCU_APB1_GRP1_IWDG_STOP
   *         @arg @ref LL_DBGMCU_APB1_GRP1_LPTIM1_STOP
   * @retval None
   */
@@ -529,6 +533,7 @@ __STATIC_INLINE void LL_DBGMCU_APB1_GRP1_FreezePeriph(uint32_t Periphs)
   * @note   Depending on devices and packages, some Peripherals may not be available.
   *         Refer to device datasheet for Peripherals availability.
   * @param  Periphs This parameter can be a combination of the following values:
+  *         @arg @ref LL_DBGMCU_APB1_GRP1_IWDG_STOP
   *         @arg @ref LL_DBGMCU_APB1_GRP1_LPTIM1_STOP
   * @retval None
   */
@@ -542,6 +547,7 @@ __STATIC_INLINE void LL_DBGMCU_APB1_GRP1_UnFreezePeriph(uint32_t Periphs)
   * @note   Depending on devices and packages, some Peripherals may not be available.
   *         Refer to device datasheet for Peripherals availability.
   * @param  Periphs This parameter can be one of the following values:
+  *         @arg @ref LL_DBGMCU_APB1_GRP1_IWDG_STOP
   *         @arg @ref LL_DBGMCU_APB1_GRP1_LPTIM1_STOP
   * @retval State of bit (1 or 0).
   */
@@ -616,4 +622,4 @@ __STATIC_INLINE uint32_t LL_DBGMCU_APB1_GRP2_IsFreezePeriph(uint32_t Periphs)
 
 #endif /* PY32F002B_LL_SYSTEM_H */
 
-/************************ (C) COPYRIGHT Puya *****END OF FILE****/
+/************************ (C) COPYRIGHT Puya *****END OF FILE******************/

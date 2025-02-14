@@ -194,8 +194,23 @@ typedef struct
 /** @defgroup COMP_LL_EC_VREFCMP_SRC Comparator Vrefcmp source
   * @{
   */
-#define LL_COMP_VREFCMP_SOURCE_VREFBUF       (0x00000000U)     
-#define LL_COMP_VREFCMP_SOURCE_VCC           (COMP_CSR_COMP_VCSEL) 
+#define LL_COMP_VREFCMP_SOURCE_VREFBUF       (0x00000000U)
+#define LL_COMP_VREFCMP_SOURCE_VCC           (COMP_CSR_COMP_VCSEL)
+
+/**
+  * @}
+  */
+
+/** @defgroup COMP_LL_EC_VREFCMP_SRC_VREFBUF_VOLTAGE Comparator Vrefbuf voltage source
+  * @{
+  */
+/* Note: If the internal reference voltage is selected for the comparator reference source   */
+/*       voltage, it is recommended to use LL_COMP_VREFCMP_SOURCE_VREFBUF1P5V, which is more */
+/*       accurate than other values.                                                         */
+
+#define LL_COMP_VREFCMP_SOURCE_VREFBUF1P5V   LL_COMP_VREFCMP_SOURCE_VREFBUF
+#define LL_COMP_VREFCMP_SOURCE_VREFBUF2P048V ADC_CR_VREFBUFF_SEL_0
+#define LL_COMP_VREFCMP_SOURCE_VREFBUF2P5V   ADC_CR_VREFBUFF_SEL_1
 
 /**
   * @}
@@ -777,4 +792,4 @@ void        LL_COMP_StructInit(LL_COMP_InitTypeDef *COMP_InitStruct);
 #endif /* PY32F002B_LL_COMP_H */
 
 
-/************************ (C) COPYRIGHT Puya *****END OF FILE****/
+/************************ (C) COPYRIGHT Puya *****END OF FILE******************/

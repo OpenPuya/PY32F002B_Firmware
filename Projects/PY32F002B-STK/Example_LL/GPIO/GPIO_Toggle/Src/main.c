@@ -33,6 +33,10 @@
 #include "py32f002bxx_ll_Start_Kit.h"
 
 /* Private define ------------------------------------------------------------*/
+#define LED_GPIO_PIN                   LED3_PIN
+#define LED_GPIO_PORT                  LED3_GPIO_PORT
+#define LED_GPIO_CLK_ENABLE()          LED3_GPIO_CLK_ENABLE()
+
 /* Private variables ---------------------------------------------------------*/
 /* Private user code ---------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
@@ -49,17 +53,17 @@ int main(void)
   /* Configure Systemclock */
   APP_SystemClockConfig();
 
-  /* Configure PA1 pin in output push-pull mode to drive external LEDs */
+  /* Configure GPIO in output push-pull mode to drive external LEDs */
   APP_GpioConfig();
 
   /* LED off*/
-  LL_GPIO_SetOutputPin(GPIOA, LL_GPIO_PIN_1);
+  LL_GPIO_SetOutputPin(LED_GPIO_PORT, LED_GPIO_PIN);
 
   while (1)
   {
     /* Toggles the LED. */
     LL_mDelay(100);
-    LL_GPIO_TogglePin(GPIOA, LL_GPIO_PIN_1);
+    LL_GPIO_TogglePin(LED_GPIO_PORT, LED_GPIO_PIN);
   }
 }
 
@@ -101,16 +105,16 @@ static void APP_SystemClockConfig(void)
 static void APP_GpioConfig(void)
 {
   /* Enable GPIOA clock */
-  LL_IOP_GRP1_EnableClock(LL_IOP_GRP1_PERIPH_GPIOA);
+  LED_GPIO_CLK_ENABLE();
 
-  /* Configure PA1 in output mode */
-  LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_1, LL_GPIO_MODE_OUTPUT);
+  /* Configure GPIO in output mode */
+  LL_GPIO_SetPinMode(LED_GPIO_PORT, LED_GPIO_PIN, LL_GPIO_MODE_OUTPUT);
   /* Default output type (after reset) is push-pull */
-  /* LL_GPIO_SetPinOutputType(GPIOA, LL_GPIO_PIN_1, LL_GPIO_OUTPUT_PUSHPULL); */
+  /* LL_GPIO_SetPinOutputType(LED_GPIO_PORT, LED_GPIO_PIN, LL_GPIO_OUTPUT_PUSHPULL); */
   /* Configure GPIO speed in low speed */
-  /* LL_GPIO_SetPinSpeed(GPIOA, LL_GPIO_PIN_1, LL_GPIO_SPEED_FREQ_LOW); */
+  /* LL_GPIO_SetPinSpeed(LED_GPIO_PORT, LED_GPIO_PIN, LL_GPIO_SPEED_FREQ_LOW); */
   /* Default (after reset) is no pull */
-  /* LL_GPIO_SetPinPull(GPIOA, LL_GPIO_PIN_1, LL_GPIO_PULL_NO); */
+  /* LL_GPIO_SetPinPull(LED_GPIO_PORT, LED_GPIO_PIN, LL_GPIO_PULL_NO); */
 }
 
 /**

@@ -740,4 +740,4 @@ void LL_EXTI_StructInit(LL_EXTI_InitTypeDef *EXTI_InitStruct);
 
 #endif /* PY32F002B_LL_EXTI_H */
 
-/************************ (C) COPYRIGHT Puya *****END OF FILE****/
+/************************ (C) COPYRIGHT Puya *****END OF FILE******************/

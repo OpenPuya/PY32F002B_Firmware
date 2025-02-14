@@ -83,7 +83,7 @@ void SysTick_Handler(void)
 }
 
 /******************************************************************************/
-/* PY32F002B Peripheral Interrupt Handlers                                     */
+/* PY32F002B Peripheral Interrupt Handlers                                    */
 /* Add here the Interrupt Handlers for the used peripherals.                  */
 /* For the available peripheral interrupt handler names,                      */
 /* please refer to the startup file.                                          */

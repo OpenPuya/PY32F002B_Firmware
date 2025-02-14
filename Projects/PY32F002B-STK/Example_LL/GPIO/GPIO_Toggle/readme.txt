@@ -3,13 +3,13 @@
                                 Sample Description
 ================================================================================
 功能描述：
-此样例演示了GPIO输出模式，配置LED引脚(PA1)为数字输出模式，并且每隔100ms翻转一次
-LED引脚电平，运行程序，可以看到LED灯闪烁。
+此样例演示了GPIO输出模式，配置LED引脚为数字输出模式，并且每隔100ms翻转一次LED引
+脚电平，运行程序，可以看到LED灯闪烁。
 
 Function descriptions:
-This sample demonstrates the GPIO output mode, configure the LED pin (PA1) as
-digital output mode and toggle the LED pin level every 100ms, run the program,
-you can see the LED toggle.
+This sample demonstrates the GPIO output mode, configure the LED pin as digital 
+output mode and toggle the LED pin level every 100ms, run the program,you can 
+see the LED toggle.
 ================================================================================
 测试环境：
 测试用板：PY32F002B_STK

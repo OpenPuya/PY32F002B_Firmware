@@ -49,8 +49,8 @@ void HAL_MspInit(void)
 }
 
 /**
-  * @brief Initialize MSP for USART.
-  * @param huart：Initialize the handle of USART
+  * @brief Initialize MSP for UART.
+  * @param huart：Initialize the handle of UART
   */
 void HAL_UART_MspInit(UART_HandleTypeDef *huart)
 {

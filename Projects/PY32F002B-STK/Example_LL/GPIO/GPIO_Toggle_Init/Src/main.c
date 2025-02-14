@@ -33,6 +33,10 @@
 #include "py32f002bxx_ll_Start_Kit.h"
 
 /* Private define ------------------------------------------------------------*/
+#define LED_GPIO_PIN                 LED3_PIN
+#define LED_GPIO_PORT                LED3_GPIO_PORT
+#define LED_GPIO_CLK_ENABLE()        LED3_GPIO_CLK_ENABLE()
+
 /* Private variables ---------------------------------------------------------*/
 /* Private user code ---------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
@@ -49,25 +53,25 @@ int main(void)
   APP_SystemClockConfig();
 
   /* Enable GPIOA clock  */
-  LL_IOP_GRP1_EnableClock(LL_IOP_GRP1_PERIPH_GPIOA);
+  LED_GPIO_CLK_ENABLE();
 
-  /* Configure PA1 pin in output push-pull mode to drive external LEDs */
+  /* Configure GPIO in output push-pull mode to drive external LEDs */
   LL_GPIO_InitTypeDef GPIO_InitStruct = {0};
-  GPIO_InitStruct.Pin = LL_GPIO_PIN_1;
+  GPIO_InitStruct.Pin = LED_GPIO_PIN;
   GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
   GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_VERY_HIGH;
   GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
   GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
-  LL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+  LL_GPIO_Init(LED_GPIO_PORT, &GPIO_InitStruct);
 
   /* LED off */
-  LL_GPIO_SetOutputPin(GPIOA, LL_GPIO_PIN_1);
+  LL_GPIO_SetOutputPin(LED_GPIO_PORT, LED_GPIO_PIN);
 
   while (1)
   {
     /* Toggles the LED. */
     LL_mDelay(100);
-    LL_GPIO_TogglePin(GPIOA, LL_GPIO_PIN_1);
+    LL_GPIO_TogglePin(LED_GPIO_PORT, LED_GPIO_PIN);
   }
 }
 

@@ -131,7 +131,7 @@ static void APP_ADCConfig(void)
 
   hadc.Instance = ADC1;
   
-  hadc.Init.ClockPrescaler        = ADC_CLOCK_SYNC_PCLK_DIV64;               /* Set ADC clock*/
+  hadc.Init.ClockPrescaler        = ADC_CLOCK_SYNC_PCLK_DIV4;                /* Set ADC clock*/
   hadc.Init.Resolution            = ADC_RESOLUTION_12B;                      /* 12-bit resolution for converted data */
   hadc.Init.DataAlign             = ADC_DATAALIGN_RIGHT;                     /* Right-alignment for converted data */
   hadc.Init.ScanConvMode          = ADC_SCAN_DIRECTION_FORWARD;              /* Scan sequence direction: forward */

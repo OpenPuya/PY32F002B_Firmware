@@ -977,4 +977,4 @@ static void LPTIM_ResetCallback(LPTIM_HandleTypeDef *lptim)
   * @}
   */
 
-/************************ (C) COPYRIGHT Puya *****END OF FILE****/
+/************************ (C) COPYRIGHT Puya *****END OF FILE******************/

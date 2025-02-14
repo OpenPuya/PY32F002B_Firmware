@@ -209,9 +209,9 @@ typedef  void (*pSPI_CallbackTypeDef)(SPI_HandleTypeDef *hspi); /*!< pointer to 
 /** @defgroup SPI_Direction SPI Direction Mode
   * @{
   */
-#define SPI_DIRECTION_2LINES            (0x00000000U)
-#define SPI_DIRECTION_2LINES_RXONLY     SPI_CR1_RXONLY
-#define SPI_DIRECTION_1LINE             SPI_CR1_BIDIMODE
+#define SPI_DIRECTION_2LINES            (0x00000000U)     /* Full-duplex communication or Simplex communication Transmit-only mode */
+#define SPI_DIRECTION_2LINES_RXONLY     SPI_CR1_RXONLY    /* Simplex communication Receive-only mode */
+#define SPI_DIRECTION_1LINE             SPI_CR1_BIDIMODE  /* Half-duplex communication mode */
 /**
   * @}
   */
@@ -677,4 +677,4 @@ uint32_t             HAL_SPI_GetError(SPI_HandleTypeDef *hspi);
 
 #endif /* PY32F002B_HAL_SPI_H */
 
-/************************ (C) COPYRIGHT Puya *****END OF FILE****/
+/************************ (C) COPYRIGHT Puya *****END OF FILE******************/

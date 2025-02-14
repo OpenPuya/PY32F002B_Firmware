@@ -203,4 +203,4 @@ void LL_COMP_StructInit(LL_COMP_InitTypeDef *COMP_InitStruct)
 #endif /* USE_FULL_LL_DRIVER */
 
 
-/************************ (C) COPYRIGHT Puya *****END OF FILE****/
+/************************ (C) COPYRIGHT Puya *****END OF FILE******************/
