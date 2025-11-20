@@ -80,6 +80,13 @@ int main(void)
       /* Transmit data  */
       APP_UsartTransmit_IT(USART1, (uint8_t*)aTxBuffer, sizeof(aTxBuffer)-1);
     }
+    else if((LL_USART_IsActiveFlag_ABRE(USART1) == 1) && (LL_USART_IsActiveFlag_ABRF(USART1) == 1))
+    {
+      /* Baud Rate Adaptive Detection Error */
+    }
+    else
+    {
+    }
   }
 }
 
@@ -115,7 +122,7 @@ static void APP_SystemClockConfig(void)
 
 /**
   * @brief  USART configuration functions
-  * @param  USARTx：USART Instance，This parameter can be one of the following values:USART1、USART2
+  * @param  USARTx：USART1 Instance
   * @retval None
   */
 static void APP_ConfigUsart(USART_TypeDef *USARTx)
@@ -187,7 +194,7 @@ static void APP_ConfigUsart(USART_TypeDef *USARTx)
 
 /**
   * @brief  USART transmission function
-  * @param  USARTx：USART Instance，This parameter can be one of the following values:USART1、USART2
+  * @param  USARTx：USART1 Instance
   * @param  pData：Pointer to transmission buffer
   * @param  Size：Size of transmission buffer
   * @retval None
@@ -204,7 +211,7 @@ static void APP_UsartTransmit_IT(USART_TypeDef *USARTx, uint8_t *pData, uint16_t
 
 /**
   * @brief  USART receive function
-  * @param  USARTx：USART Instance，This parameter can be one of the following values:USART1、USART2
+  * @param  USARTx：USART1 Instance
   * @param  pData：Pointer to receive buffer
   * @param  Size：Size of receive buffer
   * @retval None
@@ -225,7 +232,7 @@ static void APP_UsartReceive_IT(USART_TypeDef *USARTx, uint8_t *pData, uint16_t 
 
 /**
   * @brief  USART interrupt handler function
-  * @param  USARTx：USART Instance，This parameter can be one of the following values:USART1、USART2
+  * @param  USARTx：USART1 Instance
   * @retval None
   */
 void APP_UsartIRQCallback(USART_TypeDef *USARTx)
@@ -274,6 +281,11 @@ void APP_UsartIRQCallback(USART_TypeDef *USARTx)
   /* The transmit data register is not empty */
   if ((LL_USART_IsActiveFlag_TXE(USARTx) != RESET) && (LL_USART_IsEnabledIT_TXE(USARTx) != RESET))
   {
+    /* To prevent the TC flag bit from being affected by other operations during
+       data transmission, read the SR register in conjunction with write the DR 
+       Register to clear the TC flag bit.
+    */
+    (void)(USARTx->SR);
     LL_USART_TransmitData8(USARTx, *TxBuff);
     TxBuff++;
 

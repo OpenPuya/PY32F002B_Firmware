@@ -54,7 +54,7 @@ int main(void)
   HAL_RCC_MCOConfig(RCC_MCO1, RCC_MCOSOURCE_SYSCLK, RCC_MCODIV_1);
 
   /* Wait for the button to be pressed */
-  while(BSP_PB_GetState(BUTTON_KEY) == 1);
+  while(BSP_PB_GetState(BUTTON_KEY));
   
   /* System clock configuration */
   APP_SystemClockConfig();

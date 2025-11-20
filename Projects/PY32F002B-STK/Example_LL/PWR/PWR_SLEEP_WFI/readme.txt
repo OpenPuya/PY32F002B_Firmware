@@ -33,15 +33,23 @@ Example execution steps:
 4. the LED are toggled in 200ms intervals.
 ================================================================================
 注意事项：
-1，演示此样例功能时需要断开swd连接线并重新上电，因为默认情况下，仿真器会把
+1.演示此样例功能时需要断开swd连接线并重新上电，因为默认情况下，仿真器会把
 DBGMCU_CR.DBG_STOP置位。
-2，注意关闭systick中断，防止该中断唤醒MCU。
+2.注意关闭systick中断，防止该中断唤醒MCU。
+3.如果需要使用按键:
+StartKit版本为V1.0,需将StartKit.h中的StartKitVersion 2 注释掉，并打开
+StartKitVersion 1
+StartKit版本为V1.0以上版本,则无需操作
 
 Notes:
-1. to demonstrate this sample function, you need to disconnect the swd 
+1.to demonstrate this sample function, you need to disconnect the swd 
 connection wire and re-power,because by default, the emulator will set the 
 DBGMCU_CR.DBG_STOP.
-2. Be careful to turn off the systick interrupt to avoid this interrupt waking 
+2.Be careful to turn off the systick interrupt to avoid this interrupt waking 
 up the MCU.
+3.If you need to use buttons:
+StartKit version is V1.0, please comment out StartKitVersion 2 in StartKit.h and 
+open StartKitVersion 1
+If the StartKit version is above V1.0, no operation is required
 
 ================================================================================

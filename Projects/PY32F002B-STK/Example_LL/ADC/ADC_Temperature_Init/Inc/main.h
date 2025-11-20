@@ -57,7 +57,6 @@ extern "C" {
 /* Exported variables prototypes ---------------------------------------------*/
 /* Exported functions prototypes ---------------------------------------------*/
 void APP_ErrorHandler(void);
-void APP_AdcGrpRegularUnitaryConvCompleteCallback(void);
 
 #ifdef __cplusplus
 }

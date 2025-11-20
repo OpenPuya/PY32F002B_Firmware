@@ -35,6 +35,14 @@ Example execution steps:
 3. If the input voltage of PB0 is less than 1.65V, the LED light will be on.
 ================================================================================
 注意事项：
+如果需要使用按键:
+StartKit版本为V1.0,需将StartKit.h中的StartKitVersion 2 注释掉，并打开
+StartKitVersion 1
+StartKit版本为V1.0以上版本,则无需操作
 
 Notes:
+If you need to use buttons:
+StartKit version is V1.0, please comment out StartKitVersion 2 in StartKit.h and 
+open StartKitVersion 1
+If the StartKit version is above V1.0, no operation is required
 ================================================================================

@@ -48,7 +48,7 @@ int main(void)
   BSP_PB_Init(BUTTON_USER,BUTTON_MODE_GPIO);
 
   /* Wait for the BUTTON to be pressed */
-  while(BSP_PB_GetState(BUTTON_USER) != 0)
+  while(BSP_PB_GetState(BUTTON_USER))
   {
   }
 
@@ -104,6 +104,13 @@ static void APP_ConfigGPIO(void)
   */
 void APP_SystemClockConfig(void)
 {
+  /* Disable Low Speed External (LSE) crystal */
+  LL_RCC_LSE_Disable();
+  while(LL_RCC_LSE_IsReady() != 0)
+  {
+  }
+  /* Set LSE oscillator drive capability */
+  LL_RCC_LSE_SetDriveCapability(LL_RCC_LSEDRIVE_MEDIUM);
   /* Enable Low Speed External (LSE) crystal */
   LL_RCC_LSE_Enable();
   while(LL_RCC_LSE_IsReady() != 1)

@@ -80,7 +80,7 @@ int main(void)
   APP_ConfigI2cMaster();
 
   /* Wait for the button to be pressed */
-  while(BSP_PB_GetState(BUTTON_KEY) == 1);
+  while(BSP_PB_GetState(BUTTON_KEY));
 
   /* Master send data */
   APP_MasterTransmit_IT(I2C_ADDRESS, (uint8_t *)aTxBuffer, sizeof(aTxBuffer));

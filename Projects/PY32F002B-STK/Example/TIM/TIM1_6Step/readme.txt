@@ -32,7 +32,7 @@ Example execution steps:
 2. Use Logic analyzer to observe the waveform of pin PA5/PB2/PA3/PB1/PA4/PB0
 ================================================================================
 注意事项：
-换向步骤和波形如下所示：
+1.换向步骤和波形如下所示：
                 第一步  第二步  第三步  第四步  第五步  第六步     
 CH1               1       0       0      0        0       1        
 CH1N              0       0       1      1        0       0        
@@ -49,9 +49,13 @@ CH2N (PB01)   |||||||||||||||________________________________
                                   
 CH3  (PA04)   _______||||||||||||||||________________________
 CH3N (PB00)   ________________________________|||||||||||||||
+2.如果需要使用按键:
+StartKit版本为V1.0,需将StartKit.h中的StartKitVersion 2 注释掉，并打开
+StartKitVersion 1
+StartKit版本为V1.0以上版本,则无需操作
 
 Notes:
-The commutation steps and waveforms are as follows:
+1.The commutation steps and waveforms are as follows:
                 Step1   Step2   Step3   Step4   Step5   Step6
 CH1               1       0       0      0        0       1        
 CH1N              0       0       1      1        0       0        
@@ -68,5 +72,8 @@ CH2N (PB01)   |||||||||||||||________________________________
                                   
 CH3  (PA04)   _______||||||||||||||||________________________
 CH3N (PB00)   ________________________________|||||||||||||||
-
+2.If you need to use buttons:
+StartKit version is V1.0, please comment out StartKitVersion 2 in StartKit.h and 
+open StartKitVersion 1
+If the StartKit version is above V1.0, no operation is required
 ================================================================================

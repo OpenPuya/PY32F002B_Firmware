@@ -126,7 +126,7 @@ static void APP_SystemClockConfig(void)
 
 /**
   * @brief  USART configuration functions
-  * @param  USARTx：USART Instance，This parameter can be one of the following values:USART1、USART2
+  * @param  USARTx：USART1 Instance
   * @retval None
   */
 static void APP_ConfigUsart(USART_TypeDef *USARTx)
@@ -189,7 +189,7 @@ static void APP_ConfigUsart(USART_TypeDef *USARTx)
 
 /**
   * @brief  USART transmission function
-  * @param  USARTx：USART Instance，This parameter can be one of the following values:USART1、USART2
+  * @param  USARTx：USART1 Instance
   * @param  pData：Pointer to transmission buffer
   * @param  Size：Size of transmission buffer
   * @retval None
@@ -216,7 +216,7 @@ static void APP_UsartTransmit(USART_TypeDef *USARTx, uint8_t *pData, uint16_t Si
 
 /**
   * @brief  USART receive function
-  * @param  USARTx：USART Instance，This parameter can be one of the following values:USART1、USART2
+  * @param  USARTx：USART1 Instance
   * @param  pData：Pointer to receive buffer
   * @param  Size：Size of receive buffer
   * @retval None

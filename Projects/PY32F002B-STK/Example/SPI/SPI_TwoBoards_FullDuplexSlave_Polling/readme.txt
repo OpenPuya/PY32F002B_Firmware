@@ -39,14 +39,9 @@ MISO(PA1)  <-----    MISO(PA1)
 MOSI(PA7)  ----->    MOSI(PA7)
 NSS(PA6)   ----->    NSS(PA6)
 GND       <----->    GND
-5.通过USB转TTL模块连接PC与STK板,STK板与USB转TTL模块的连线方式如下；
-STK板         USB转TTL模块
-PB4(TX)  -->  RX
-PB5(RX)  -->  TX
-GND      -->  GND
-6.主从机上电
-7.按下从机复位按键先运行从机程序，再按下主机用户按键运行主机程序 
-8.观察串口助手，如果主、从机串口助手均接收到“SPI transfer succeeded”则通信成功；
+5.主从机上电
+6.按下从机复位按键先运行从机程序，再按下主机用户按键运行主机程序 
+7.观察串口助手，如果主、从机串口助手均接收到“SPI transfer succeeded”则通信成功；
 如果主、从机串口助手接收到“SPI Transfer Error”则通信失败。
 
 Example execution steps:
@@ -61,16 +56,10 @@ MISO(PA1)  <-----    MISO(PA1)
 MOSI(PA7)  ----->    MOSI(PA7)
 NSS(PA6)   ----->    NSS(PA6)
 GND       <----->    GND
-5.Connect the PC to the STK board through the USB to TTL module, and the
-connection method between the STK board and the USB to TTL module is as follows:
-STK board     USB to TTL module
-PB4(TX)  -->  RX
-PB5(RX)  -->  TX
-GND      -->  GND
-6.Powering on the master and slave machines
-7.Press the slave reset button to run the slave program first, and then press
+5.Powering on the master and slave machines
+6.Press the slave reset button to run the slave program first, and then press
 the master user button to run the master program
-8.Observe the serial port assistant, and if both the master and slave serial
+7.Observe the serial port assistant, and if both the master and slave serial
 port assistants receive "SPI transfer succeeded", the communication is
 successful; If the master and slave serial port assistants receive an
 "SPI Transfer Error", communication fails.
@@ -81,6 +70,20 @@ successful; If the master and slave serial port assistants receive an
 2.NSS引脚只需要在使用NSS硬件方式时连接（本样例使用的是NSS硬件方式）
 3.板子上的LED灯引脚为PA1，与SPI_MISO引脚为同一个，不能再用LED表示通讯成功或失败
 的状态。
+4.通过USB转TTL模块连接PC与STK板,STK板与USB转TTL模块的连线方式如下；
+@PrintfConfigStart
+STK板        USB转TTL模块
+PB4(TX)  -->  RX
+PB5(RX)  -->  TX
+GND      -->  GND
+UART配置为波特率115200，数据位8，停止位1，校验位None
+@PrintfConfigEnd
+5.开发板焊接了FLASH器件，使用该样例建议去除R42/R44/R45/R46/R47四五个电阻。没有焊接
+FLASH器件，无需关注这五个电阻。
+6.如果需要使用按键:
+StartKit版本为V1.0,需将StartKit.h中的StartKitVersion 2 注释掉，并打开
+StartKitVersion 1
+StartKit版本为V1.0以上版本,则无需操作
 
 Notes:
 1.You must first press the slave reset button to run the slave program first,
@@ -91,4 +94,20 @@ it will cause communication failure between the master and slave machines.
 3.The LED light pin on the board is PA1, which matches the SPI_ The MISO pins
 are the same, and LED cannot be used to indicate the status of successful or
 failed communication.
+4.Connect the PC to the STK board through the USB to TTL module, and the connection
+method between the STK board and the USB to TTL module is as follows:
+@PrintfConfigStart
+STK board USB to TTL module
+PB4(TX)  -->  RX
+PB5(RX)  -->  TX
+GND      -->  GND
+UART is configured as BaudRate 115200, data bit 8, stop bit 1, and parity None.
+@PrintfConfigEnd
+5.The development board is soldered FLASH devices, the use of this sample is
+recommended to remove the five resistors R41/R45/R46/R47/R48. No FLASH device is
+soldered, no need to pay attention to these five resistors.
+6.If you need to use buttons:
+StartKit version is V1.0, please comment out StartKitVersion 2 in StartKit.h and 
+open StartKitVersion 1
+If the StartKit version is above V1.0, no operation is required
 ================================================================================

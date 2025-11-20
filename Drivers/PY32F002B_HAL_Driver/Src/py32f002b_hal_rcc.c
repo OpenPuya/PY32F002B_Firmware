@@ -204,8 +204,11 @@ HAL_StatusTypeDef HAL_RCC_DeInit(void)
     }
   }
 
-  /* Set ICSCR to the reset value */
-  RCC->ICSCR = 0x00FF10FF;
+  /*Set the HSI clock to 24MHz by default*/
+  MODIFY_REG(RCC->ICSCR, (RCC_ICSCR_HSI_FS|RCC_ICSCR_HSI_TRIM), (uint32_t)(RCC_HSICALIBRATION_24MHz) << RCC_ICSCR_HSI_TRIM_Pos);
+
+  /*Set the LSI clock to 32.768KHz by default*/
+  MODIFY_REG(RCC->ICSCR, RCC_ICSCR_LSI_TRIM, (uint32_t)(RCC_LSICALIBRATION_32768Hz) << RCC_ICSCR_LSI_TRIM_Pos);
 
   /* Get Start Tick*/
   tickstart = HAL_GetTick();
@@ -418,10 +421,10 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
       else
       {
         /* Check the parameters */
-        assert_param(IS_RCC_LSI_CALIBRATION_VALUE(RCC_OscInitStruct->LSICalibrationValue));
+        assert_param(IS_RCC_LSI_CALIBRATION_VALUE(RCC_LSICALIBRATION_32768Hz));
         
         /* Adjusts the Internal Low Speed oscillator (LSI) calibration value.*/
-        __HAL_RCC_LSI_CALIBRATIONVALUE_ADJUST(RCC_OscInitStruct->LSICalibrationValue);
+        __HAL_RCC_LSI_CALIBRATIONVALUE_ADJUST(RCC_LSICALIBRATION_32768Hz);
         
         /* Get Start Tick*/
         tickstart = HAL_GetTick();
@@ -451,7 +454,7 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
       if (RCC_OscInitStruct->LSIState != RCC_LSI_OFF)
       {
         /* Check the parameters */
-        assert_param(IS_RCC_LSI_CALIBRATION_VALUE(RCC_OscInitStruct->LSICalibrationValue));
+        assert_param(IS_RCC_LSI_CALIBRATION_VALUE(RCC_LSICALIBRATION_32768Hz));
         
         /* Enable the Internal Low Speed oscillator (LSI). */
         __HAL_RCC_LSI_ENABLE();
@@ -469,7 +472,7 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
         }
         
         /* Adjusts the Internal Low Speed oscillator (LSI) calibration value.*/
-        __HAL_RCC_LSI_CALIBRATIONVALUE_ADJUST(RCC_OscInitStruct->LSICalibrationValue);
+        __HAL_RCC_LSI_CALIBRATIONVALUE_ADJUST(RCC_LSICALIBRATION_32768Hz);
       }
       else
       {
@@ -510,6 +513,19 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
       /* Set driver factor of the LSE*/
       if (RCC_OscInitStruct->LSEState != RCC_LSE_OFF)
       {
+        __HAL_RCC_LSE_CONFIG(RCC_LSE_OFF);
+
+        /* Get Start Tick*/
+        tickstart = HAL_GetTick();
+
+        /* Wait till LSE is off */
+        while (READ_BIT(RCC->BDCR, RCC_BDCR_LSERDY) == 1U)
+        {
+          if ((HAL_GetTick() - tickstart) > RCC_LSE_TIMEOUT_VALUE)
+          {
+            return HAL_TIMEOUT;
+          }
+        }
         MODIFY_REG(RCC->ECSCR, RCC_ECSCR_LSE_DRIVER_Msk, RCC_OscInitStruct->LSEDriver);
       }
       /* Set the new LSE configuration -----------------------------------------*/

@@ -78,7 +78,7 @@ int main(void)
   }
   
   /* Waiting for the user to press the button */
-  while (BSP_PB_GetState(BUTTON_KEY) == 1)
+  while (BSP_PB_GetState(BUTTON_KEY))
   {
   }
 

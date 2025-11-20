@@ -115,6 +115,9 @@ ErrorStatus LL_RCC_DeInit(void)
   while (LL_RCC_HSI_IsReady() != 1U)
   {}
 
+  /* Set LSI to 32.768kHZ */
+  LL_RCC_LSI_SetCalibTrimming(LL_RCC_LSICALIBRATION_32768Hz);
+
   /* Reset CFGR register */
   LL_RCC_WriteReg(CFGR, 0x00000000U);
 
