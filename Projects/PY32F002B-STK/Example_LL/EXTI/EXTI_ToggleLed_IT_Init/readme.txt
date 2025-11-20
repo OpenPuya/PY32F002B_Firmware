@@ -32,8 +32,16 @@ Example execution steps:
 2. Every time the user presses the key, the LED is observed to toggle;
 ================================================================================
 注意事项：
-用户按键所对应的引脚为PA0
+1.用户按键所对应的引脚为PA0
+2.如果需要使用按键:
+StartKit版本为V1.0,需将StartKit.h中的StartKitVersion 2 注释掉，并打开
+StartKitVersion 1
+StartKit版本为V1.0以上版本,则无需操作
 
 Notes:
-PA0 pin is used as user key
+1.PA0 pin is used as user key
+2.If you need to use buttons:
+StartKit version is V1.0, please comment out StartKitVersion 2 in StartKit.h and 
+open StartKitVersion 1
+If the StartKit version is above V1.0, no operation is required
 ================================================================================

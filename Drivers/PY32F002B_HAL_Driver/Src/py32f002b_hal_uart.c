@@ -1928,12 +1928,22 @@ static HAL_StatusTypeDef UART_Transmit_IT(UART_HandleTypeDef *huart)
     if ((huart->Init.WordLength == UART_WORDLENGTH_9B)&&(huart->Init.Parity == UART_PARITY_NONE))
     {
       tmp16bit=(uint16_t *) huart->pTxBuffPtr;
+      /* To prevent the TC flag bit from being affected by other operations during
+      data transmission, read the SR register in conjunction with write the DR 
+      Register to clear the TC flag bit.
+      */
+      (void)(huart->Instance->SR);
       huart->Instance->DR = (uint16_t)(*tmp16bit & (uint16_t)0x01FF);
       huart->pTxBuffPtr += 2U;
     }
     else
     {
       tmp8bit=(uint8_t *) huart->pTxBuffPtr;
+      /* To prevent the TC flag bit from being affected by other operations during
+      data transmission, read the SR register in conjunction with write the DR 
+      Register to clear the TC flag bit.
+      */
+      (void)(huart->Instance->SR);
       huart->Instance->DR = (uint8_t)(*tmp8bit & (uint8_t)0x00FF);
       huart->pTxBuffPtr++;
     }

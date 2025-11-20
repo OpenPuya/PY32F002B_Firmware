@@ -51,7 +51,7 @@ int main(void)
   BSP_PB_Init(BUTTON_KEY, BUTTON_MODE_GPIO);
 
   /* Wait for the button to be pressed */
-  while (BSP_PB_GetState(BUTTON_KEY) == 1)
+  while (BSP_PB_GetState(BUTTON_KEY))
   {
   }
   

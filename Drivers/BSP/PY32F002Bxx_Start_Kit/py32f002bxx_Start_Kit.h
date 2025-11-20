@@ -72,6 +72,9 @@ typedef enum
   BUTTON_MODE_EXTI = 1
 } ButtonMode_TypeDef;
 
+#define StartKitVersion 2
+/* #define StartKitVersion 1 */
+
 #define LEDn                               1
 
 #define LED3_PIN                           GPIO_PIN_1
@@ -137,6 +140,12 @@ typedef enum
 
 #define DEBUG_USART_IRQHandler                  USART1_IRQHandler
 #define DEBUG_USART_IRQ                         USART1_IRQn
+
+#else
+
+#define DEBUG_USART_TX_GPIO_PORT                GPIOB
+#define DEBUG_USART_TX_GPIO_CLK_ENABLE()        __HAL_RCC_GPIOB_CLK_ENABLE()
+#define DEBUG_USART_TX_PIN                      GPIO_PIN_4
 #endif
 /************************************************************/
 

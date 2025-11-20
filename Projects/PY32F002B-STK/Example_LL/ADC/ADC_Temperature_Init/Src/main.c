@@ -33,11 +33,13 @@
 #include "py32f002bxx_ll_Start_Kit.h"
 
 /* Private define ------------------------------------------------------------*/
+#define HighTemp_85
+/* #define HighTemp_105 */
+
 #define ADC_CALIBRATION_TIMEOUT_MS       ((uint32_t) 1)
 #define VAR_CONVERTED_DATA_INIT_VALUE    (__LL_ADC_DIGITAL_SCALE(LL_ADC_RESOLUTION_12B) + 1)
 
 /* Private variables ---------------------------------------------------------*/
-__IO uint32_t ubUserButtonPressed = 0;
 __IO uint16_t uhADCxConvertedData = VAR_CONVERTED_DATA_INIT_VALUE;
 __IO uint16_t uhADCxConvertedData_Temp = 0;
 
@@ -81,7 +83,12 @@ int main(void)
       /* Get ADC conversion data */
       uhADCxConvertedData = LL_ADC_REG_ReadConversionData12(ADC1);
 
-      uhADCxConvertedData_Temp= __LL_ADC_CALC_TEMPERATURE(3300,uhADCxConvertedData,LL_ADC_RESOLUTION_12B);
+/* Please Check the High Temperature Value accord the datasheet */
+#if defined(HighTemp_85)
+      uhADCxConvertedData_Temp= __LL_ADC_CALC_TEMPERATURE_85(3300,uhADCxConvertedData,LL_ADC_RESOLUTION_12B);
+#else
+      uhADCxConvertedData_Temp= __LL_ADC_CALC_TEMPERATURE_105(3300,uhADCxConvertedData,LL_ADC_RESOLUTION_12B);
+#endif
 
       /* Printf current temperature value */
       printf("Temperature:%u \r\n",uhADCxConvertedData_Temp);

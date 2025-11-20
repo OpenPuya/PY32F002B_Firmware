@@ -405,7 +405,7 @@ typedef enum
 #define ADC_SAMPLETIME_13CYCLES_5     ((uint32_t) (ADC_SMPR_SMP_1 | ADC_SMPR_SMP_0)) /*!< Sampling time 13.5 ADC clock cycles */
 #define ADC_SAMPLETIME_28CYCLES_5     ((uint32_t) ADC_SMPR_SMP_2)                    /*!< Sampling time 28.5 ADC clock cycles */
 #define ADC_SAMPLETIME_41CYCLES_5     ((uint32_t) (ADC_SMPR_SMP_2 | ADC_SMPR_SMP_0)) /*!< Sampling time 41.5 ADC clock cycles */
-#define ADC_SAMPLETIME_71CYCLES_5     ((uint32_t)(ADC_SMPR_SMP_2 | ADC_SMPR_SMP_1))  /*!< Sampling time 71.5 ADC clock cycles */
+#define ADC_SAMPLETIME_134CYCLES_5    ((uint32_t)(ADC_SMPR_SMP_2 | ADC_SMPR_SMP_1))  /*!< Sampling time 134.5 ADC clock cycles */
 #define ADC_SAMPLETIME_239CYCLES_5    ((uint32_t) ADC_SMPR_SMP)                      /*!< Sampling time 239.5 ADC clock cycles */
 
 /**
@@ -998,13 +998,13 @@ typedef enum
 #define IS_ADC_RANK(WATCHDOG) (((WATCHDOG) == ADC_RANK_CHANNEL_NUMBER) || \
                                ((WATCHDOG) == ADC_RANK_NONE)             )
 
-#define IS_ADC_SAMPLE_TIME(TIME) (((TIME) == ADC_SAMPLETIME_3CYCLES_5)    || \
+#define IS_ADC_SAMPLE_TIME(TIME) (((TIME) == ADC_SAMPLETIME_3CYCLES_5)   || \
                                   ((TIME) == ADC_SAMPLETIME_5CYCLES_5)   || \
                                   ((TIME) == ADC_SAMPLETIME_7CYCLES_5)   || \
                                   ((TIME) == ADC_SAMPLETIME_13CYCLES_5)  || \
                                   ((TIME) == ADC_SAMPLETIME_28CYCLES_5)  || \
                                   ((TIME) == ADC_SAMPLETIME_41CYCLES_5)  || \
-                                  ((TIME) == ADC_SAMPLETIME_71CYCLES_5)  || \
+                                  ((TIME) == ADC_SAMPLETIME_134CYCLES_5) || \
                                   ((TIME) == ADC_SAMPLETIME_239CYCLES_5)   )
 
 #define IS_ADC_ANALOG_WATCHDOG_MODE(WATCHDOG) (((WATCHDOG) == ADC_ANALOGWATCHDOG_NONE)             || \

@@ -29,7 +29,7 @@ OPT = -Og
 # paths
 #######################################
 # Build path
-BUILD_DIR = build\Project
+BUILD_DIR = Project
 
 ######################################
 # source
@@ -39,7 +39,8 @@ C_SOURCES =  \../Src/main.c \
 ../Src/py32f002b_it.c \
 ../Src/system_py32f002b.c \
 ../../../../../../Drivers/BSP/PY32F002Bxx_Start_Kit/py32f002bxx_ll_Start_Kit.c \
-../../../../../../Drivers/PY32F002B_HAL_Driver/Src/py32f002b_ll_utils.c
+../../../../../../Drivers/PY32F002B_HAL_Driver/Src/py32f002b_ll_utils.c \
+../../../../../../Drivers/PY32F002B_HAL_Driver/Src/py32f002b_ll_gpio.c
 
 
 # ASM sources

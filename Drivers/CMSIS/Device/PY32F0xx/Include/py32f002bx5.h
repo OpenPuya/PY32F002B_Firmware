@@ -800,9 +800,9 @@ typedef struct
 #define DBGMCU_CR_DBG_STOP                                DBGMCU_CR_DBG_STOP_Msk
 
 /********************  Bit definition for DBGMCU_APB_FZ1 register  ***********/
-/* #define DBGMCU_APB_FZ1_DBG_IWDG_STOP_Pos                  (12U) */
-/* #define DBGMCU_APB_FZ1_DBG_IWDG_STOP_Msk                  (0x1UL << DBGMCU_APB_FZ1_DBG_IWDG_STOP_Pos) */ /*!< 0x00004000 */
-/* #define DBGMCU_APB_FZ1_DBG_IWDG_STOP                      DBGMCU_APB_FZ1_DBG_IWDG_STOP_Msk */
+#define DBGMCU_APB_FZ1_DBG_IWDG_STOP_Pos                  (12U)
+#define DBGMCU_APB_FZ1_DBG_IWDG_STOP_Msk                  (0x1UL << DBGMCU_APB_FZ1_DBG_IWDG_STOP_Pos) /*!< 0x00004000 */
+#define DBGMCU_APB_FZ1_DBG_IWDG_STOP                      DBGMCU_APB_FZ1_DBG_IWDG_STOP_Msk
 #define DBGMCU_APB_FZ1_DBG_LPTIM_STOP_Pos                 (31U)
 #define DBGMCU_APB_FZ1_DBG_LPTIM_STOP_Msk                 (0x1UL << DBGMCU_APB_FZ1_DBG_LPTIM_STOP_Pos) /*!< 0x00001000 */
 #define DBGMCU_APB_FZ1_DBG_LPTIM_STOP                     DBGMCU_APB_FZ1_DBG_LPTIM_STOP_Msk
@@ -1171,9 +1171,9 @@ typedef struct
 #define FLASH_OPTR_NRST_MODE_Pos        (14U)
 #define FLASH_OPTR_NRST_MODE_Msk        (0x1UL << FLASH_OPTR_NRST_MODE_Pos) /*!< 0x00004000 */
 #define FLASH_OPTR_NRST_MODE            FLASH_OPTR_NRST_MODE_Msk
-/* #define FLASH_OPTR_IWDG_STOP_Pos        (15U) */
-/* #define FLASH_OPTR_IWDG_STOP_Msk        (0x1UL << FLASH_OPTR_IWDG_STOP_Pos) */ /*!< 0x02000000 */
-/* #define FLASH_OPTR_IWDG_STOP            FLASH_OPTR_IWDG_STOP_Msk */
+#define FLASH_OPTR_IWDG_STOP_Pos        (15U)
+#define FLASH_OPTR_IWDG_STOP_Msk        (0x1UL << FLASH_OPTR_IWDG_STOP_Pos) /*!< 0x02000000 */
+#define FLASH_OPTR_IWDG_STOP            FLASH_OPTR_IWDG_STOP_Msk
 
 /*******************  Bits definition for FLASH_SDKR register  ****************/
 #define FLASH_SDKR_SDK_STRT_Pos         (0U)
@@ -2219,6 +2219,7 @@ typedef struct
 * @brief Specific device feature definitions
 */
 #define RCC_LSE_SUPPORT
+#define RCC_HSI48M_SUPPORT              /*!< HSI 48MHz feature is only available in the specified (V1.1.9) version and above */
 
 /********************  Bit definition for RCC_CR register  *****************/
 #define RCC_CR_HSION_Pos                (8U)
@@ -3674,8 +3675,7 @@ typedef struct
 #define IS_TIM_REMAP_INSTANCE(INSTANCE)    ((INSTANCE) == TIM1)
 
 /****************** TIM Instances : supporting repetition counter *************/
-#define IS_TIM_REPETITION_COUNTER_INSTANCE(INSTANCE)  (((INSTANCE) == TIM1)  || \
-                                                       ((INSTANCE) == TIM14))
+#define IS_TIM_REPETITION_COUNTER_INSTANCE(INSTANCE)  ((INSTANCE) == TIM1)
 
 /****************** TIM Instances : supporting synchronization ****************/
 #define IS_TIM_SYNCHRO_INSTANCE(INSTANCE)  IS_TIM_MASTER_INSTANCE(INSTANCE)
