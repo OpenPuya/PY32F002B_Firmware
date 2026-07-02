@@ -81,6 +81,9 @@ typedef enum
   BUTTON_MODE_EXTI = 1
 } ButtonMode_TypeDef;
 
+#define StartKitVersion 2
+/* #define StartKitVersion 1 */
+
 #define LEDn                               1
 
 #define LED3_PIN                           LL_GPIO_PIN_1
@@ -117,6 +120,7 @@ typedef enum
 #define BUTTONx_GPIO_CLK_DISABLE(__INDEX__)     (((__INDEX__) == 0) ? USER_BUTTON_GPIO_CLK_DISABLE() : 0)
 
 
+#ifdef USART1
 /* debug printf redirect config */
 #define DEBUG_USART_BAUDRATE                    115200
 
@@ -143,6 +147,12 @@ typedef enum
 
 #define DEBUG_USART_IRQHandler                  USART1_IRQHandler
 #define DEBUG_USART_IRQ                         USART1_IRQn
+#else
+#define DEBUG_USART_TX_GPIO_PORT                GPIOB
+#define DEBUG_USART_TX_GPIO_CLK_ENABLE()        LL_IOP_GRP1_EnableClock(LL_IOP_GRP1_PERIPH_GPIOB)
+#define DEBUG_USART_TX_PIN                      LL_GPIO_PIN_4
+#endif
+
 /************************************************************/
 
 /** @defgroup Functions

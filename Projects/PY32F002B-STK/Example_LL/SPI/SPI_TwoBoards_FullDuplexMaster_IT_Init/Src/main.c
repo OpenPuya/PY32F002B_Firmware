@@ -72,7 +72,7 @@ int main(void)
   APP_ConfigSPI();
 
   /* wait for the button to be pressed */
-  while(BSP_PB_GetState(BUTTON_KEY) == 1);
+  while(BSP_PB_GetState(BUTTON_KEY));
 
   /* Enable SPI1 */
   LL_SPI_Enable(SPI1);

@@ -55,7 +55,7 @@ int main(void)
   BSP_PB_Init(BUTTON_USER, BUTTON_MODE_EXTI);
   
   /* Wait for the button to be pressed */
-  while(BSP_PB_GetState(BUTTON_KEY) == 1);
+  while(BSP_PB_GetState(BUTTON_KEY));
 
   /* Initialize UART */
   BSP_USART_Config();

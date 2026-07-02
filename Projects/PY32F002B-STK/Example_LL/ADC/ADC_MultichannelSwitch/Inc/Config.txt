@@ -1,0 +1,10 @@
+[FilePath]
+0=../../../../../../Drivers/PY32F002B_HAL_Driver/Src/py32f002b_ll_utils.c
+[FileName]
+0=py32f002b_ll_utils.c
+[Define]
+0=PY32F002Bx5
+1=USE_FULL_LL_DRIVER
+[User]
+0=../Src/main.c
+1=../Src/py32f002b_it.c

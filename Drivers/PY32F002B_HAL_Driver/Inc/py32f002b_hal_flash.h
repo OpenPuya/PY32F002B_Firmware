@@ -445,10 +445,10 @@ typedef struct
 
 #define __HAL_FLASH_TIME_REG_SET(__EPPARA0__,__EPPARA1__,__EPPARA2__,__EPPARA3__,__EPPARA4__)           \
                                                         do {                                            \
-                                                            FLASH->TS0  = (__EPPARA0__)&0x1FF;           \
+                                                            FLASH->TS0  = (__EPPARA0__)&0x1FF;          \
                                                             FLASH->TS1  = ((__EPPARA0__)>>18)&0x3FF;    \
-                                                            FLASH->TS3  = ((__EPPARA0__)>>9)&0x1FF;      \
-                                                            FLASH->TS2P = (__EPPARA1__)&0x1FF;           \
+                                                            FLASH->TS3  = ((__EPPARA0__)>>9)&0x1FF;     \
+                                                            FLASH->TS2P = (__EPPARA1__)&0x1FF;          \
                                                             FLASH->TPS3 = ((__EPPARA1__)>>16)&0xFFF;    \
                                                             FLASH->PERTPE = (__EPPARA2__)&0x3FFFF;      \
                                                             FLASH->SMERTPE = (__EPPARA3__)&0x3FFFF;     \
@@ -456,10 +456,10 @@ typedef struct
                                                             FLASH->PRETPE = ((__EPPARA4__)>>16)&0x3FFF; \
                                                          } while(0U)
 
-#define __HAL_FLASH_IS_INVALID_TIMMING_SEQUENCE(_INDEX_)  (((FLASH->TS0)     !=  ((*(uint32_t *)(_FlashTimmingParam[_INDEX_]))&0x1FF))          ||  \
+#define __HAL_FLASH_IS_INVALID_TIMMING_SEQUENCE(_INDEX_)  (((FLASH->TS0)     !=  ((*(uint32_t *)(_FlashTimmingParam[_INDEX_]))&0x1FF))         ||  \
                                                            ((FLASH->TS1)     != (((*(uint32_t *)(_FlashTimmingParam[_INDEX_]))>>18)&0x3FF))    ||  \
-                                                           ((FLASH->TS3)     != (((*(uint32_t *)(_FlashTimmingParam[_INDEX_]))>>9)&0x1FF))      ||  \
-                                                           ((FLASH->TS2P)    !=  ((*(uint32_t *)(_FlashTimmingParam[_INDEX_]+4))&0x1FF))        ||  \
+                                                           ((FLASH->TS3)     != (((*(uint32_t *)(_FlashTimmingParam[_INDEX_]))>>9)&0x1FF))     ||  \
+                                                           ((FLASH->TS2P)    !=  ((*(uint32_t *)(_FlashTimmingParam[_INDEX_]+4))&0x1FF))       ||  \
                                                            ((FLASH->TPS3)    != (((*(uint32_t *)(_FlashTimmingParam[_INDEX_]+4))>>16)&0xFFF))  ||  \
                                                            ((FLASH->PERTPE)  !=  ((*(uint32_t *)(_FlashTimmingParam[_INDEX_]+8))&0x3FFFF))     ||  \
                                                            ((FLASH->SMERTPE) !=  ((*(uint32_t *)(_FlashTimmingParam[_INDEX_]+12))&0x3FFFF))    ||  \

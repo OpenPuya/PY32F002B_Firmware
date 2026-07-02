@@ -33,7 +33,7 @@
 #include "py32f002bxx_ll_Start_Kit.h"
 
 /* Private define ------------------------------------------------------------*/
-#define Delay             40*3
+#define Delay             40*4
 
 /* Private variables ---------------------------------------------------------*/
 LL_LPTIM_InitTypeDef LPTIM_InitStruct = {0};
@@ -86,7 +86,7 @@ int main(void)
   BSP_LED_On(LED_GREEN);
 
   /* Wait for the button to be pressed */
-  while (BSP_PB_GetState(BUTTON_USER) != 0)
+  while (BSP_PB_GetState(BUTTON_USER))
   {
   }
 

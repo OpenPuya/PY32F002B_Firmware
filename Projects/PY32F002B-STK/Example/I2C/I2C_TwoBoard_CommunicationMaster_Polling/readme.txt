@@ -43,16 +43,26 @@ received data; When the LED light of the host or slave is in a flashing state,
 it indicates that the host or slave has failed to transmit and receive data.
 ================================================================================
 注意事项：
+1.
 PB03     ------> I2C_SCL
 PB04    ------> I2C_SDA 
 主机程序为I2C_TwoBoard_CommunicationMaster_Polling
 从机程序为I2C_TwoBoard_CommunicationSlave_IT
 如需修改速率，直接修改I2C_SPEEDCLOCK即可
+2.如果需要使用按键:
+StartKit版本为V1.0,需将StartKit.h中的StartKitVersion 2 注释掉，并打开
+StartKitVersion 1
+StartKit版本为V1.0以上版本,则无需操作
 
 Notes:
+1.
 PB03     ------> I2C_SCL
 PB04    ------> I2C_SDA 
 The master program is I2C_TwoBoard_CommunicationMaster_Polling
 Slave program is I2C_TwoBoard_CommunicationSlave_IT
 If you need to modify the rate, directly modify I2C_SPEEDCLOCK is sufficient.
+2.If you need to use buttons:
+StartKit version is V1.0, please comment out StartKitVersion 2 in StartKit.h and 
+open StartKitVersion 1
+If the StartKit version is above V1.0, no operation is required
 ================================================================================

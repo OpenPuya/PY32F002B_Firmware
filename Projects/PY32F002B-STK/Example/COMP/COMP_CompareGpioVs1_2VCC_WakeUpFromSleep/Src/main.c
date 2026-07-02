@@ -68,7 +68,7 @@ int main(void)
   BSP_LED_On(LED_GREEN);
 
   /* Wait for button press */
-  while(BSP_PB_GetState(BUTTON_USER) != 0)
+  while(BSP_PB_GetState(BUTTON_USER))
   {
   }
   

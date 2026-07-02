@@ -32,18 +32,27 @@
 #include "main.h"
 
 /* Private define ------------------------------------------------------------*/
-#define Vcc_Power     3.30                                            /* VCC power supply voltage, modify according to actual situation  */
-#define TScal1        (float)((HAL_ADC_TSCAL1) * 3.3 / Vcc_Power)     /* Voltage corresponding to calibration value at 30 ℃ */
-#define TScal2        (float)((HAL_ADC_TSCAL2) * 3.3 / Vcc_Power)     /* Voltage corresponding to calibration value at 85 ℃ */
-#define TStem1        30                                              /* 30 ℃ */
-#define TStem2        85                                              /* 85 ℃ */
-#define Temp_k        ((float)(TStem2-TStem1)/(float)(TScal2-TScal1)) /* Temperature calculation */
-  
+  /* Please Check the HighTemperature and NormalTemperaute value */
+#define HAL_ADC_TSCAL1   (*(uint32_t *)(0x1fff0114))                   /*!< Temperature Scale1 */
+#define HAL_ADC_TSCAL2   (*(uint32_t *)(0x1fff0118))                   /*!< Temperature Scale2 */
+#define Vcc_Power        3.30                                          /* VCC power supply voltage, modify according to actual situation  */
+#define TScal1           (float)((HAL_ADC_TSCAL1) * 3.3 / Vcc_Power)   /* Voltage corresponding to calibration value at 30℃ */
+#define TScal2           (float)((HAL_ADC_TSCAL2) * 3.3 / Vcc_Power)   /* Voltage corresponding to calibration value at 85℃ or 105℃ */
+#define TStem1           30                                            /* 30℃ */
+
+#define HighTemp_85
+/* #define HighTemp_105*/
+
+#define TStem2_85        85
+#define TStem2_105       105
+#define Temp_k_85        ((float)(TStem2_85-TStem1)/(float)(TScal2-TScal1))
+#define Temp_k_105       ((float)(TStem2_105-TStem1)/(float)(TScal2-TScal1))
+
 /* Private variables ---------------------------------------------------------*/
 ADC_HandleTypeDef             AdcHandle;
-ADC_ChannelConfTypeDef        sConfig;
 volatile int16_t              aADCxConvertedData;
-int16_t                       aTEMPERATURE;
+ADC_ChannelConfTypeDef        sConfig;
+__IO uint16_t                 hADCxConvertedData_Temperature_DegreeCelsius = 0;
 
 /* Private user code ---------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
@@ -66,12 +75,12 @@ int main(void)
   BSP_USART_Config();
  
   /* Configure ADC */
-  APP_AdcConfig();                                                       
+  APP_AdcConfig();
   while (1)
   {
     HAL_Delay(1000); 
     /* Start ADC and enable ADC interrupts */
-    if (HAL_ADC_Start_IT(&AdcHandle) != HAL_OK)                           
+    if (HAL_ADC_Start_IT(&AdcHandle) != HAL_OK)
     {
       APP_ErrorHandler();
     }
@@ -87,8 +96,6 @@ static void APP_AdcConfig(void)
 {
   __HAL_RCC_ADC_CLK_ENABLE();                                                     /* Enable ADC clock */
 
-  AdcHandle.Instance = ADC1;
-                                              
   AdcHandle.Instance                   = ADC1;                                    /* ADC1 */
   AdcHandle.Init.ClockPrescaler        = ADC_CLOCK_SYNC_PCLK_DIV4;                /* Set ADC clock */
   AdcHandle.Init.Resolution            = ADC_RESOLUTION_12B;                      /* 12-bit resolution for converted data */
@@ -103,7 +110,7 @@ static void APP_AdcConfig(void)
   AdcHandle.Init.Overrun               = ADC_OVR_DATA_OVERWRITTEN;                /* DR register is overwritten with the last conversion result in case of overrun */
   AdcHandle.Init.SamplingTimeCommon    = ADC_SAMPLETIME_239CYCLES_5;              /* Channel sampling time is 239.5 ADC clock cycles */
   /* ADC initialization */
-  if (HAL_ADC_Init(&AdcHandle) != HAL_OK)                                         
+  if (HAL_ADC_Init(&AdcHandle) != HAL_OK)
   {
     APP_ErrorHandler();
   }
@@ -111,13 +118,13 @@ static void APP_AdcConfig(void)
   sConfig.Rank         = ADC_RANK_CHANNEL_NUMBER;                                 /* Set the rank for the ADC channel order */
   sConfig.Channel      = ADC_CHANNEL_TEMPSENSOR;                                  /* ADC channel selection */
   /* Configure ADC channels */
-  if (HAL_ADC_ConfigChannel(&AdcHandle, &sConfig) != HAL_OK)                      
+  if (HAL_ADC_ConfigChannel(&AdcHandle, &sConfig) != HAL_OK)
   {
     APP_ErrorHandler();
   }
-  
+
   /* ADC calibration */
-  if (HAL_ADCEx_Calibration_Start(&AdcHandle) != HAL_OK)                          
+  if (HAL_ADCEx_Calibration_Start(&AdcHandle) != HAL_OK)
   {
     APP_ErrorHandler();
   }
@@ -132,8 +139,14 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *adchandle)
 {
   aADCxConvertedData = adchandle->Instance->DR;
 
-  aTEMPERATURE =(int16_t)((85-30)*(aADCxConvertedData-TScal1)/(TScal2-TScal1) + TStem1);
-  printf("Temperature = %d \r\n", (int)aTEMPERATURE);
+/* Please Check the High Temperature Value accord the datasheet */
+#if defined(HighTemp_85)                              
+      hADCxConvertedData_Temperature_DegreeCelsius =(int16_t)(Temp_k_85 * aADCxConvertedData - Temp_k_85 * TScal1 + TStem1);
+#else
+      hADCxConvertedData_Temperature_DegreeCelsius =(int16_t)(Temp_k_105 * aADCxConvertedData - Temp_k_105 * TScal1 + TStem1);
+#endif
+
+  printf("Temperature = %d \r\n", (int)hADCxConvertedData_Temperature_DegreeCelsius);
 }
 
 /**

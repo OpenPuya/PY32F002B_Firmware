@@ -77,6 +77,14 @@ int main(void)
       /* send data */
       HAL_UART_Transmit_IT(&UartHandle, (uint8_t *)aTxBuffer, 18);
     }
+    else if((__HAL_UART_GET_FLAG(&UartHandle, UART_FLAG_ABRE) == SET) && \
+        (__HAL_UART_GET_FLAG(&UartHandle, UART_FLAG_ABRF) == SET))
+    {
+      /* Baud Rate Adaptive Detection Error */
+    }
+    else
+    {
+    }
   }
 }
 

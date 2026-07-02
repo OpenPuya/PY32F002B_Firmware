@@ -33,26 +33,36 @@ Example execution steps:
 2. USART printf conversation data of the channel 4(PA7) once per 1s
 ================================================================================
 注意事项：
-该样例的PA3(ADC通道1)为推挽输出，如果实际使用中需要用到该通道，需修改为别的通道
+1.该样例的PA3(ADC通道1)为推挽输出，如果实际使用中需要用到该通道，需修改为别的通道
 进行校准操作。
-
-
-通过USB转TTL模块连接PC与STK板,STK板与USB转TTL模块的连线方式如下；
+2.通过USB转TTL模块连接PC与STK板,STK板与USB转TTL模块的连线方式如下；
+@PrintfConfigStart
 STK板        USB转TTL模块
 PB4(TX)  -->  RX
 PB5(RX)  -->  TX
 GND      -->  GND
+UART配置为波特率115200，数据位8，停止位1，校验位None
+@PrintfConfigEnd
+3.如果需要使用按键:
+StartKit版本为V1.0,需将StartKit.h中的StartKitVersion 2 注释掉，并打开
+StartKitVersion 1
+StartKit版本为V1.0以上版本,则无需操作
 
 Notes:
-The PA3 (ADC channel 1) of this example is a push-pull output. If this channel
+1.The PA3 (ADC channel 1) of this example is a push-pull output. If this channel
 is needed in actual use, it needs to be modified to a different channel
 Perform calibration operations.
-
-
-Connect the PC to the STK board through the USB to TTL module, the connection
-between the STK board and the USB to TTL module is as follows:
-STK board      USB to TTL module
-PB4(TX)    --> RX
-PB5(RX)    --> TX
-GND        --> GND
+2.Connect the PC to the STK board through the USB to TTL module, and the connection
+method between the STK board and the USB to TTL module is as follows:
+@PrintfConfigStart
+STK board USB to TTL module
+PB4(TX)  -->  RX
+PB5(RX)  -->  TX
+GND      -->  GND
+UART is configured as BaudRate 115200, data bit 8, stop bit 1, and parity None.
+@PrintfConfigEnd
+3.If you need to use buttons:
+StartKit version is V1.0, please comment out StartKitVersion 2 in StartKit.h and 
+open StartKitVersion 1
+If the StartKit version is above V1.0, no operation is required
 ================================================================================

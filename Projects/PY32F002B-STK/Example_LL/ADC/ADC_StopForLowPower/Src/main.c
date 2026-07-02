@@ -72,7 +72,7 @@ int main(void)
   /* Initialize USART(for printf use) */
   BSP_USART_Config();
   
-  while(BSP_PB_GetState(BUTTON_USER) != 0);
+  while(BSP_PB_GetState(BUTTON_USER));
 
   /* Enable ADC1 clock */
   LL_APB1_GRP2_EnableClock(LL_APB1_GRP2_PERIPH_ADC1);

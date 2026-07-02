@@ -147,7 +147,7 @@ void SystemInit(void)
 #ifndef SWD_DELAY
   /* When the SWD pin is reused for other functions, this function is used to solve the 
   problem of not being able to update the code. */
-  DelayTime(100);
+  DelayTime(200);
 #endif /* SWD_DELAY */
 }
 

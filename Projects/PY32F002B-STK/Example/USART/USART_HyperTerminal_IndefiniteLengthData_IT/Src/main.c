@@ -51,6 +51,9 @@ int main(void)
   /* Reset of all peripherals, Initializes the Systick */
   HAL_Init();
   
+  /* Configure LED */
+  BSP_LED_Init(LED_GREEN);
+  
   /* Initialize USART */
   UartHandle.Instance          = USART1;
   UartHandle.Init.BaudRate     = 115200;
@@ -70,6 +73,17 @@ int main(void)
   {
 
   }
+}
+
+/**
+  * @brief  USART Error interrupt handler function
+  * @param  None
+  * @retval None
+  */
+void APP_UsartErrorCallback(void)
+{
+  /* Turn on the LED */
+  BSP_LED_On(LED_GREEN);
 }
 
 /**

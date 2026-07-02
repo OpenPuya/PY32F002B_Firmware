@@ -53,6 +53,9 @@ int main(void)
   /* Configure Systemclock */
   APP_SystemClockConfig(); 
 
+  /* Configure LED_GREEN */
+  BSP_LED_Init(LED_GREEN);
+  
   /* Configure USART1 */
   APP_ConfigUsart(USART1);
 
@@ -96,8 +99,8 @@ static void APP_SystemClockConfig(void)
 }
 
 /**
-  * @brief  USART2 configuration function
-  * @param  None
+  * @brief  USART1 configuration function
+  * @param  USARTx：USART1 Instance
   * @retval None
   */
 static void APP_ConfigUsart(USART_TypeDef *USARTx)
@@ -156,6 +159,17 @@ static void APP_ConfigUsart(USART_TypeDef *USARTx)
   
   /*Enable USART */
   LL_USART_Enable(USARTx);
+}
+
+/**
+  * @brief  USART Error interrupt handler function
+  * @param  None
+  * @retval None
+  */
+void APP_UsartErrorCallback(void)
+{
+  /* Turn on the LED */
+  BSP_LED_On(LED_GREEN);
 }
 
 /**

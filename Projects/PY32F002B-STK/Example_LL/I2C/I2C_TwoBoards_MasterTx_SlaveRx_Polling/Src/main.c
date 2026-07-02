@@ -83,7 +83,7 @@ int main(void)
   APP_ConfigI2cSlave();
 
   /* Wait for the button to be pressed */
-  while(BSP_PB_GetState(BUTTON_KEY) == 1)
+  while(BSP_PB_GetState(BUTTON_KEY))
   {}
 
   /* Enable I2C1 periphreal（as slave ） */
@@ -96,7 +96,7 @@ int main(void)
   APP_ConfigI2cMaster();
 
   /* Wait for the button to be pressed */
-  while(BSP_PB_GetState(BUTTON_KEY) == 1)
+  while(BSP_PB_GetState(BUTTON_KEY))
   {}
 
   /* Enable I2C1 periphreal（as master ） */

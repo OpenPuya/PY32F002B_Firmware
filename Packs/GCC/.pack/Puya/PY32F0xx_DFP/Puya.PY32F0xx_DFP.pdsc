@@ -86,7 +86,7 @@
           <compile header="Drivers/CMSIS/Device/Puya/PY32F0xx/Include/py32f0xx.h" />
           <memory name="IROM1" access="rx" start="0x08000000" size="0x00006000" startup="1" default="1"/>
           <memory name="IRAM1" access="rw" start="0x20000000" size="0x00000C00" init   ="0" default="1"/>
-          <algorithm name="CMSIS/Flash/PY32F002Bxx_24.FLM" start="0x08000000" size="0x00006000" default="1"/>
+          <algorithm name="CMSIS/Flash/PY064xx_24.FLM" start="0x08000000" size="0x00006000" default="1"/>
           <algorithm name="CMSIS/Flash/PY32F002Bxx_OPT.FLM" start="0x1FFF0080" size="0x00000010" default="0"/>
         </device>
       </subFamily>
